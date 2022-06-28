@@ -1,0 +1,4 @@
+class Sun : public Sprite
+{
+
+}

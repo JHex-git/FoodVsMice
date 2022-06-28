@@ -1,0 +1,4 @@
+class Zombie : public Sprite
+{
+
+};
