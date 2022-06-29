@@ -12,6 +12,7 @@ private:
     const int DROP_VELOCITY = 1;
     static const int PADDING_X = 1;
     static const int PADDING_Y = 1;
+    static const float FRAME_RATE = 1;
 
     bool is_dropping;
     bool is_exist; // 指示阳光存在时间过久引起的消失问题
@@ -19,8 +20,8 @@ private:
     float current_exist_time;
 
 public:
-    // 太阳花生成太阳时需要该接口
     Sun(int x, int y);
+    Sun(int x, int y, std::vector<IMAGE *> frames);
 
     void UpdateBehave() override;
 

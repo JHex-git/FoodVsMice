@@ -1,4 +1,4 @@
-#include "sun_manager.h"
+#include "sun/sun_manager.h"
 #include "misc/common.h"
 
 SunManager::SunManager(int initial_sun)

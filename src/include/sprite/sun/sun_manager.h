@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-#include "sprite/sun.h"
+#include "sprite/sun/sun.h"
 
 class SunManager
 {
@@ -15,7 +15,7 @@ public:
     // 在随机位置落下阳光
     void GenerateSun();
 
-    // 在指定位置落下阳光（用于太阳花）
+    // 在指定位置落下阳光（一般仅限于太阳花使用）
     void GenerateSun(int x, int y);
 
     // 检测(x, y)处是否有阳光，如果有，则捡起来
