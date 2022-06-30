@@ -1,7 +1,7 @@
-#include "sun/sun_manager.h"
+#include "sprite/sun/sun_manager.h"
 #include "misc/common.h"
 
-SunManager::SunManager(int initial_sun)
+SunManager::SunManager(int initial_sun, std::vector<IMAGE *> frames) : frames(frames)
 {
     ASSERT(initial_sun > 0, "Initial sun must no less than 0");
     sun_count = initial_sun;
@@ -18,7 +18,7 @@ void SunManager::GenerateSun()
 
 void SunManager::GenerateSun(int x, int y)
 {
-    Sun *sun = new Sun(x, y);
+    Sun *sun = new Sun(x, y, frames);
     sun_list.push_back(sun);
 }
 

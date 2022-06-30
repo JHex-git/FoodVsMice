@@ -1,5 +1,6 @@
-#include "sprite.h"
-
+#include "sprite/sprite.h"
+#include "GUI_manager.h"
+#include <iostream>
 Sprite::Sprite(int x, int y, float frame_rate) : x(x), y(y), frame_rate(frame_rate)
 {
     current_frame = 0;
@@ -26,5 +27,7 @@ void Sprite::Update()
         current_frame = (current_frame + 1) % frames.size();
         frame_accum = 0;
     }
+    std::cout << __FILE__ << ":" << __LINE__ << "@" << current_frame << std::endl;
+    GUIManager::drawAlpha(frames[current_frame], x, y);
     UpdateBehave();
 }

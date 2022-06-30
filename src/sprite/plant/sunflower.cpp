@@ -1,5 +1,9 @@
-#include "sunflower.h"
-#include "sun.h"
+#include "sprite/plant/sunflower.h"
+#include "sprite/sun/sun.h"
+
+const int Sunflower::COOL_DOWN_TIME = 20;
+const int Sunflower::SUN_PADDING_X = 40;
+const int Sunflower::SUN_PADDING_Y = 40;
 
 void Sunflower::Func()
 {

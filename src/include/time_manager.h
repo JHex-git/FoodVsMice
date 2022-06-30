@@ -3,6 +3,6 @@
 class TimeManager
 {
 public:
-    static const float DELTA_TIME;
+    static constexpr float DELTA_TIME = 1;
     void Init();
 };

@@ -1,17 +1,32 @@
 #include"GUI_manager.h"
 
+IMAGE background;                                           //背景
+IMAGE lawnmower;                                            //推车
+IMAGE peashooter[8];                                        //豌豆射手
+IMAGE PB;					                                //豌豆射手的炮弹
+IMAGE normalZombieWalkPictures[47];                         //普通僵尸走路
+IMAGE normalZombieEatPictures[10];                          //普通僵尸eat
+IMAGE coneheadZombieWalkPictures[47];                       //路障僵尸走路
+IMAGE coneheadZombieEatPictures[10];                        //路障僵尸eat
+IMAGE bucketheadZombieWalkPictures[47];                     //铁桶僵尸走路
+IMAGE bucketheadZombieEatPictures[10];                      //铁桶僵尸eat
+IMAGE sunflowers[8];                                        //太阳花
+
+int Picture_num;                                            //图片号
+int plant_x, plant_y;
+int zombie_x, zonbie_y;
 void GUIManager::loading()
 {
-    loadImages(peashooter, "./resources/picture/peashooter/Peashooter_", 8, 1);
-	loadImages(normalZombieWalkPictures, "./resources/picture/Zombies/NormalZombie/Zombie/Zombie-", 47, 1);
-	loadImages(coneheadZombieWalkPictures, "./resources/picture/Zombies/ConeheadZombie/ConeheadZombie/ConeheadZombie-", 47, 1);
-	loadImages(bucketheadZombieWalkPictures, "./resources/picture/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie-", 47, 1);
-	loadImages(normalZombieEatPictures, "./resources/picture/Zombies/NormalZombie/ZombieAttack/ZombieAttack_", 10, 0);
-	loadImages(coneheadZombieEatPictures, "./resources/picture/Zombies/ConeheadZombie/ConeheadZombieAttack/ConeheadZombieAttack_", 10, 0);
-	loadImages(bucketheadZombieEatPictures, "./resources/picture/Zombies/BucketheadZombie/BucketheadZombieAttack/BucketheadZombieAttack_", 10, 0);
-	loadimage(&background, "./resources/picture/Screen/Background.jpg");
-	loadimage(&lawnmower, "./resources/picture/Screen/lawnmower.png",45,35);
-    loadimage(&PB,"./resources/picture/Plants/PB00.png");
+    loadImages(peashooter, "../resources/picture/peashooter/Peashooter_", 8, 1);
+	loadImages(normalZombieWalkPictures, "../resources/picture/Zombies/NormalZombie/Zombie/Zombie-", 47, 1);
+	loadImages(coneheadZombieWalkPictures, "../resources/picture/Zombies/ConeheadZombie/ConeheadZombie/ConeheadZombie-", 47, 1);
+	loadImages(bucketheadZombieWalkPictures, "../resources/picture/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie-", 47, 1);
+	loadImages(normalZombieEatPictures, "../resources/picture/Zombies/NormalZombie/ZombieAttack/ZombieAttack_", 10, 0);
+	loadImages(coneheadZombieEatPictures, "../resources/picture/Zombies/ConeheadZombie/ConeheadZombieAttack/ConeheadZombieAttack_", 10, 0);
+	loadImages(bucketheadZombieEatPictures, "../resources/picture/Zombies/BucketheadZombie/BucketheadZombieAttack/BucketheadZombieAttack_", 10, 0);
+	loadimage(&background, "../resources/picture/Screen/Background.jpg");
+	loadimage(&lawnmower, "../resources/picture/Screen/lawnmower.png",45,35);
+    loadimage(&PB,"../resources/picture/Plants/PB00.png");
 }
 
 void GUIManager::Draw_background()
@@ -27,7 +42,7 @@ void GUIManager::loadImages(IMAGE imgs[], char path[], int n, int begin)
 	{
 		char tmpPath[200], frameNo[4];
 		strcpy_s(tmpPath, 200, path);
-		strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
+		// strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
 		loadimage(&imgs[i], tmpPath);
 	}   
 }

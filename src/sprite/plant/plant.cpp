@@ -1,4 +1,4 @@
-#include "plant.h"
+#include "sprite/plant/plant.h"
 #include "time_manager.h"
 
 Plant::Plant(int x, int y, int health, float cool_down_time) : 

@@ -1,10 +1,10 @@
 #pragma once
-#include "sprite.h"
+#include "sprite/sprite.h"
 
 class Plant : public Sprite
 {
 private:
-    static const float FRAME_RATE = 1;
+    static constexpr float FRAME_RATE = 1;
 
     int health;
     float cool_down_time;

@@ -1,6 +1,6 @@
 #pragma once
 #include "plant.h"
-#include "sun/sun_manager.h"
+#include "sprite/sun/sun_manager.h"
 
 class Sunflower : public Plant
 {
@@ -8,8 +8,8 @@ private:
     void Func() override;
 
     static const int COOL_DOWN_TIME;
-    static const int SUN_PADDING_X = 20;
-    static const int SUN_PADDING_Y = 10;
+    static const int SUN_PADDING_X;
+    static const int SUN_PADDING_Y;
 
     SunManager *sun_manager;
 

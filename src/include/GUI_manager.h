@@ -1,33 +1,23 @@
 #pragma once
 #include<graphics.h>
-#include <iostream>
-#include <ctime>
-#include <string>
-#include <conio.h>
-#include <Windows.h>
-#include <io.h>
-#include <vector>
-#include <stdio.h>
-#include <cmath>
-#include <mmsystem.h>
 
 using namespace std;
 
-IMAGE background;                                           //背景
-IMAGE lawnmower;                                            //推车
-IMAGE peashooter[8];                                        //豌豆射手
-IMAGE PB;					                                //豌豆射手的炮弹
-IMAGE normalZombieWalkPictures[47];                         //普通僵尸走路
-IMAGE normalZombieEatPictures[10];                          //普通僵尸eat
-IMAGE coneheadZombieWalkPictures[47];                       //路障僵尸走路
-IMAGE coneheadZombieEatPictures[10];                        //路障僵尸eat
-IMAGE bucketheadZombieWalkPictures[47];                     //铁桶僵尸走路
-IMAGE bucketheadZombieEatPictures[10];                      //铁桶僵尸eat
-IMAGE sunflowers[8];                                        //太阳花
+extern IMAGE background;                                           //背景
+extern IMAGE lawnmower;                                            //推车
+extern IMAGE peashooter[8];                                        //豌豆射手
+extern IMAGE PB;					                                //豌豆射手的炮弹
+extern IMAGE normalZombieWalkPictures[47];                         //普通僵尸走路
+extern IMAGE normalZombieEatPictures[10];                          //普通僵尸eat
+extern IMAGE coneheadZombieWalkPictures[47];                       //路障僵尸走路
+extern IMAGE coneheadZombieEatPictures[10];                        //路障僵尸eat
+extern IMAGE bucketheadZombieWalkPictures[47];                     //铁桶僵尸走路
+extern IMAGE bucketheadZombieEatPictures[10];                      //铁桶僵尸eat
+extern IMAGE sunflowers[8];                                        //太阳花
 
-int Picture_num;                                            //图片号
-int plant_x, plant_y;
-int zombie_x, zonbie_y;
+extern int Picture_num;                                            //图片号
+extern int plant_x, plant_y;
+extern int zombie_x, zonbie_y;
 class GUIManager
 {
     public:
@@ -36,8 +26,8 @@ class GUIManager
         void Draw_background();                             //画背景
         void Draw_plant(IMAGE plant_img[]);                           //画植物
         void Draw_zombie(IMAGE zombie_img[]);                          //画僵尸
+        static void drawAlpha(IMAGE *picture, int picture_x, int picture_y); //插入透明图
 
    private:
-       void drawAlpha(IMAGE *picture, int picture_x, int picture_y); //插入透明图
        void loadImages(IMAGE imgs[], char path[], int n, int begin); //插入多张图
 };

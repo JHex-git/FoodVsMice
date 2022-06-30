@@ -8,9 +8,10 @@ private:
     const int SUN_UNIT = 50;
     int sun_count;
     std::list<Sun *> sun_list;
+    std::vector<IMAGE *> frames;
 
 public:
-    SunManager(int initial_sun);
+    SunManager(int initial_sun, std::vector<IMAGE *> frames);
 
     // 在随机位置落下阳光
     void GenerateSun();
