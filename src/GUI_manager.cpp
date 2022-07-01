@@ -1,39 +1,54 @@
 #include"GUI_manager.h"
+IMAGE Cherry_b;
+IMAGE normal_eat1[4];
+IMAGE normal_eat2[4];
+IMAGE normal_walk1[8];
+IMAGE normal_walk2[8];
+IMAGE normal_die[13];
+IMAGE Egg_boom[6];
+IMAGE Egg_pitcher[26];
+IMAGE Egg_b[5];
+IMAGE background_game[5];
+IMAGE Cherry_boom[4];
+IMAGE Cherry_tart[9];
+IMAGE hotpot[13];
+IMAGE hotpot_b[42];
 
-IMAGE background;                                           //背景
-IMAGE lawnmower;                                            //推车
-IMAGE peashooter[8];                                        //豌豆射手
-IMAGE PB;					                                //豌豆射手的炮弹
-IMAGE normalZombieWalkPictures[47];                         //普通僵尸走路
-IMAGE normalZombieEatPictures[10];                          //普通僵尸eat
-IMAGE coneheadZombieWalkPictures[47];                       //路障僵尸走路
-IMAGE coneheadZombieEatPictures[10];                        //路障僵尸eat
-IMAGE bucketheadZombieWalkPictures[47];                     //铁桶僵尸走路
-IMAGE bucketheadZombieEatPictures[10];                      //铁桶僵尸eat
-IMAGE sunflowers[8];                                        //太阳花
-
-int Picture_num;                                            //图片号
-int plant_x, plant_y;
-int zombie_x, zonbie_y;
 void GUIManager::loading()
 {
-    loadImages(peashooter, "../resources/picture/peashooter/Peashooter_", 8, 1);
-	loadImages(normalZombieWalkPictures, "../resources/picture/Zombies/NormalZombie/Zombie/Zombie-", 47, 1);
-	loadImages(coneheadZombieWalkPictures, "../resources/picture/Zombies/ConeheadZombie/ConeheadZombie/ConeheadZombie-", 47, 1);
-	loadImages(bucketheadZombieWalkPictures, "../resources/picture/Zombies/BucketheadZombie/BucketheadZombie/BucketheadZombie-", 47, 1);
-	loadImages(normalZombieEatPictures, "../resources/picture/Zombies/NormalZombie/ZombieAttack/ZombieAttack_", 10, 0);
-	loadImages(coneheadZombieEatPictures, "../resources/picture/Zombies/ConeheadZombie/ConeheadZombieAttack/ConeheadZombieAttack_", 10, 0);
-	loadImages(bucketheadZombieEatPictures, "../resources/picture/Zombies/BucketheadZombie/BucketheadZombieAttack/BucketheadZombieAttack_", 10, 0);
-	loadimage(&background, "../resources/picture/Screen/Background.jpg");
-	loadimage(&lawnmower, "../resources/picture/Screen/lawnmower.png",45,35);
-    loadimage(&PB,"../resources/picture/Plants/PB00.png");
+	loadimage(&background_game[0], "../resources/picture/Screen/background_game1.png", 900, 560);
+	loadimage(&background_game[1], "../resources/picture/Screen/lawnmower.png", 50, 40);
+	loadimage(&background_game[2], "../resources/picture/Screen/1.png", 100, 120);
+	loadimage(&background_game[3], "../resources/picture/Screen/2.png", 100, 120);
+	loadimage(&background_game[4], "../resources/picture/Screen/3.png", 100, 120);
+
+	loadimage(&Cherry_b, "../resources/picture/food/Cherrys_tart/Cherry_b/1.png");
+
+	loadImages(normal_eat1, "../resources/picture/mouse/normal_mouse/normal_eat1/eat1_", 4, 1);
+	loadImages(normal_eat2, "../resources/picture/mouse/normal_mouse/normal_eat2/eat2_", 4, 1);
+	loadImages(normal_walk1, "../resources/picture/mouse/normal_mouse/normal_walk1/walk1_", 8, 1);
+	loadImages(normal_walk2, "../resources/picture/mouse/normal_mouse/normal_walk2/walk2_", 8, 1);
+	loadImages(normal_die, "../resources/picture/mouse/normal_mouse/normal_die/die_", 13, 1);
+	loadImages(Egg_b, "../resources/picture/food/Eggs_pitcher/Eggs/Egg_", 5, 1);
+	loadImages(Egg_boom, "../resources/picture/food/Eggs_pitcher/Egg_boom/boom_", 6, 1);
+	loadImages(Egg_pitcher, "../resources/picture/food/Eggs_pitcher/Egg_pitcher/", 26, 1);
+	loadImages(Cherry_boom, "../resources/picture/food/Cherrys_tart/Cherry_boom/", 4, 2);
+	loadImages(Cherry_tart, "../resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
+	loadImages(hotpot, "../resources/picture/food/Hots_pot/Hotpot/", 13, 1);
+	loadImages(hotpot_b, "../resources/picture/food/Hots_pot/Hotpot_b/", 42, 14);
 }
 
-void GUIManager::Draw_background()
+void GUIManager::Draw_background(IMAGE img[])
 {
-    putimage(0, 0, &background);
-    for (int i = 1; i <= 5; i++)
-        drawAlpha(&lawnmower, 0, 100*i);
+	putimage(0, 0, &img[2]);
+	putimage(90, 0, &img[3]);
+	for (int i = 1; i <= 6; i++)
+		putimage(90+93 * i, 0, &img[3]);
+	putimage(745, 0, &img[4]);
+
+	putimage(0, 120, &img[0]);
+	for (int i = 0; i < 7;i++)
+		this->drawAlpha(&img[1], 70, 160 + 75 * i);
 }
 
 void GUIManager::loadImages(IMAGE imgs[], char path[], int n, int begin)
@@ -42,7 +57,7 @@ void GUIManager::loadImages(IMAGE imgs[], char path[], int n, int begin)
 	{
 		char tmpPath[200], frameNo[4];
 		strcpy_s(tmpPath, 200, path);
-		// strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
+		strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
 		loadimage(&imgs[i], tmpPath);
 	}   
 }
@@ -69,29 +84,64 @@ void GUIManager::drawAlpha(IMAGE *picture, int picture_x, int picture_y)
 			int sb = src[srcX] & 0xff;                          //B
 			if (ix >= 0 && ix <= graphWidth && iy >= 0 && iy <= graphHeight && dstX <= graphWidth * graphHeight)
 			{
-				dstX = (ix + picture_x) + (iy + picture_y) * graphWidth; //在显存里像素的角标
+				dstX = (ix + picture_x) + (iy + picture_y) * graphWidth; 		//在显存里像素的角标
 				int dr = ((dst[dstX] & 0xff0000) >> 16);
 				int dg = ((dst[dstX] & 0xff00) >> 8);
 				int db = dst[dstX] & 0xff;
-				draw[dstX] = ((sr * sa / 255 + dr * (255 - sa) / 255) << 16)  //公式： Cp=αp*FP+(1-αp)*BP  ； αp=sa/255 , FP=sr , BP=dr
-					| ((sg * sa / 255 + dg * (255 - sa) / 255) << 8)         //αp=sa/255 , FP=sg , BP=dg
-					| (sb * sa / 255 + db * (255 - sa) / 255);              //αp=sa/255 , FP=sb , BP=db
+				draw[dstX] = ((sr * sa / 255 + dr * (255 - sa) / 255) << 16)  	//公式： Cp=αp*FP+(1-αp)*BP  ； αp=sa/255 , FP=sr , BP=dr
+					| ((sg * sa / 255 + dg * (255 - sa) / 255) << 8)         	//αp=sa/255 , FP=sg , BP=dg
+					| (sb * sa / 255 + db * (255 - sa) / 255);              	//αp=sa/255 , FP=sb , BP=db
 			}
 		}
 	}
 }
 
-
-void GUIManager::Draw_plant(IMAGE plant_img[])
+void GUIManager::init()
 {
-    int plant_temp = Picture_num;
-    plant_temp = plant_temp % 8;
-    this->drawAlpha(&plant_img[plant_temp], plant_x, plant_y);
+
+	this->loading();
+	initgraph(900, 680);
+    setbkcolor(WHITE);
 }
 
-void GUIManager::Draw_zombie(IMAGE zombie_img[])
+GUIManager::~GUIManager()
 {
-    int zombie_temp = Picture_num;
-    zombie_temp = zombie_temp % 47;
-    this->drawAlpha(&zombie_img[zombie_temp], plant_x, plant_y);
+	closegraph();
+}
+
+int GUIManager::Place_positioning_x(int x, int deta_x)
+{
+	x = x - 120;
+	x = x / 80;
+	x = x * 80;
+	x = x + 120;
+	x = x - deta_x;
+	return x;
+}
+
+int GUIManager::Place_positioning_y(int y, int deta_y)
+{
+	y = y - 130;
+	y = y / 75;
+	y = y * 75;
+	y = y + 130;
+	y = y - deta_y;
+	return y;
+}
+
+pair<int, int> GUIManager::positioning(int x, int y)
+{
+	pair<int, int> a;
+	a.first = -1;
+	a.second = -1;
+	if(x>=120&&x<=840&&y>=130&&y<=655)
+	{
+		x = x - 120;
+		x = x / 80;
+		y = y - 130;
+		y = y / 75;
+		a.first = x;
+		a.second = y;
+	}
+	return a;
 }
