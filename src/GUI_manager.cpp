@@ -1,4 +1,6 @@
 #include"GUI_manager.h"
+
+IMAGE select_[7];
 IMAGE Cherry_b;
 IMAGE normal_eat1[4];
 IMAGE normal_eat2[4];
@@ -13,6 +15,7 @@ IMAGE Cherry_boom[4];
 IMAGE Cherry_tart[9];
 IMAGE hotpot[13];
 IMAGE hotpot_b[42];
+
 
 void GUIManager::loading()
 {
@@ -36,6 +39,10 @@ void GUIManager::loading()
 	loadImages(Cherry_tart, "../resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
 	loadImages(hotpot, "../resources/picture/food/Hots_pot/Hotpot/", 13, 1);
 	loadImages(hotpot_b, "../resources/picture/food/Hots_pot/Hotpot_b/", 42, 14);
+
+	loadimage(&select_[0], "../resources/picture/food/Eggs_pitcher/Egg_pitcher/1.png");
+	loadimage(&select_[1], "../resources/picture/food/Cherrys_tart/Cherry_tart/1.png");
+	loadimage(&select_[2], "../resources/picture/food/Hots_pot/Hotpot/1.png");
 }
 
 void GUIManager::Draw_background(IMAGE img[])
@@ -61,7 +68,6 @@ void GUIManager::loadImages(IMAGE imgs[], char path[], int n, int begin)
 		loadimage(&imgs[i], tmpPath);
 	}   
 }
-
 
 void GUIManager::drawAlpha(IMAGE *picture, int picture_x, int picture_y)
 {
@@ -98,7 +104,9 @@ void GUIManager::drawAlpha(IMAGE *picture, int picture_x, int picture_y)
 
 void GUIManager::init()
 {
-
+	GUIManager::ii = 0;
+	GUIManager::num - 1;
+	GUIManager::selected = 0;
 	this->loading();
 	initgraph(900, 680);
     setbkcolor(WHITE);
@@ -111,22 +119,20 @@ GUIManager::~GUIManager()
 
 int GUIManager::Place_positioning_x(int x, int deta_x)
 {
-	x = x - 120;
-	x = x / 80;
-	x = x * 80;
-	x = x + 120;
-	x = x - deta_x;
-	return x;
+	int temp_x;
+	temp_x = x * 80;
+	temp_x = temp_x + 120;
+	temp_x = temp_x - deta_x;
+	return temp_x;
 }
 
 int GUIManager::Place_positioning_y(int y, int deta_y)
 {
-	y = y - 130;
-	y = y / 75;
-	y = y * 75;
-	y = y + 130;
-	y = y - deta_y;
-	return y;
+	int temp_y;
+	temp_y = y * 75;
+	temp_y = temp_y + 130;
+	temp_y = temp_y - deta_y;
+	return temp_y;
 }
 
 pair<int, int> GUIManager::positioning(int x, int y)
@@ -136,12 +142,87 @@ pair<int, int> GUIManager::positioning(int x, int y)
 	a.second = -1;
 	if(x>=120&&x<=840&&y>=130&&y<=655)
 	{
-		x = x - 120;
-		x = x / 80;
-		y = y - 130;
-		y = y / 75;
-		a.first = x;
-		a.second = y;
+		int temp_x, temp_y;
+		temp_x = x - 120;
+		temp_x = temp_x / 80;
+		temp_y = y - 130;
+		temp_y = temp_y / 75;
+		a.first = temp_x;
+		a.second = temp_y;
 	}
 	return a;
+}
+
+int GUIManager::locationing(int x)
+{
+	int temp = -1;
+	if(x>90&&x<=845)
+	{
+		temp = x;
+		temp = temp - 90;
+		temp = temp / 93;
+	}
+
+	return temp;
+}
+
+void GUIManager::Draw_select(IMAGE *name, int num,int deta_x1, int deta_y1)
+{
+	int y = 30;
+	int x;
+	x = 90 + 93 * num;
+	x = x - deta_x1;
+	y = y - deta_y1;
+	this->drawAlpha(name, x, y);
+	return;
+}
+
+void GUIManager::mouse_message()
+{
+	
+	if(MouseHit())
+	{
+		MOUSEMSG mis = GetMouseMsg();
+		switch (mis.uMsg)
+		{
+		case WM_LBUTTONDOWN:
+			cout << "click" << endl;
+			if(mis.y<130)
+			{
+				num = locationing(mis.x);
+				selected = 1;
+				cout << "1"<<" "<<num<<" "<<selected<<endl;
+			}
+			if (mis.y >= 130&&num!=-1&&selected==1)
+			{
+				int row = positioning(mis.x, mis.y).second;
+				int col = positioning(mis.x, mis.y).first;
+				cout <<row<<col<<endl;
+				sele[{col, row}] = num;
+				num = -1;
+				selected = 0;
+				cout << sele.begin()->second<<endl;
+			}
+			break;
+		
+		default:
+			break;
+		}
+	}
+}
+
+void GUIManager::mouse_message_drow()
+{
+	for (auto iter = sele.begin(); iter != sele.end();iter++)
+	{
+		if(iter->first.first!=-1)
+		{
+			if(iter->second==0)
+				drawAlpha(&Egg_pitcher[ii % 26], Place_positioning_x(iter->first.first, 15), Place_positioning_y(iter->first.second, 35));
+			if(iter->second==1)
+				drawAlpha(&Cherry_tart[ii % 9], Place_positioning_x(iter->first.first, -20), Place_positioning_y(iter->first.second, 5));
+			if(iter->second==2)
+				drawAlpha(&hotpot_b[ii % 42], Place_positioning_x(iter->first.first, -3), Place_positioning_y(iter->first.second, 28));			
+		}
+	}
 }
