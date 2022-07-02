@@ -1,7 +1,10 @@
+#pragma once
 #include "sprite/food/food.h"
 #include "misc/enums.h"
 #include "level/level_manager.h"
+#include "sprite/flame/flame_manager.h"
 #include <list>
+class Food;
 
 class FoodManager
 {

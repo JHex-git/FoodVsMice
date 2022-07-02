@@ -1,7 +1,9 @@
 #pragma once
 #include "sprite/mouse/mouse.h"
 #include "time_manager.h"
+#include "misc/enums.h"
 #include <list>
+class Mouse;
 
 class MouseManager
 {

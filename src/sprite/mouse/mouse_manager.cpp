@@ -31,19 +31,20 @@ void MouseManager::UpdateMouse()
 
 void MouseManager::PrepareMouse()
 {
-    for (std::list<std::pair<MouseType, float>>::iterator it = waiting_mouse_list.begin(); it != waiting_mouse_list.end() && it->second <= ; it++)
-    {
-        // TODO: Add mouse here
-        Mouse *mouse = nullptr;
-        switch (it->first)
-        {
-            case MouseType::BUCKET_MOUSE:
-                mouse = new Bucket
-                break;
+    // for (std::list<std::pair<MouseType, float>>::iterator it = waiting_mouse_list.begin(); it != waiting_mouse_list.end() && it->second <= ; it++)
+    // {
+    //     // TODO: Add mouse here
+    //     Mouse *mouse = nullptr;
+    //     switch (it->first)
+    //     {
+    //         case MouseType::BUCKET_MOUSE:
+                
+    //             // mouse = new BucketMouse()
+    //             break;
             
-            default:
-                break;
-        }
-        mouse_list.push_front();
-    }
+    //         default:
+    //             break;
+    //     }
+    //     mouse_list.push_front(mouse);
+    // }
 }

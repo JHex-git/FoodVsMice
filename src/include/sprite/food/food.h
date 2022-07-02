@@ -2,7 +2,7 @@
 #include "sprite/sprite.h"
 #include "sprite/food/food_manager.h"
 
-class FoodManager; // 前向声明
+// class FoodManager; // 前向声明
 
 class Food : public Sprite
 {
