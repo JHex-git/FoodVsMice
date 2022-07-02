@@ -1,9 +1,9 @@
 #pragma once
 #include "sprite/sprite.h"
 
-class Sun : public Sprite
+class Flame : public Sprite
 {
-    friend class SunManager;
+    friend class FlameManager;
 
 private:
     const float DURATION = 1;
@@ -15,15 +15,15 @@ private:
     static constexpr float FRAME_RATE = 1;
 
     bool is_dropping;
-    bool is_exist; // 指示阳光存在时间过久引起的消失问题
+    bool is_exist; // 指示火苗存在时间过久引起的消失问题
     float drop_duration;
     float current_exist_time;
 
 public:
-    Sun(int x, int y);
-    Sun(int x, int y, std::vector<IMAGE *> frames);
+    Flame(int x, int y);
+    Flame(int x, int y, std::vector<IMAGE *> frames);
 
     void UpdateBehave() override;
 
-    ~Sun();
+    ~Flame();
 };
