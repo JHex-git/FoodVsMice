@@ -1,13 +1,18 @@
 #pragma once
 enum class FoodType
 {
-    STOVE = 0,
+    HOTPOT = 0,
 
 };
 
 // TODO: 之后有新的老鼠
 enum class MouseType
 {
-    MOUSe,
+    MOUSE,
     BUCKET_MOUSE
+};
+
+enum class MapType
+{
+    BASE = 0
 };
