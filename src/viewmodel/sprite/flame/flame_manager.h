@@ -1,4 +1,6 @@
 #pragma once
+#include <functional>
+#include <memory>
 #include <list>
 #include "flame.h"
 
@@ -35,5 +37,27 @@ public:
 
     inline void IncreaseFlame(int num);
 
-    inline int GetFlame() { return flame_count; }
+    inline int GetFlameCount() { return flame_count; }
+
+public:
+
+// properties
+//    inline std::shared_ptr<int> get_FlameCount() {return std::make_shared<int>(flame_count);}
+
+// commands
+    // 在随机位置落下火苗
+    std::function<void()> get_GenerateFlameCommand();
+
+    // 检测(x, y)处是否有火苗，如果有，则捡起来
+    std::function<void(int x, int y)> get_PickupFlameCommand();
+
+
+    std::function<void()> get_UpdateFlameCommand();
+
+
+    /* --- 玩家拥有的火苗 --- */
+    // 火苗不够则返回false
+    std::function<bool(int num)> get_DecreaseFlameCommand();
+    std::function<void(int num)> get_IncreaseFlame();
+
 };

@@ -1,9 +1,9 @@
 #pragma once
+#include <list>
 #include "food.h"
 #include "../../../common/enums.h"
-#include "level/level_manager.h"
-#include "sprite/flame/flame_manager.h"
-#include <list>
+#include "../../../model/level/level_manager.h"
+#include "../flame/flame_manager.h"
 class Food;
 
 class FoodManager

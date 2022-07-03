@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <graphics.h>
 #include "../../common/common.h"
 
 // TODO: 更新图像是否要单拎出来

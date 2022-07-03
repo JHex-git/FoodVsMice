@@ -5,7 +5,6 @@
 #include <vector>
 #include <stdio.h>
 #include <list>
-#include <graphics.h>
 #include <unordered_map>
 #include <fstream>
 #include "../../common/enums.h"
@@ -15,45 +14,45 @@ class LevelManager
 public:
     // void WriteLevel(char name[]);
     /**
-     *  1. ÊÍ·ÅÖ®Ç°Õ¼ÓÃµÄÍ¼Æ¬×ÊÔ´(¿ÉÒÔÁíĞ´Ò»¸öprivateº¯Êı)
-     *  2. ¸ù¾İ¹Ø¿¨Ãû¶ÁÈ¡¹Ø¿¨ÎÄ¼ş£¬ÔØÈë¹Ø¿¨ĞÅÏ¢£¬¸ù¾İÒªÊ¹ÓÃµÄÊ³ÎïºÍÀÏÊóÔØÈëÍ¼Æ¬×ÊÔ´£¬
-     *  ·ÅÈë vector<IMAGE *> food_img_dict, mouse_img_dict.
-     *  3. ¸ù¾İ¹Ø¿¨ÔØÈëµØÍ¼×ÊÔ´ IMAGE *.
+     *  1. é‡Šæ”¾ä¹‹å‰å ç”¨çš„å›¾ç‰‡èµ„æº(å¯ä»¥å¦å†™ä¸€ä¸ªprivateå‡½æ•°)
+     *  2. æ ¹æ®å…³å¡åè¯»å–å…³å¡æ–‡ä»¶ï¼Œè½½å…¥å…³å¡ä¿¡æ¯ï¼Œæ ¹æ®è¦ä½¿ç”¨çš„é£Ÿç‰©å’Œè€é¼ è½½å…¥å›¾ç‰‡èµ„æºï¼Œ
+     *  æ”¾å…¥ vector<IMAGE *> food_img_dict, mouse_img_dict.
+     *  3. æ ¹æ®å…³å¡è½½å…¥åœ°å›¾èµ„æº IMAGE *.
      */
     void ReadLevel(std::string level_name);
 
-    // ·µ»Ø×ÖµäÒıÓÃ¹©Íâ½çµÃµ½Í¼Æ¬×ÊÔ´
+    // è¿”å›å­—å…¸å¼•ç”¨ä¾›å¤–ç•Œå¾—åˆ°å›¾ç‰‡èµ„æº
     const std::unordered_map<FoodType, std::vector<IMAGE *>>& GetFoodImages();
     const std::unordered_map<MouseType, std::vector<IMAGE *>>& GetMouseImages();
 
-    // ·µ»Ø²¨µÄĞÅÏ¢
+    // è¿”å›æ³¢çš„ä¿¡æ¯
     const std::list<float>& GetWaves();
-    // ÓëÉÏÃæÀàËÆ£¬Á½¸öº¯Êı·Ö±ğ·µ»Ømouse_list¡¢mouse_come_timeÒÔ¼°mouse_line
+    // ä¸ä¸Šé¢ç±»ä¼¼ï¼Œä¸¤ä¸ªå‡½æ•°åˆ†åˆ«è¿”å›mouse_listã€mouse_come_timeä»¥åŠmouse_line
     const std::list<MouseType> &Getmouse_list();
     const std::list<float> &Getmouse_cometime();
     const std::list<int> &Getmouse_line();
 
-    //ÊÍ·ÅÍ¼Æ¬×ÊÔ´
+    //é‡Šæ”¾å›¾ç‰‡èµ„æº
     void DeleteImages();
 
     ~LevelManager(){};
 
 private:
-    std::vector<FoodType> food_types; // ¹Ø¿¨¹©Ê¹ÓÃµÄÊ³Îï£¨FoodTypeÊÇÃ¶¾Ù±äÁ¿£¬»òÓÃint´úÌæ£©
-    std::vector<MouseType> mouse_types; // ¹Ø¿¨¿ÉÄÜ³öÏÖµÄÀÏÊó£¨MouseTypeÊÇÃ¶¾Ù±äÁ¿£¬»òÓÃint´úÌæ£©
+    std::vector<FoodType> food_types; // å…³å¡ä¾›ä½¿ç”¨çš„é£Ÿç‰©ï¼ˆFoodTypeæ˜¯æšä¸¾å˜é‡ï¼Œæˆ–ç”¨intä»£æ›¿ï¼‰
+    std::vector<MouseType> mouse_types; // å…³å¡å¯èƒ½å‡ºç°çš„è€é¼ ï¼ˆMouseTypeæ˜¯æšä¸¾å˜é‡ï¼Œæˆ–ç”¨intä»£æ›¿ï¼‰
 
-    std::list<float> waves; // Ã¿²¨µ½À´µÄÊ±¼ä£¬°´Ê±¼äË³ĞòÅÅºÃ
+    std::list<float> waves; // æ¯æ³¢åˆ°æ¥çš„æ—¶é—´ï¼ŒæŒ‰æ—¶é—´é¡ºåºæ’å¥½
 
-    std::list<MouseType> mouse_list; // °´Ê±¼äË³ĞòÅÅºÃµÄÀÏÊó
-    std::list<float> mouse_come_time; // ÀÏÊóÀ´µÄÊ±¼ä£¬Óëmouse_listÒ»Í¬Ê¹ÓÃ£¬¼´ÏàÍ¬"ÏÂ±ê"ÎªÍ¬Ò»Ö»ÀÏÊó
-    std::list<int> mouse_line;//ÀÏÊóÀ´µÄĞĞÊı
-    // std::list<std::pair<MouseType, float>> mouse_list; »ò²ÉÓÃÕâÖÖ·½Ê½
+    std::list<MouseType> mouse_list; // æŒ‰æ—¶é—´é¡ºåºæ’å¥½çš„è€é¼ 
+    std::list<float> mouse_come_time; // è€é¼ æ¥çš„æ—¶é—´ï¼Œä¸mouse_listä¸€åŒä½¿ç”¨ï¼Œå³ç›¸åŒ"ä¸‹æ ‡"ä¸ºåŒä¸€åªè€é¼ 
+    std::list<int> mouse_line;//è€é¼ æ¥çš„è¡Œæ•°
+    // std::list<std::pair<MouseType, float>> mouse_list; æˆ–é‡‡ç”¨è¿™ç§æ–¹å¼
 
-    // ¼ÓÔØµÄÊ³ÎïÍ¼Æ¬×ÊÔ´´æ´¢ÔÚ¸Ã×ÖµäÖĞ£¬Ò»ÖÖÊ³Îï¶ÔÓ¦Ò»ÏµÁĞµÄÍ¼Æ¬
+    // åŠ è½½çš„é£Ÿç‰©å›¾ç‰‡èµ„æºå­˜å‚¨åœ¨è¯¥å­—å…¸ä¸­ï¼Œä¸€ç§é£Ÿç‰©å¯¹åº”ä¸€ç³»åˆ—çš„å›¾ç‰‡
     std::unordered_map<FoodType, std::vector<IMAGE *>> food_img_dict;
-    // ¼ÓÔØµÄÀÏÊóÍ¼Æ¬×ÊÔ´´æ´¢ÔÚ¸Ã×ÖµäÖĞ£¬Ò»ÖÖÀÏÊó¶ÔÓ¦Ò»ÏµÁĞµÄÍ¼Æ¬
+    // åŠ è½½çš„è€é¼ å›¾ç‰‡èµ„æºå­˜å‚¨åœ¨è¯¥å­—å…¸ä¸­ï¼Œä¸€ç§è€é¼ å¯¹åº”ä¸€ç³»åˆ—çš„å›¾ç‰‡
     std::unordered_map<MouseType, std::vector<IMAGE *>> mouse_img_dict;
-    // µØÍ¼Í¼Æ¬
+    // åœ°å›¾å›¾ç‰‡
     vector<IMAGE *> map_img;
     void loadImages(IMAGE imgs[], char path[], int n, int begin);
     std::list<IMAGE *> deletelist;
