@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <fstream>
 #include "../../common/enums.h"
+#include <QPainter>
 using namespace std;
 class LevelManager
 {
@@ -16,14 +17,14 @@ public:
     /**
      *  1. 释放之前占用的图片资源(可以另写一个private函数)
      *  2. 根据关卡名读取关卡文件，载入关卡信息，根据要使用的食物和老鼠载入图片资源，
-     *  放入 vector<IMAGE *> food_img_dict, mouse_img_dict.
-     *  3. 根据关卡载入地图资源 IMAGE *.
+     *  放入 vector<QPixmap *> food_img_dict, mouse_img_dict.
+     *  3. 根据关卡载入地图资源 QPixmap *.
      */
     void ReadLevel(std::string level_name);
 
     // 返回字典引用供外界得到图片资源
-    const std::unordered_map<FoodType, std::vector<IMAGE *>>& GetFoodImages();
-    const std::unordered_map<MouseType, std::vector<IMAGE *>>& GetMouseImages();
+    const std::unordered_map<FoodType, std::vector<QPixmap *>>& GetFoodImages();
+    const std::unordered_map<MouseType, std::vector<QPixmap *>>& GetMouseImages();
 
     // 返回波的信息
     const std::list<float>& GetWaves();
@@ -49,13 +50,13 @@ private:
     // std::list<std::pair<MouseType, float>> mouse_list; 或采用这种方式
 
     // 加载的食物图片资源存储在该字典中，一种食物对应一系列的图片
-    std::unordered_map<FoodType, std::vector<IMAGE *>> food_img_dict;
+    std::unordered_map<FoodType, std::vector<QPixmap *>> food_img_dict;
     // 加载的老鼠图片资源存储在该字典中，一种老鼠对应一系列的图片
-    std::unordered_map<MouseType, std::vector<IMAGE *>> mouse_img_dict;
+    std::unordered_map<MouseType, std::vector<QPixmap *>> mouse_img_dict;
     // 地图图片
-    vector<IMAGE *> map_img;
-    void loadImages(IMAGE imgs[], char path[], int n, int begin);
-    std::list<IMAGE *> deletelist;
+    vector<QPixmap *> map_img;
+    void loadImages(QPixmap imgs[], char path[], int n, int begin);
+    std::list<QPixmap *> deletelist;
 };
 
 // delete deletelist[1];

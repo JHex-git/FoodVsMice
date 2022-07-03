@@ -7,14 +7,14 @@ Sprite::Sprite(int x, int y, float frame_rate) : x(x), y(y), frame_rate(frame_ra
     frame_accum = 0;
 }
 
-Sprite::Sprite(int x, int y, float frame_rate, std::vector<IMAGE *> frames) : 
+Sprite::Sprite(int x, int y, float frame_rate, std::vector<QPixmap *> frames) :
     x(x), y(y), frame_rate(frame_rate), frames(frames) 
 {
     current_frame = 0;
     frame_accum = 0;
 };
 
-void Sprite::AddFrame(IMAGE *frame)
+void Sprite::AddFrame(QPixmap *frame)
 {
     frames.push_back(frame);
 }

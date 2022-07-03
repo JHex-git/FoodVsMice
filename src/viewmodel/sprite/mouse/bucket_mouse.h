@@ -12,6 +12,6 @@ private:
 public:
     BucketMouse(int x, int y);
 
-    BucketMouse(int x, int y, std::vector<IMAGE *> frames);
+    BucketMouse(int x, int y, std::vector<QPixmap *> frames);
 
 };

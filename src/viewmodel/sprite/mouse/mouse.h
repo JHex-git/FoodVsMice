@@ -16,7 +16,7 @@ private:
 public:
     Mouse(int x, int y, float frame_rate, int health, int velocity, int damage);
 
-    Mouse(int x, int y, float frame_rate, std::vector<IMAGE *> frames, int health, int velocity, int damage);
+    Mouse(int x, int y, float frame_rate, std::vector<QPixmap *> frames, int health, int velocity, int damage);
 
     virtual void UpdateBehave();
 

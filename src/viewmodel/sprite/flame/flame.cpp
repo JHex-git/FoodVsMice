@@ -1,5 +1,5 @@
-#include "sprite/flame/flame.h"
-#include "misc/random.h"
+#include "flame.h"
+#include "../../../common/random.h"
 #include "time_manager.h"
 #include "game_manager.h"
 #include "flame.h"
@@ -12,7 +12,7 @@ Flame::Flame(int x, int y) : Sprite(x, y, FRAME_RATE)
     drop_duration = Random::RandFloat(MIN_DROP_DURATION, MAX_DROP_DURATION);
 }
 
-Flame::Flame(int x, int y, std::vector<IMAGE *> frames) : Sprite(x, y, FRAME_RATE, frames)
+Flame::Flame(int x, int y, std::vector<QPixmap *> frames) : Sprite(x, y, FRAME_RATE, frames)
 {
     is_exist = true;
     is_dropping = true;

@@ -3,17 +3,16 @@
 #include <memory>
 #include <list>
 #include "flame.h"
-
 class FlameManager
 {
 private:
     const int FLAME_UNIT = 50;
     int flame_count;
     std::list<Flame *> flame_list;
-    std::vector<IMAGE *> frames;
+    std::vector<QPixmap *> frames;
 
 public:
-    FlameManager(int initial_flame, std::vector<IMAGE *> frames);
+    FlameManager(int initial_flame, std::vector<QPixmap *> frames);
 
     // 释放list中的所有flame
     ~FlameManager();

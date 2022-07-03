@@ -1,7 +1,7 @@
 #pragma once
 #include "../sprite.h"
-#include "sprite/food/food_manager.h"
-
+#include "food_manager.h"
+#include <QPainter>
 
 class Food : public Sprite
 {
@@ -22,7 +22,7 @@ protected:
 public:
     Food(int x, int y, int health, float cool_down_time);
 
-    Food(int x, int y, std::vector<IMAGE *> frames, int health, float cool_down_time);
+    Food(int x, int y, std::vector<QPixmap *> frames, int health, float cool_down_time);
 
     void TakeDamage(int damage);
 };

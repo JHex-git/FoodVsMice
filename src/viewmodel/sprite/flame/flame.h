@@ -21,7 +21,7 @@ private:
 
 public:
     Flame(int x, int y);
-    Flame(int x, int y, std::vector<IMAGE *> frames);
+    Flame(int x, int y, std::vector<QPixmap *> frames);
 
     void UpdateBehave() override;
 

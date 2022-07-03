@@ -1,7 +1,7 @@
 #include "flame_manager.h"
 #include "../../../common/common.h"
 
-FlameManager::FlameManager(int initial_flame, std::vector<IMAGE *> frames) : frames(frames)
+FlameManager::FlameManager(int initial_flame, std::vector<QPixmap *> frames) : frames(frames)
 {
     ASSERT(initial_flame > 0, "Initial flame must no less than 0");
     flame_count = initial_flame;

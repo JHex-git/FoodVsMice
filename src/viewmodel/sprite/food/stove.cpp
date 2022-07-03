@@ -14,5 +14,5 @@ void Stove::Func()
 Stove::Stove(int x, int y, FlameManager *flame_manager) : 
     Food(x, y, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
 
-Stove::Stove(int x, int y, std::vector<IMAGE *> frames, FlameManager *flame_manager) :
+Stove::Stove(int x, int y, std::vector<QPixmap *> frames, FlameManager *flame_manager) :
     Food(x, y, frames, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}

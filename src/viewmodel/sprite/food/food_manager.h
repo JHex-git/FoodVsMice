@@ -4,6 +4,7 @@
 #include "../../../common/enums.h"
 #include "../../../model/level/level_manager.h"
 #include "../flame/flame_manager.h"
+#include "../../../common/draw_item.h"
 class Food;
 
 class FoodManager
@@ -13,6 +14,7 @@ private:
     std::list<Food *> food_list; // 所有放在地图上的食物
     LevelManager *level_manager;
     FlameManager *flame_manager;
+    std::list<DrawItem *> draw_foodlist;
 
 public:
     /*** 
@@ -41,4 +43,7 @@ public:
      * 移除食物（铲子）
      */    
     void RemoveFood(int row_index, int column_index);
+
+// properties
+    std::shared_ptr<std::list<DrawItem *>> get_DrawFoodList() {return std::make_shared<std::list<DrawItem *>>(draw_foodlist);}
 };

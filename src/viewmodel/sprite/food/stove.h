@@ -17,5 +17,5 @@ private:
 public:
     Stove(int x, int y, FlameManager *flame_manager);
 
-    Stove(int x, int y, std::vector<IMAGE *> frames, FlameManager *flame_manager);
+    Stove(int x, int y, std::vector<QPixmap *> frames, FlameManager *flame_manager);
 };

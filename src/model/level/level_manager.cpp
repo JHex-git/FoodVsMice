@@ -1,6 +1,6 @@
-#include "level_manager.h""
+#include "level_manager.h"
 using namespace std;
-// void LevelManager::SetLevelName(){//¸³ÖµÃ¿¸ö¹Ø¿¨µÄÃû×Ö£¬³õÊ¼»¯µÄÒ»²¿·Ö
+// void LevelManager::SetLevelName(){//èµ‹å€¼æ¯ä¸ªå…³å¡çš„åå­—ï¼Œåˆå§‹åŒ–çš„ä¸€éƒ¨åˆ†
 //     Files levelnames;
 //     levelnames.getFiles("./levels");
 //     for (auto i = levelnames.files.begin(); i !=levelnames.files.end(); i++)
@@ -11,7 +11,7 @@ using namespace std;
 //     }
 // }
 
-void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø¿¨
+void LevelManager::ReadLevel(std::string level_name)//å¯¹æŒ‡å®šçš„å…³å¡åï¼Œè¿›è¡Œè¯»å–å…³å¡
 {
     char path[] = "../resources/levels/", tmppath[200] = { 0 };
     strcat(strcat(tmppath, path), level_name.c_str());
@@ -30,15 +30,15 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
         tempnum = fp.get();
         cout << "background:" << tempnum << endl;
         MapType i = (MapType)(tempnum - '0');
-        IMAGE *background_game[5];
+        QPixmap *background_game[5];
         switch (i)
         {
         case MapType::BASE:
-            background_game[0] = new IMAGE;
-            background_game[1] = new IMAGE;
-            background_game[2] = new IMAGE;
-            background_game[3] = new IMAGE;
-            background_game[4] = new IMAGE;
+            background_game[0] = new QPixmap;
+            background_game[1] = new QPixmap;
+            background_game[2] = new QPixmap;
+            background_game[3] = new QPixmap;
+            background_game[4] = new QPixmap;
             deletelist.push_back(background_game[0]);
             deletelist.push_back(background_game[1]);
             deletelist.push_back(background_game[2]);
@@ -70,14 +70,14 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
         tempnum = fp.get();
         cout << "plant:" << tempnum << endl;
         FoodType i = (FoodType)(tempnum - '0');
-        IMAGE *hotpot;
-        IMAGE *hotpot_b;
-        vector<IMAGE *> hot_pot;
+        QPixmap *hotpot;
+        QPixmap *hotpot_b;
+        vector<QPixmap *> hot_pot;
         switch (i)
         {
         case FoodType::HOTPOT:
-            hotpot = new IMAGE[13];
-            hotpot_b = new IMAGE[42];
+            hotpot = new QPixmap[13];
+            hotpot_b = new QPixmap[42];
             loadImages(hotpot, "../../resources/picture/food/Hots_pot/Hotpot/", 13, 1);
             loadImages(hotpot_b, "../resources/picture/food/Hots_pot/Hotpot_b/", 42, 14);
             for (auto j = 0; j < 13 ; j++){
@@ -89,7 +89,7 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
                 deletelist.push_back(&hotpot_b[j]);
             }
             food_types.push_back(FoodType::HOTPOT);
-            food_img_dict.insert(pair<FoodType, std::vector<IMAGE *>>(FoodType::HOTPOT,hot_pot));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HOTPOT,hot_pot));
             break;
 
         default:
@@ -103,19 +103,19 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
         tempnum = fp.get();
         cout << "mouse:" << tempnum << endl;
         MouseType i = (MouseType)(tempnum - '0');
-        IMAGE *normal_eat1;
-        vector<IMAGE *> normal_mouse;
+        QPixmap *normal_eat1;
+        vector<QPixmap *> normal_mouse;
         switch (i)
         {
         case MouseType::MOUSE:
-            normal_eat1 = new IMAGE[4];
+            normal_eat1 = new QPixmap[4];
             loadImages(normal_eat1, "../resources/picture/mouse/normal_mouse/normal_eat1/eat1_", 4, 1);
             for (auto j = 0; j < 4 ; j++){
                 normal_mouse.push_back(&normal_eat1[j]);
                 deletelist.push_back(&normal_eat1[j]);
             }
             mouse_types.push_back(MouseType::MOUSE);
-            mouse_img_dict.insert(pair<MouseType, std::vector<IMAGE *>>(MouseType::MOUSE,normal_mouse));
+            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::MOUSE,normal_mouse));
             break;
 
         default:
@@ -140,7 +140,7 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
             MouseType this_type = (MouseType)(tempnum - '0');
             mouse_list.push_back(this_type);
             cout <<"mousetype:"<< tempnum - '0' << endl;
-            tempnum = fp.get();//¿Õ¸ñ
+            tempnum = fp.get();//ç©ºæ ¼
             float this_wave;
             fp >> this_wave;
             cout <<"wavetime:"<< this_wave << endl;
@@ -149,7 +149,7 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
             fp >> this_line;
             cout << "line:" << this_line<<endl;
             mouse_line.push_back(this_line);
-            tempnum = fp.get();//¿Õ¸ñ»òÕß»»ĞĞ
+            tempnum = fp.get();//ç©ºæ ¼æˆ–è€…æ¢è¡Œ
             if (tempnum == '\n') break;
         }
     }
@@ -179,11 +179,11 @@ void LevelManager::ReadLevel(std::string level_name)//¶ÔÖ¸¶¨µÄ¹Ø¿¨Ãû£¬½øĞĞ¶ÁÈ¡¹Ø
 //     }
 // }
 
-const std::unordered_map<FoodType, std::vector<IMAGE *>>& LevelManager::GetFoodImages()
+const std::unordered_map<FoodType, std::vector<QPixmap *>>& LevelManager::GetFoodImages()
 {
     return food_img_dict;
 }
-const std::unordered_map<MouseType, std::vector<IMAGE *>>& LevelManager::GetMouseImages()
+const std::unordered_map<MouseType, std::vector<QPixmap *>>& LevelManager::GetMouseImages()
 {
     return mouse_img_dict;
 }
@@ -203,7 +203,7 @@ const std::list<int>& LevelManager::Getmouse_line()
 {
     return mouse_line;
 }
-void LevelManager::loadImages(IMAGE imgs[], char path[], int n, int begin)
+void LevelManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
 {
     for (int i = 0; i < n; i++)
     {
