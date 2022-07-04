@@ -1,7 +1,12 @@
 #pragma once
-#include<graphics.h>
-#include<iostream>
-#include<map>
+
+#include <QWidget>
+#include <QTimer>
+#include <QPainter>
+#include <QMouseEvent>
+#include <iostream>
+#include <map>
+#include "../common/DrawItem"
 
 using namespace std;
 
@@ -29,50 +34,54 @@ using namespace std;
 #define Select_hotpot_deta_x -15
 #define Select_hotpot_deta_y 13
 
-extern IMAGE select_[7];
 
-extern IMAGE normal_eat1[4];
-extern IMAGE normal_eat2[4];
-extern IMAGE normal_walk1[8];
-extern IMAGE normal_walk2[8];
-extern IMAGE normal_die[13];
-extern IMAGE Egg_boom[6];
-extern IMAGE Egg_pitcher[26];
-extern IMAGE Egg_b[5];
-extern IMAGE background_game[5];
-extern IMAGE Cherry_b;
-extern IMAGE Cherry_boom[4];
-extern IMAGE Cherry_tart[9];
-extern IMAGE hotpot[13];
-extern IMAGE hotpot_b[42];
-
-extern int Picture_num;                                       
-extern int plant_x, plant_y;
-extern int zombie_x, zonbie_y;
-
-class GUIManager
+class GUIManager : public QWidget
 {
-    public:
-        int ii;
-        map< pair<int, int>, int> sele;
-        int selected;
-        int num;
-        void init();
-        void loading();                                                             //IMAGE 指针指向picture
-        pair<int, int> positioning(int x, int y);                                   //返回坐标，不在范围内返回（-1.-1）
-        int locationing(int x);                                                     //返回选择食物的位置
-        int  Place_positioning_x(int x, int deta_x);                                //放置食物时定位
-        int  Place_positioning_y(int y, int deta_y);                                //放置食物时定位
-        int  select_positioning_x(int x, int deta_x);                               //选择食物时定位
-        int  select_positioning_y(int y, int deta_y);                               //选择食物时定位
-        void Draw_background(IMAGE img[]);                                          //画背景
-        void Draw_select(IMAGE *name, int num, int deta_x1, int deta_y1);           //画select的画面
-        static void drawAlpha(IMAGE *picture, int picture_x, int picture_y);        //插入透明图
-        void mouse_message();                                                       //鼠标选择食物
-        void mouse_message_drow();                                                  //放置
+    Q_OBJECT
 
-        ~GUIManager();
-   private:
-       void loadImages(IMAGE imgs[], char path[], int n, int begin);                //插入多张图
+public:
+    GUIManager(QWidget *parent = 0);
+//.............................................................................................................................准备阶段
+    void init();                                                   //初始化
+    void loadImages(QPixmap imgs[], char path[], int n, int begin);//载入多张图
+    void loading();                                                //加载图片
 
+//............................................................................................................................定位函数
+    int locationing(int x);                                        //返回选择食物的位置,从0开始算;
+    pair<int, int> positioning(int x, int y);                      //返回要放置的食物坐标，不在范围内返回（-1.-1）
+    int  Place_positioning_x(int x, int deta_x);                   //放置食物时定位，输入x（列号），返回精确的像素坐标x;
+    int  Place_positioning_y(int y, int deta_y);                   //放置食物时定位，输入y（行号），放回精确的像素坐标y;
+    int  select_positioning_x(int num, int deta_x, int deta_y);    //选择食物时定位，输入选择框的编号和植物的deta_x，获得精确的像素坐标
+
+//...........................................................................................................................画图函数
+    void draw_game_background();                                   //画游戏背景
+    void draw_level_choosing();                                    //画选择页面
+    void draw_game();                                              //画食物、老鼠
+
+    ~GUIManager();
+
+protected slots:
+       void paintEvent(QPaintEvent *event);                           //绘图事件
+//       void mousePressEvent(QMouseEvent *event);                      //鼠标移动事件
+private:
+    std::shared_ptr<std::list<DrawItem *>> draw_list;
+    //std::shared_ptr<std::list<> select;
+
+//...................................................................时钟
+    QTimer *timer_draw;         //画图时钟
+    int time_draw;              //信号时长
+
+    QPixmap BackGround;         //大背景
+    QPixmap level[11];          //选择页面
+    QPixmap game[5];            //游戏页面
+
+//.................................................................控制信号
+    int selected;               //是否已选择（0表示没选择，1表示选择了）
+    int num;                    //选择了什么食物（0到6是食物，7是铲子）
+    int level_choosing;         //关卡选择（0是选择界面，1是关卡1，2是关卡2，3是关卡3）
+
+//......................................。。。。。。................自测变量，可删除
+    int ii;                     // 测试用
+    QPixmap Cherry_tart[9];     //测试用
+    QPixmap select_food[7];     //测试用
 };
