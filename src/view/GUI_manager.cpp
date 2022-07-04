@@ -19,24 +19,43 @@ void GUIManager:: init()
     num=-1;
     selected=0;
     time_draw=50;
+    num_select=1;
     ii=0;
 }
 
-int GUIManager::Place_positioning_x(int x, int deta_x)
+void GUIManager::loading()
+{
+    select_food[0].load("../GUI_Manager/resources/picture/food/Cherrys_tart/Cherry_tart/1.png");
+    BackGround.load("../GUI_Manager/resources/picture/Screen/0.png");
+    loadImages(game, "../GUI_Manager/resources/picture/Screen/",5,1);
+    loadImages(level, "../GUI_Manager/resources/picture/Screen/leve_select/", 11, 0);
+    loadImages(Cherry_tart, "../GUI_Manager/resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
+}
+
+void GUIManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
+{
+    for (int i = 0; i < n; i++)
+    {
+        char tmpPath[200], frameNo[4];
+        strcpy_s(tmpPath, 200, path);
+        strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
+        imgs[i].load(tmpPath);
+    }
+}
+
+int GUIManager::Place_positioning_x(int x)
 {
     int temp_x;
     temp_x = x * 80;
     temp_x = temp_x + 120;
-    temp_x = temp_x - deta_x;
     return temp_x;
 }
 
-int GUIManager::Place_positioning_y(int y, int deta_y)
+int GUIManager::Place_positioning_y(int y)
 {
     int temp_y;
     temp_y = y * 75;
     temp_y = temp_y + 130;
-    temp_y = temp_y - deta_y;
     return temp_y;
 }
 
@@ -71,23 +90,14 @@ int GUIManager::locationing(int x)
     return temp;
 }
 
-void GUIManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
+pair<int, int> GUIManager::select_positioning_x(int num, int deta_x, int deta_y)
 {
-    for (int i = 0; i < n; i++)
-    {
-        char tmpPath[200], frameNo[4];
-        strcpy_s(tmpPath, 200, path);
-        strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
-        imgs[i].load(tmpPath);
-    }
-}
-
-void GUIManager::loading()
-{
-    BackGround.load("D:\\Qt\\project\\GUI_Manager\\resources\\picture\\Screen\\0.png");
-    loadImages(game, "../GUI_Manager/resources/picture/Screen/",5,1);
-    loadImages(level, "../GUI_Manager/resources/picture/Screen/leve_select/", 11, 0);
-    loadImages(Cherry_tart, "../GUI_Manager/resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
+    pair<int,int> b;
+    int y = 30;
+    int x;
+    b.first=90 + 93 * num-deta_x;
+    b.second=30-deta_y;
+    return b;
 }
 
 void GUIManager::draw_game_background()
@@ -137,7 +147,16 @@ void GUIManager::draw_game()
     {
         a.drawPixmap(it->x, int->y, it->img);
     }
+}
 
+void GUIManager::draw_select()
+{
+    QPainter a(this);
+
+    for(int i=0;i<num_select;i++)
+    {
+       a.drawPixmap(select_positioning_x(i, -30, -8).first,select_positioning_x(i, -30, -8).second,select_food[i]);
+    }
 }
 
 void GUIManager::paintEvent(QPaintEvent *event)
@@ -148,23 +167,71 @@ void GUIManager::paintEvent(QPaintEvent *event)
     else
     {
         draw_game_background();
+        draw_select();
         draw_game();
     }
 }
 
-//void GUIManager::mousePressEvent(QMouseEvent *event)
-//{
-//    m_PointStart = event->pos();
-//    if(event->button()==Qt::LeftButton)
-//    {
-//        if(level_choosing==0)
-//        {
-//            if()
-//        }
-//    }
-//}
+void GUIManager::mousePressEvent(QMouseEvent *event)
+{
+    if(event->button()==Qt::LeftButton)
+    {
+        if(level_choosing==0)
+        {
+            if(event->x()>=300&&event->x()<=570)
+            {
+                if(event->y()>=150&&event->y()<=210)
+                    level_choosing=1;
+                if(event->y()>=300&&event->y()<=360)
+                    level_choosing=2;
+                if(event->y()>=450&&event->y()<=410)
+                    level_choosing=3;
+            }
+        }
+        if(level_choosing==1)
+        {
+            if(event->y()<130)
+            {
+                num = locationing(event->x());
+                selected = 1;
+            }
+            if (event->y() >= 130 && num!=-1 && selected==1)
+            {
+                int row = positioning(event->x(), event->y()).second;
+                int col = positioning(event->x(), event->y()).first;
+                PlaceFood(row,col,num);
+                num = -1;
+                selected = 0;
+            }
+        }
+
+    }
+}
 
 GUIManager::~GUIManager()
 {
     delete timer_draw;
+}
+
+
+std::function<std::pair<int, int>(int row_index, int column_index)> GUI_Manager::get_Matrix2ViewportCommand()
+{
+    return [](int row_index, int column_index)->std::pair<int, int>
+    {
+        std::pair<int, int> p;
+        p.first = Placing_positioning_x(column_index);
+        p.second = Placing_positioning_y(row_index);
+        return p;
+    };
+}
+
+std::function<std::pair<int, int>(int x, int y) get_Viewport2MatrixCommand()
+{
+    return [](int x, int y)->std::pair<int, int>
+    {
+        std::pair<int, int> p;
+        p.first = positioning(x, y).second;
+        p.second = positioning(x, y).first;
+        return p;
+    }
 }
