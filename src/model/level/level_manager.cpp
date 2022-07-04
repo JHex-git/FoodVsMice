@@ -153,7 +153,11 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         tempnum = fp.get();
         cout << "mouse:" << tempnum << endl;
         MouseType i = (MouseType)(tempnum - '0');
+        QPixmap *normal_walk1;
+        QPixmap *normal_walk2;
         QPixmap *normal_eat1;
+        QPixmap *normal_eat2;
+        QPixmap *normal_die;
         vector<QPixmap *> normal_mouse;
         switch (i)
         {
@@ -282,5 +286,15 @@ void LevelManager::DeleteImages()
 {
     for (auto i = deletelist.begin(); i != deletelist.end();i++){
         delete (*i);
+    }
+}
+void LevelManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
+{
+    for (int i = 0; i < n; i++)
+    {
+        char tmpPath[200], frameNo[4];
+        strcpy_s(tmpPath, 200, path);
+        strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
+        imgs[i].load(tmpPath);
     }
 }

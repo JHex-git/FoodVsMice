@@ -57,6 +57,7 @@ private:
     // 地图图片
     vector<QPixmap *> map_img;
     std::list<QPixmap *> deletelist;
+    void loadImages(QPixmap imgs[], char path[], int n, int begin);
 };
 
 // delete deletelist[1];
