@@ -2,14 +2,16 @@
 enum class FoodType
 {
     HOTPOT = 0,
-
+    CHERRY,
+    EGG
 };
 
 // TODO: 之后有新的老鼠
 enum class MouseType
 {
-    MOUSE,
-    BUCKET_MOUSE
+    NORMAL_MOUSE=0,
+    BUCKET_MOUSE,
+    HELMET_MOUSE
 };
 
 enum class MapType

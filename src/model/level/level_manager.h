@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <fstream>
 #include "../../common/enums.h"
+#include "../../view/GUI_manager.h"
 #include <QPainter>
 using namespace std;
 class LevelManager
@@ -55,7 +56,6 @@ private:
     std::unordered_map<MouseType, std::vector<QPixmap *>> mouse_img_dict;
     // 地图图片
     vector<QPixmap *> map_img;
-    void loadImages(QPixmap imgs[], char path[], int n, int begin);
     std::list<QPixmap *> deletelist;
 };
 
