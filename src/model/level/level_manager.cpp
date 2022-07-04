@@ -78,9 +78,9 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         QPixmap *Egg_pitcher;
         QPixmap *Eggs;
         QPixmap *Egg_boom;
-        vector<QPixmap *> hot_pot;
-        vector<QPixmap *> cherry;
-        vector<QPixmap *> Eggs_pitcher;
+        vector<QPixmap *> *hot_pot = new vector<QPixmap *>;
+        vector<QPixmap *> *cherry = new vector<QPixmap *>;
+        vector<QPixmap *> *Eggs_pitcher = new vector<QPixmap *>;
         switch (i)
         {
         case FoodType::HOTPOT:
@@ -89,15 +89,15 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(hotpot, "../FoodVsMice/resources/picture/food/Hots_pot/Hotpot/", 13, 1);
             loadImages(hotpot_b, "../FoodVsMice/resources/picture/food/Hots_pot/Hotpot_b/", 42, 14);
             for (auto j = 0; j < 13 ; j++){
-                hot_pot.push_back(&hotpot[j]);
+                hot_pot->push_back(&hotpot[j]);
                 deletelist.push_back(&hotpot[j]);
             }
             for (auto j = 0; j < 42 ; j++){
-                hot_pot.push_back(&hotpot_b[j]);
+                hot_pot->push_back(&hotpot_b[j]);
                 deletelist.push_back(&hotpot_b[j]);
             }
             food_types.push_back(FoodType::HOTPOT);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HOTPOT,hot_pot));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HOTPOT,(*hot_pot)));
             break;
         case FoodType::CHERRY:
             Cherry_tart = new QPixmap[9];
@@ -107,19 +107,19 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Cherry_b, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_b/", 1, 1);
             loadImages(Cherry_boom, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_boom/", 4, 2);
             for (auto j = 0; j < 9 ; j++){
-                cherry.push_back(&Cherry_tart[j]);
+                cherry->push_back(&Cherry_tart[j]);
                 deletelist.push_back(&Cherry_tart[j]);
             }
             for (auto j = 0; j < 1 ; j++){
-                cherry.push_back(&Cherry_b[j]);
+                cherry->push_back(&Cherry_b[j]);
                 deletelist.push_back(&Cherry_b[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                cherry.push_back(&Cherry_boom[j]);
+                cherry->push_back(&Cherry_boom[j]);
                 deletelist.push_back(&Cherry_boom[j]);
             }
             food_types.push_back(FoodType::CHERRY);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::CHERRY,cherry));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::CHERRY,(*cherry)));
             break;
         case FoodType::EGG:
             Egg_pitcher = new QPixmap[26];
@@ -129,19 +129,19 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Eggs, "../FoodVsMice/resources/picture/food/Eggs_pitcher/Eggs/", 5, 1);
             loadImages(Egg_boom, "../FoodVsMice/resources/picture/food/Eggs_pitcher/Egg_boom/", 6, 1);
             for (auto j = 0; j < 26 ; j++){
-                Eggs_pitcher.push_back(&Egg_pitcher[j]);
+                Eggs_pitcher->push_back(&Egg_pitcher[j]);
                 deletelist.push_back(&Egg_pitcher[j]);
             }
             for (auto j = 0; j < 5 ; j++){
-                Eggs_pitcher.push_back(&Eggs[j]);
+                Eggs_pitcher->push_back(&Eggs[j]);
                 deletelist.push_back(&Eggs[j]);
             }
             for (auto j = 0; j < 6 ; j++){
-                Eggs_pitcher.push_back(&Egg_boom[j]);
+                Eggs_pitcher->push_back(&Egg_boom[j]);
                 deletelist.push_back(&Egg_boom[j]);
             }
             food_types.push_back(FoodType::EGG);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::EGG,Eggs_pitcher));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::EGG,(*Eggs_pitcher)));
             break;
         default : break;
         }
@@ -158,7 +158,21 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         QPixmap *normal_eat1;
         QPixmap *normal_eat2;
         QPixmap *normal_die;
-        vector<QPixmap *> normal_mouse;
+
+        QPixmap *helmet_walking1;
+        QPixmap *helmet_walking2;
+        QPixmap *helmet_walking3;
+        QPixmap *helmet_walking4;
+        QPixmap *helmet_walking5;
+        QPixmap *helmet_eating1;
+        QPixmap *helmet_eating2;
+        QPixmap *helmet_eating3;
+        QPixmap *helmet_eating4;
+        QPixmap *helmet_eating5;
+        QPixmap *helmet_die;
+
+        vector<QPixmap *> normal_mouse = new vector<QPixmap *>;
+        vector<QPixmap *> helmet_mouse = new vector<QPixmap *>;
         switch (i)
         {
         case MouseType::NORMAL_MOUSE:
@@ -175,27 +189,60 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(normal_die, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_die/die_", 13, 1);
             
             for (auto j = 0; j < 8 ; j++){
-                normal_mouse.push_back(&normal_walk1[j]);
+                normal_mouse->push_back(&normal_walk1[j]);
                 deletelist.push_back(&normal_walk1[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                normal_mouse.push_back(&normal_walk2[j]);
+                normal_mouse->push_back(&normal_walk2[j]);
                 deletelist.push_back(&normal_walk2[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                normal_mouse.push_back(&normal_eat1[j]);
+                normal_mouse->push_back(&normal_eat1[j]);
                 deletelist.push_back(&normal_eat1[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                normal_mouse.push_back(&normal_eat2[j]);
+                normal_mouse->push_back(&normal_eat2[j]);
                 deletelist.push_back(&normal_eat2[j]);
             }
             for (auto j = 0; j < 13 ; j++){
-                normal_mouse.push_back(&normal_die[j]);
+                normal_mouse->push_back(&normal_die[j]);
                 deletelist.push_back(&normal_die[j]);
             }
             mouse_types.push_back(MouseType::NORMAL_MOUSE);
-            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
+            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,(*normal_mouse)));
+            break;
+        case MouseType::HELMET_MOUSE:
+            helmet_walking1 = new QPixmap[8];
+            helmet_walking2 = new QPixmap[8];
+            helmet_walking3 = new QPixmap[8];
+            helmet_walking4 = new QPixmap[8];
+            helmet_walking5 = new QPixmap[8];
+            helmet_eating1 = new QPixmap[4];
+            helmet_eating2 = new QPixmap[4];
+            helmet_eating3 = new QPixmap[8];
+            helmet_eating4 = new QPixmap[4];
+            helmet_eating5 = new QPixmap[4];
+            helmet_die = new QPixmap[13];
+
+            loadImages(helmet_walking1, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_walking1/", 8, 1);
+            loadImages(helmet_walking2, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_walking2/", 8, 9);
+            loadImages(helmet_walking3, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_walking3/", 8, 17);
+            loadImages(helmet_walking4, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_walking4/", 8, 25);
+            loadImages(helmet_walking5, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_walking5/", 8, 33);
+            loadImages(helmet_eating1, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_eating1/", 4, 41);
+            loadImages(helmet_eating2, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_eating2/", 4, 45);
+            loadImages(helmet_eating3, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_eating3/", 8, 49);
+            loadImages(helmet_eating4, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_eating4/", 4, 57);
+            loadImages(helmet_eating5, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_eating5/", 4, 61);
+            loadImages(helmet_die, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_die/", 13, 65);
+
+            for (auto j = 0; j < 8 ; j++){
+                helmet_mouse->push_back(&helmet_walking1[j]);
+                deletelist.push_back(&helmet_walking1[j]);
+            }
+
+
+            
             break;
         default:
             break;
