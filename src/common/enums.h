@@ -1,9 +1,17 @@
 #pragma once
 enum class FoodType
 {
-    HOTPOT = 0,
-    CHERRY,
-    EGG
+    SMALL_FIRE=0,
+    STEAM_DRAWER=1,
+    SMALL_BREAD=2,
+    FLOUR=3,
+    FISH=4,
+    HOTPOT=5,
+    HAMBURG=6,
+    CHERRY=7,
+    EGG=8,
+    BIG_BREAD=9,
+    BARB=10
 };
 
 // TODO: 之后有新的老鼠
