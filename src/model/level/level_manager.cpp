@@ -115,7 +115,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&small_fire[j]);
             }
             food_types.push_back(FoodType::SMALL_FIRE);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_FIRE,(*smallfire)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_FIRE,smallfire));
             break;
         case FoodType::STEAM_DRAWER:
             steam_drawer = new QPixmap[19];//第一张里是子弹
@@ -125,7 +125,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&steam_drawer[j]);
             }
             food_types.push_back(FoodType::STEAM_DRAWER);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::STEAM_DRAWER,(*steamdrawer)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::STEAM_DRAWER,steamdrawer));
             break;
         case FoodType::SMALL_BREAD:
             Small1=new QPixmap[12];
@@ -147,7 +147,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&Small3[j]);
             }
             food_types.push_back(FoodType::SMALL_BREAD);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_BREAD,(*Smallbread)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_BREAD,Smallbread));
             break;
         case FoodType::FLOUR:
             flour = new QPixmap[27];
@@ -157,7 +157,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&flour[j]);
             }
             food_types.push_back(FoodType::FLOUR);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::FLOUR,(*Flour)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::FLOUR,Flour));
             break;
         case FoodType::FISH:
             fish = new QPixmap[22];
@@ -167,7 +167,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&fish[j]);
             }
             food_types.push_back(FoodType::FISH);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::FISH,(*Fish)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::FISH,Fish));
             break;
         case FoodType::HOTPOT:
             hotpot = new QPixmap[13];
@@ -183,7 +183,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&hotpot_b[j]);
             }
             food_types.push_back(FoodType::HOTPOT);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HOTPOT,(*hot_pot)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HOTPOT,hot_pot));
             break;
         case FoodType::HAMBURG:
             Hamburg1 = new QPixmap[13];
@@ -199,7 +199,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&Hamburg2[j]);
             }
             food_types.push_back(FoodType::HAMBURG);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HAMBURG,(*Hamburg)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::HAMBURG,Hamburg));
             break;
         case FoodType::CHERRY:
             Cherry_tart = new QPixmap[9];
@@ -221,7 +221,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&Cherry_boom[j]);
             }
             food_types.push_back(FoodType::CHERRY);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::CHERRY,(*cherry)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::CHERRY,cherry));
             break;
         case FoodType::EGG:
             Egg_pitcher = new QPixmap[26];
@@ -243,7 +243,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&Egg_boom[j]);
             }
             food_types.push_back(FoodType::EGG);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::EGG,(*Eggs_pitcher)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::EGG,Eggs_pitcher));
             break;
         case FoodType::BIG_BREAD:
             Big1 = new QPixmap[12];
@@ -265,7 +265,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&Big3[j]);
             }
             food_types.push_back(FoodType::BIG_BREAD);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BIG_BREAD,(*Bigbread)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BIG_BREAD,Bigbread));
             break;
         case FoodType::BARB:
             barb = new QPixmap[19];
@@ -275,7 +275,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&barb[j]);
             }
             food_types.push_back(FoodType::BARB);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BARB,(*Barb)));
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BARB,Barb));
             break;
         default : break;
         }
@@ -344,7 +344,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
                 deletelist.push_back(&normal_die[j]);
             }
             mouse_types.push_back(MouseType::NORMAL_MOUSE);
-            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,(*normal_mouse)));
+            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
             break;
         case MouseType::HELMET_MOUSE:
             helmet_walking1 = new QPixmap[8];
@@ -417,7 +417,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             }
 
             mouse_types.push_back(MouseType::HELMET_MOUSE);
-            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::HELMET_MOUSE,(*helmet_mouse)));
+            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::HELMET_MOUSE,helmet_mouse));
             break;
         default:
             break;
