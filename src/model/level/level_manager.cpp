@@ -479,7 +479,14 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
 //         std::cout << "update an existed level" << std::endl;
 //     }
 // }
-
+const std::vector<FoodType>& LevelManager::GetFoodTypes()
+{
+    return food_types;
+}
+const std::vector<FoodType>& LevelManager::GetMouseTypes()
+{
+    return mouse_types;
+}
 const std::unordered_map<FoodType, std::vector<QPixmap *>>& LevelManager::GetFoodImages()
 {
     return food_img_dict;

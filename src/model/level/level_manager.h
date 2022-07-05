@@ -27,6 +27,9 @@ public:
     const std::unordered_map<FoodType, std::vector<QPixmap *>>& GetFoodImages();
     const std::unordered_map<MouseType, std::vector<QPixmap *>>& GetMouseImages();
 
+    const std::vector<FoodType> &GetFoodTypes();
+    const std::vector<FoodType> &GetMouseTypes();
+
     // 返回波的信息
     const std::list<float>& GetWaves();
     // 与上面类似，两个函数分别返回mouse_list、mouse_come_time以及mouse_line
