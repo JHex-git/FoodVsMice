@@ -22,11 +22,8 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         return;
     }
     char tempnum;
-    int count=0;
     for (;;)// read background
-    { 
-        count++;
-        cout << "count:" << count << endl;
+    {
         tempnum = fp.get();
         cout << "background:" << tempnum << endl;
         MapType i = (MapType)(tempnum - '0');
@@ -62,7 +59,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         tempnum = fp.get();
         if (tempnum == '\n') break;
     }
-    count = 0;
+    int now_food;
     QPixmap *fire;
     QPixmap *small_fire;
     QPixmap *steam_drawer;
@@ -84,24 +81,24 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     QPixmap *Big1;
     QPixmap *Big2;
     QPixmap *Big3;
-    vector<QPixmap *> *smallfire = new vector<QPixmap *>;
-    vector<QPixmap *> *steamdrawer = new vector<QPixmap *>;
-    vector<QPixmap *> *Smallbread = new vector<QPixmap *>;
-    vector<QPixmap *> *Flour = new vector<QPixmap *>;
-    vector<QPixmap *> *Fish = new vector<QPixmap *>;
-    vector<QPixmap *> *hot_pot = new vector<QPixmap *>;
-    vector<QPixmap *> *Hamburg = new vector<QPixmap *>;
-    vector<QPixmap *> *cherry = new vector<QPixmap *>;
-    vector<QPixmap *> *Eggs_pitcher = new vector<QPixmap *>;
-    vector<QPixmap *> *Bigbread = new vector<QPixmap *>;
+    QPixmap *barb;
+    vector<QPixmap *> smallfire;
+    vector<QPixmap *> steamdrawer;
+    vector<QPixmap *> Smallbread;
+    vector<QPixmap *> Flour;
+    vector<QPixmap *> Fish;
+    vector<QPixmap *> hot_pot;
+    vector<QPixmap *> Hamburg;
+    vector<QPixmap *> cherry;
+    vector<QPixmap *> Eggs_pitche;;
+    vector<QPixmap *> Bigbread;
+    vector<QPixmap *> Barb;
     for (;;)//read plant
     {
-        count++;
-        cout << "count:" << count << endl;
-        tempnum = fp.get();
-        cout << "plant:" << tempnum << endl;
-        FoodType i = (FoodType)(tempnum - '0');
-        
+        fp >> now_food;
+        cout << "plant:" << now_food << endl;
+        FoodType i = (FoodType)now_food;
+
         switch (i)
         {
         case FoodType::SMALL_FIRE:
@@ -110,11 +107,11 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(fire, "../FoodVsMice/resources/picture/food/small_fire/fire/", 10, 1);
             loadImages(small_fire, "../FoodVsMice/resources/picture/food/small_fire/small_fire/", 29, 1);
             for (auto j = 0; j < 10 ; j++){
-                smallfire->push_back(&fire[j]);
+                smallfire.push_back(&fire[j]);
                 deletelist.push_back(&fire[j]);
             }
             for (auto j = 0; j < 29 ; j++){
-                smallfire->push_back(&small_fire[j]);
+                smallfire.push_back(&small_fire[j]);
                 deletelist.push_back(&small_fire[j]);
             }
             food_types.push_back(FoodType::SMALL_FIRE);
@@ -124,7 +121,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             steam_drawer = new QPixmap[19];//第一张里是子弹
             loadImages(steam_drawer, "../FoodVsMice/resources/picture/food/steam_drawer/", 19, 0);
             for (auto j = 0; j < 19 ; j++){
-                steamdrawer->push_back(&steam_drawer[j]);
+                steamdrawer.push_back(&steam_drawer[j]);
                 deletelist.push_back(&steam_drawer[j]);
             }
             food_types.push_back(FoodType::STEAM_DRAWER);
@@ -138,15 +135,15 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Small2, "../FoodVsMice/resources/picture/food/Smallbread/Small2/", 12, 13);
             loadImages(Small3, "../FoodVsMice/resources/picture/food/Smallbread/Small3/", 12, 25);
             for (auto j = 0; j < 12 ; j++){
-                Smallbread->push_back(&Small1[j]);
+                Smallbread.push_back(&Small1[j]);
                 deletelist.push_back(&Small1[j]);
             }
             for (auto j = 0; j < 12 ; j++){
-                Smallbread->push_back(&Small2[j]);
+                Smallbread.push_back(&Small2[j]);
                 deletelist.push_back(&Small2[j]);
             }
             for (auto j = 0; j < 12 ; j++){
-                Smallbread->push_back(&Small3[j]);
+                Smallbread.push_back(&Small3[j]);
                 deletelist.push_back(&Small3[j]);
             }
             food_types.push_back(FoodType::SMALL_BREAD);
@@ -156,7 +153,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             flour = new QPixmap[27];
             loadImages(flour, "../FoodVsMice/resources/picture/food/flour/", 27, 1);
             for (auto j = 0; j < 27 ; j++){
-                Flour->push_back(&flour[j]);//0~9正常状态，10~26攻击状态
+                Flour.push_back(&flour[j]);//0~9正常状态，10~26攻击状态
                 deletelist.push_back(&flour[j]);
             }
             food_types.push_back(FoodType::FLOUR);
@@ -166,7 +163,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             fish = new QPixmap[22];
             loadImages(fish, "../FoodVsMice/resources/picture/food/fish/", 22, 0);
             for (auto j = 0; j < 22 ; j++){
-                Fish->push_back(&fish[j]);//0是子弹
+                Fish.push_back(&fish[j]);//0是子弹
                 deletelist.push_back(&fish[j]);
             }
             food_types.push_back(FoodType::FISH);
@@ -178,11 +175,11 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(hotpot, "../FoodVsMice/resources/picture/food/Hots_pot/Hotpot/", 13, 1);
             loadImages(hotpot_b, "../FoodVsMice/resources/picture/food/Hots_pot/Hotpot_b/", 42, 14);
             for (auto j = 0; j < 13 ; j++){
-                hot_pot->push_back(&hotpot[j]);
+                hot_pot.push_back(&hotpot[j]);
                 deletelist.push_back(&hotpot[j]);
             }
             for (auto j = 0; j < 42 ; j++){
-                hot_pot->push_back(&hotpot_b[j]);
+                hot_pot.push_back(&hotpot_b[j]);
                 deletelist.push_back(&hotpot_b[j]);
             }
             food_types.push_back(FoodType::HOTPOT);
@@ -194,11 +191,11 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Hamburg1, "../FoodVsMice/resources/picture/food/Hamburg/Hamburg1/", 13, 1);
             loadImages(Hamburg2, "../FoodVsMice/resources/picture/food/Hamburg/Hamburg2/", 37, 14);
             for (auto j = 0; j < 13 ; j++){
-                Hamburg->push_back(&Hamburg1[j]);
+                Hamburg.push_back(&Hamburg1[j]);
                 deletelist.push_back(&Hamburg1[j]);
             }
             for (auto j = 0; j < 37 ; j++){
-                Hamburg->push_back(&Hamburg2[j]);
+                Hamburg.push_back(&Hamburg2[j]);
                 deletelist.push_back(&Hamburg2[j]);
             }
             food_types.push_back(FoodType::HAMBURG);
@@ -207,20 +204,20 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         case FoodType::CHERRY:
             Cherry_tart = new QPixmap[9];
             Cherry_b = new QPixmap[1];
-            Cherry_boom = new QPixmap[4]
+            Cherry_boom = new QPixmap[4];
             loadImages(Cherry_tart, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
             loadImages(Cherry_b, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_b/", 1, 1);
             loadImages(Cherry_boom, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_boom/", 4, 2);
             for (auto j = 0; j < 9 ; j++){
-                cherry->push_back(&Cherry_tart[j]);
+                cherry.push_back(&Cherry_tart[j]);
                 deletelist.push_back(&Cherry_tart[j]);
             }
             for (auto j = 0; j < 1 ; j++){
-                cherry->push_back(&Cherry_b[j]);
+                cherry.push_back(&Cherry_b[j]);
                 deletelist.push_back(&Cherry_b[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                cherry->push_back(&Cherry_boom[j]);
+                cherry.push_back(&Cherry_boom[j]);
                 deletelist.push_back(&Cherry_boom[j]);
             }
             food_types.push_back(FoodType::CHERRY);
@@ -234,15 +231,15 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Eggs, "../FoodVsMice/resources/picture/food/Eggs_pitcher/Eggs/", 5, 1);
             loadImages(Egg_boom, "../FoodVsMice/resources/picture/food/Eggs_pitcher/Egg_boom/", 6, 1);
             for (auto j = 0; j < 26 ; j++){
-                Eggs_pitcher->push_back(&Egg_pitcher[j]);
+                Eggs_pitcher.push_back(&Egg_pitcher[j]);
                 deletelist.push_back(&Egg_pitcher[j]);
             }
             for (auto j = 0; j < 5 ; j++){
-                Eggs_pitcher->push_back(&Eggs[j]);
+                Eggs_pitcher.push_back(&Eggs[j]);
                 deletelist.push_back(&Eggs[j]);
             }
             for (auto j = 0; j < 6 ; j++){
-                Eggs_pitcher->push_back(&Egg_boom[j]);
+                Eggs_pitcher.push_back(&Egg_boom[j]);
                 deletelist.push_back(&Egg_boom[j]);
             }
             food_types.push_back(FoodType::EGG);
@@ -256,21 +253,30 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(Big2, "../FoodVsMice/resources/picture/food/Bigbread/Big2/", 12, 13);
             loadImages(Big3, "../FoodVsMice/resources/picture/food/Bigbread/Big3/", 12, 25);
             for (auto j = 0; j < 12 ; j++){
-                Bigbread->push_back(&Big1[j]);
+                Bigbread.push_back(&Big1[j]);
                 deletelist.push_back(&Big1[j]);
             }
             for (auto j = 0; j < 12 ; j++){
-                Bigbread->push_back(&Big2[j]);
+                Bigbread.push_back(&Big2[j]);
                 deletelist.push_back(&Big2[j]);
             }
             for (auto j = 0; j < 12 ; j++){
-                Bigbread->push_back(&Big3[j]);
+                Bigbread.push_back(&Big3[j]);
                 deletelist.push_back(&Big3[j]);
             }
             food_types.push_back(FoodType::BIG_BREAD);
             food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BIG_BREAD,(*Bigbread)));
             break;
-        
+        case FoodType::BARB:
+            barb = new QPixmap[19];
+            loadImages(barb, "../FoodVsMice/resources/picture/food/barb/", 19, 1);
+            for (auto j = 0; j < 19 ; j++){
+                Barb.push_back(&barb[j]);
+                deletelist.push_back(&barb[j]);
+            }
+            food_types.push_back(FoodType::BARB);
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BARB,(*Barb)));
+            break;
         default : break;
         }
         tempnum = fp.get();
@@ -294,8 +300,8 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     QPixmap *helmet_eating5;
     QPixmap *helmet_die;
 
-    vector<QPixmap *> normal_mouse = new vector<QPixmap *>;
-    vector<QPixmap *> helmet_mouse = new vector<QPixmap *>;
+    vector<QPixmap *> normal_mouse;
+    vector<QPixmap *> helmet_mouse;
     for (;;)//read mouse
     {
         tempnum = fp.get();
@@ -318,23 +324,23 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(normal_die, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_die/die_", 13, 1);
             
             for (auto j = 0; j < 8 ; j++){
-                normal_mouse->push_back(&normal_walk1[j]);
+                normal_mouse.push_back(&normal_walk1[j]);
                 deletelist.push_back(&normal_walk1[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                normal_mouse->push_back(&normal_walk2[j]);
+                normal_mouse.push_back(&normal_walk2[j]);
                 deletelist.push_back(&normal_walk2[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                normal_mouse->push_back(&normal_eat1[j]);
+                normal_mouse.push_back(&normal_eat1[j]);
                 deletelist.push_back(&normal_eat1[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                normal_mouse->push_back(&normal_eat2[j]);
+                normal_mouse.push_back(&normal_eat2[j]);
                 deletelist.push_back(&normal_eat2[j]);
             }
             for (auto j = 0; j < 13 ; j++){
-                normal_mouse->push_back(&normal_die[j]);
+                normal_mouse.push_back(&normal_die[j]);
                 deletelist.push_back(&normal_die[j]);
             }
             mouse_types.push_back(MouseType::NORMAL_MOUSE);
@@ -366,47 +372,47 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(helmet_die, "../FoodVsMice/resources/picture/mouse/helmet_mouse/helmet_die/", 13, 65);
 
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_walking1[j]);
+                helmet_mouse.push_back(&helmet_walking1[j]);
                 deletelist.push_back(&helmet_walking1[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_walking2[j]);
+                helmet_mouse.push_back(&helmet_walking2[j]);
                 deletelist.push_back(&helmet_walking2[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_walking3[j]);
+                helmet_mouse.push_back(&helmet_walking3[j]);
                 deletelist.push_back(&helmet_walking3[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_walking4[j]);
+                helmet_mouse.push_back(&helmet_walking4[j]);
                 deletelist.push_back(&helmet_walking4[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_walking5[j]);
+                helmet_mouse.push_back(&helmet_walking5[j]);
                 deletelist.push_back(&helmet_walking5[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                helmet_mouse->push_back(&helmet_eating1[j]);
+                helmet_mouse.push_back(&helmet_eating1[j]);
                 deletelist.push_back(&helmet_eating1[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                helmet_mouse->push_back(&helmet_eating2[j]);
+                helmet_mouse.push_back(&helmet_eating2[j]);
                 deletelist.push_back(&helmet_eating2[j]);
             }
             for (auto j = 0; j < 8 ; j++){
-                helmet_mouse->push_back(&helmet_eating3[j]);
+                helmet_mouse.push_back(&helmet_eating3[j]);
                 deletelist.push_back(&helmet_eating3[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                helmet_mouse->push_back(&helmet_eating4[j]);
+                helmet_mouse.push_back(&helmet_eating4[j]);
                 deletelist.push_back(&helmet_eating4[j]);
             }
             for (auto j = 0; j < 4 ; j++){
-                helmet_mouse->push_back(&helmet_eating5[j]);
+                helmet_mouse.push_back(&helmet_eating5[j]);
                 deletelist.push_back(&helmet_eating5[j]);
             }
             for (auto j = 0; j < 13 ; j++){
-                helmet_mouse->push_back(&helmet_die[j]);
+                helmet_mouse.push_back(&helmet_die[j]);
                 deletelist.push_back(&helmet_die[j]);
             }
 
