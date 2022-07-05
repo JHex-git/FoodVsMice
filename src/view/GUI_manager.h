@@ -7,8 +7,8 @@
 #include <iostream>
 #include <map>
 #include <functional>
-#include "../common/DrawItem"
-
+#include "../common/draw_item.h"
+#include "../common/debug.h"
 using namespace std;
 
 #define window_length 900   // x;
@@ -59,6 +59,8 @@ public:
     void draw_select();                                            //画选择植物
     void draw_game();                                              //画食物、老鼠
 
+    void update_logic();
+
     ~GUIManager();
 
 protected slots:
@@ -76,6 +78,9 @@ private:
     QPixmap level[11];          //选择页面
     QPixmap game[5];            //游戏页面
 
+    QTimer *timer_logic;        //更新游戏逻辑时钟
+    int time_update_logic;      //信号时长
+
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）
     int num;                    //选择了什么食物（0到6是食物，7是铲子）
@@ -88,7 +93,9 @@ private:
     QPixmap select_food[7];     //测试用
     int num_select;
 
-    std::function<void(int row_index, int column_index, int select_index)> PlaceFood;
+    std::function<bool(int row_index, int column_index, int select_index)> PlaceFood;
+    std::function<void()> UpdateFood;
+    std::function<void()> UpdateCard;
 
 public:
 // properties
@@ -99,6 +106,12 @@ public:
 
 // command
     std::function<std::pair<int, int>(int row_index, int column_index)> get_Matrix2ViewportCommand();
-    std::function<std::pair<int, int>(int x, int y) get_Viewport2MatrixCommand();
+    std::function<std::pair<int, int>(int x, int y)> get_Viewport2MatrixCommand();
+    std::function<std::pair<int, int>(int select_index)> get_Index2ViewportCommand();
+
+// command
+    void attach_PlaceFoodCommand(std::function<bool(int row_index, int column_index, int select_index)>&& func) { PlaceFood = std::move(func); }
+    void attach_UpdateFoodCommand(std::function<void()>&& func) { UpdateFood = std::move(func); }
+    void attach_UpdateCardCommand(std::function<void()>&& func) { UpdateCard = std::move(func); }
 };
 

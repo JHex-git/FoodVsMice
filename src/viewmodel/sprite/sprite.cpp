@@ -1,17 +1,24 @@
 #include "sprite.h"
 #include "../../view/GUI_manager.h"
 #include <iostream>
-Sprite::Sprite(int x, int y, float frame_rate) : x(x), y(y), frame_rate(frame_rate)
+
+// be avoided
+Sprite::Sprite(int x, int y, float frame_rate) : frame_rate(frame_rate)
 {
     current_frame = 0;
     frame_accum = 0;
+    draw_item.x = x;
+    draw_item.y = y;
 }
 
-Sprite::Sprite(int x, int y, float frame_rate, std::vector<QPixmap *> frames) :
-    x(x), y(y), frame_rate(frame_rate), frames(frames) 
+Sprite::Sprite(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames) :
+    frame_rate(frame_rate), frames(frames)
 {
     current_frame = 0;
     frame_accum = 0;
+    draw_item.x = x - delta_x;
+    draw_item.y = y - delta_y;
+    draw_item.img = frames[current_frame];
 };
 
 void Sprite::AddFrame(QPixmap *frame)
@@ -26,7 +33,8 @@ void Sprite::Update()
     {
         current_frame = (current_frame + 1) % frames.size();
         frame_accum = 0;
+        draw_item.img = frames[current_frame];
     }
-    GUIManager::drawAlpha(frames[current_frame], x, y);
+//    GUIManager::drawAlpha(frames[current_frame], x, y);
     UpdateBehave();
 }

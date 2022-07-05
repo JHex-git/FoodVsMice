@@ -3,5 +3,5 @@
 
 void HorizontalProjectile::UpdateBehave()
 {
-    x += velocity * TimeManager::DELTA_TIME;
+    draw_item.x += velocity * TimeManager::DELTA_TIME;
 }

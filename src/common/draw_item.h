@@ -1,8 +1,8 @@
 #pragma once
-
-class DrawItem
+#include <QPainter>
+struct DrawItem
 {
-    IMAGE *img;
+    QPixmap *img;
     int x;
     int y;
 };

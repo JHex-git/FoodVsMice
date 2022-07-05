@@ -11,6 +11,8 @@ private:
     static const int FLAME_PADDING_X;
     static const int FLAME_PADDING_Y;
     static const int HEALTH;
+    static const int DELTA_X;
+    static const int DELTA_Y;
 
     FlameManager *flame_manager;
 

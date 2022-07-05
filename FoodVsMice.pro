@@ -9,11 +9,12 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    common/random.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    model/file.cpp \
-    model/level/level_manager.cpp \
+#    common/random.cpp \
+#    main.cpp \
+#    mainwindow.cpp \
+#    model/file.cpp \
+#    model/level/level_manager.cpp \
+    src/app/game_app.cpp \
     src/common/random.cpp \
     src/main.cpp \
     src/model/file.cpp \
@@ -35,31 +36,34 @@ SOURCES += \
     src/viewmodel/sprite/projectile/projectile.cpp \
     src/viewmodel/sprite/sprite.cpp \
     src/window/mainwindow.cpp \
-    view/GUI_manager.cpp \
-    view/game_manager.cpp \
-    view/music_manager.cpp \
-    view/time_manager.cpp \
-    viewmodel/card/card.cpp \
-    viewmodel/sprite/flame/flame.cpp \
-    viewmodel/sprite/flame/flame_manager.cpp \
-    viewmodel/sprite/food/food.cpp \
-    viewmodel/sprite/food/food_manager.cpp \
-    viewmodel/sprite/food/stove.cpp \
-    viewmodel/sprite/mouse/bucket_mouse.cpp \
-    viewmodel/sprite/mouse/mouse.cpp \
-    viewmodel/sprite/mouse/mouse_manager.cpp \
-    viewmodel/sprite/projectile/horizontal_projectile.cpp \
-    viewmodel/sprite/projectile/projectile.cpp \
-    viewmodel/sprite/sprite.cpp
+#    view/GUI_manager.cpp \
+#    view/game_manager.cpp \
+#    view/music_manager.cpp \
+#    view/time_manager.cpp \
+#    viewmodel/card/card.cpp \
+#    viewmodel/sprite/flame/flame.cpp \
+#    viewmodel/sprite/flame/flame_manager.cpp \
+#    viewmodel/sprite/food/food.cpp \
+#    viewmodel/sprite/food/food_manager.cpp \
+#    viewmodel/sprite/food/stove.cpp \
+#    viewmodel/sprite/mouse/bucket_mouse.cpp \
+#    viewmodel/sprite/mouse/mouse.cpp \
+#    viewmodel/sprite/mouse/mouse_manager.cpp \
+#    viewmodel/sprite/projectile/horizontal_projectile.cpp \
+#    viewmodel/sprite/projectile/projectile.cpp \
+#    viewmodel/sprite/sprite.cpp
 
 HEADERS += \
-    common/common.h \
-    common/enums.h \
-    common/random.h \
-    mainwindow.h \
-    model/file.h \
-    model/level/level_manager.h \
+#    common/common.h \
+#    common/enums.h \
+#    common/random.h \
+#    mainwindow.h \
+#    model/file.h \
+#    model/level/level_manager.h \
+    src/app/game_app.h \
     src/common/common.h \
+    src/common/debug.h \
+    src/common/draw_item.h \
     src/common/enums.h \
     src/common/random.h \
     src/model/file.h \
@@ -69,6 +73,7 @@ HEADERS += \
     src/view/music_manager.h \
     src/view/time_manager.h \
     src/viewmodel/card/card.h \
+    src/viewmodel/card/stove_card.h \
     src/viewmodel/sprite/flame/flame.h \
     src/viewmodel/sprite/flame/flame_manager.h \
     src/viewmodel/sprite/food/food.h \
@@ -81,25 +86,25 @@ HEADERS += \
     src/viewmodel/sprite/projectile/projectile.h \
     src/viewmodel/sprite/sprite.h \
     src/window/mainwindow.h \
-    view/GUI_manager.h \
-    view/game_manager.h \
-    view/music_manager.h \
-    view/time_manager.h \
-    viewmodel/card/card.h \
-    viewmodel/sprite/flame/flame.h \
-    viewmodel/sprite/flame/flame_manager.h \
-    viewmodel/sprite/food/food.h \
-    viewmodel/sprite/food/food_manager.h \
-    viewmodel/sprite/food/stove.h \
-    viewmodel/sprite/mouse/bucket_mouse.h \
-    viewmodel/sprite/mouse/mouse.h \
-    viewmodel/sprite/mouse/mouse_manager.h \
-    viewmodel/sprite/projectile/horizontal_projectile.h \
-    viewmodel/sprite/projectile/projectile.h \
-    viewmodel/sprite/sprite.h
+#    view/GUI_manager.h \
+#    view/game_manager.h \
+#    view/music_manager.h \
+#    view/time_manager.h \
+#    viewmodel/card/card.h \
+#    viewmodel/sprite/flame/flame.h \
+#    viewmodel/sprite/flame/flame_manager.h \
+#    viewmodel/sprite/food/food.h \
+#    viewmodel/sprite/food/food_manager.h \
+#    viewmodel/sprite/food/stove.h \
+#    viewmodel/sprite/mouse/bucket_mouse.h \
+#    viewmodel/sprite/mouse/mouse.h \
+#    viewmodel/sprite/mouse/mouse_manager.h \
+#    viewmodel/sprite/projectile/horizontal_projectile.h \
+#    viewmodel/sprite/projectile/projectile.h \
+#    viewmodel/sprite/sprite.h
 
 FORMS += \
-    mainwindow.ui \
+#    mainwindow.ui \
     src/window/mainwindow.ui
 
 # Default rules for deployment.
@@ -123,6 +128,7 @@ DISTFILES += \
     resources/convert/image/0x111E0020_2022-06-30-08-27-43/image012.png \
     resources/convert/image/0x111E0020_2022-06-30-08-27-43/image013.png \
     resources/convert/image/0x111E0020_2022-06-30-08-27-43/image014.png \
+    resources/levels/first.txt \
     resources/music/Cerebrawl.mp3 \
     resources/music/Loonboon.mp3 \
     resources/music/chomp.mp3 \
@@ -2124,3 +2130,6 @@ DISTFILES += \
     resources/picture/stove/7.png \
     resources/picture/stove/8.png \
     resources/picture/stove/9.png
+
+RESOURCES += \
+    resources.qrc

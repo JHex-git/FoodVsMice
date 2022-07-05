@@ -12,6 +12,8 @@ private:
     const int DROP_VELOCITY = 1;
     static const int PADDING_X = 1;
     static const int PADDING_Y = 1;
+    static const int DELTA_X = 1;
+    static const int DELTA_Y = 1;
     static constexpr float FRAME_RATE = 1;
 
     bool is_dropping;

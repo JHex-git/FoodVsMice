@@ -22,7 +22,7 @@ protected:
 public:
     Food(int x, int y, int health, float cool_down_time);
 
-    Food(int x, int y, std::vector<QPixmap *> frames, int health, float cool_down_time);
+    Food(int x, int y, int delta_x, int delta_y, std::vector<QPixmap *> frames, int health, float cool_down_time);
 
     void TakeDamage(int damage);
 };
