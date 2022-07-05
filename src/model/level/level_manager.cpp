@@ -13,7 +13,7 @@ using namespace std;
 
 void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，进行读取关卡
 {
-    char path[] = "../resources/levels/", tmppath[200] = { 0 };
+    char path[] = "../FoodVsMice/resources/levels/", tmppath[200] = { 0 };
     strcat(strcat(tmppath, path), level_name.c_str());
     ifstream fp;
     fp.open(tmppath,ios::in);
@@ -90,7 +90,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     vector<QPixmap *> hot_pot;
     vector<QPixmap *> Hamburg;
     vector<QPixmap *> cherry;
-    vector<QPixmap *> Eggs_pitche;;
+    vector<QPixmap *> Eggs_pitcher;
     vector<QPixmap *> Bigbread;
     vector<QPixmap *> Barb;
     for (;;)//read plant
@@ -483,7 +483,7 @@ const std::vector<FoodType>& LevelManager::GetFoodTypes()
 {
     return food_types;
 }
-const std::vector<FoodType>& LevelManager::GetMouseTypes()
+const std::vector<MouseType>& LevelManager::GetMouseTypes()
 {
     return mouse_types;
 }
