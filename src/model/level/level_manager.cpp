@@ -436,22 +436,25 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         tempnum = fp.get();
         if (tempnum == '\n') break;
     }
+    mouse_list_ptr = std::make_shared<std::vector<MouseType>>();
+    mouse_come_time_ptr = std::make_shared<std::vector<float>>();
+    mouse_line_ptr = std::make_shared<std::vector<int>>();
     for (int j = 0; j < waves.size() ; j++){//read every wave
         for (;;)
         {
             tempnum = fp.get();
             MouseType this_type = (MouseType)(tempnum - '0');
-            mouse_list.push_back(this_type);
+            mouse_list_ptr->push_back(this_type);
             cout <<"mousetype:"<< tempnum - '0' << endl;
             tempnum = fp.get();//空格
             float this_wave;
             fp >> this_wave;
             cout <<"wavetime:"<< this_wave << endl;
-            mouse_come_time.push_back(this_wave);
+            mouse_come_time_ptr->push_back(this_wave);
             int this_line;
             fp >> this_line;
             cout << "line:" << this_line<<endl;
-            mouse_line.push_back(this_line);
+            mouse_line_ptr->push_back(this_line);
             tempnum = fp.get();//空格或者换行
             if (tempnum == '\n') break;
         }
@@ -501,17 +504,17 @@ const std::list<float>& LevelManager::GetWaves()
 {
     return waves;
 }
-const std::list<MouseType>& LevelManager::Getmouse_list()
+std::shared_ptr<std::list<MouseType>> LevelManager::Getmouse_list()
 {
-    return mouse_list;
+    return mouse_list_ptr;
 }
-const std::list<float>& LevelManager::Getmouse_cometime()
+std::shared_ptr<std::list<float>> LevelManager::Getmouse_cometime()
 {
-    return mouse_come_time;
+    return mouse_come_time_ptr;
 }
-const std::list<int>& LevelManager::Getmouse_line()
+std::shared_ptr<std::list<int>> LevelManager::Getmouse_line()
 {
-    return mouse_line;
+    return mouse_line_ptr;
 }
 void LevelManager::DeleteImages()
 {

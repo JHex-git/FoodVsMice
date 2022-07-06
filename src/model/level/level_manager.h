@@ -48,10 +48,13 @@ private:
 
     std::list<float> waves; // 每波到来的时间，按时间顺序排好
 
-    std::list<MouseType> mouse_list; // 按时间顺序排好的老鼠
-    std::list<float> mouse_come_time; // 老鼠来的时间，与mouse_list一同使用，即相同"下标"为同一只老鼠
-    std::list<int> mouse_line;//老鼠来的行数
+    // std::list<MouseType> mouse_list; // 按时间顺序排好的老鼠
+    // std::list<float> mouse_come_time; // 老鼠来的时间，与mouse_list一同使用，即相同"下标"为同一只老鼠
+    // std::list<int> mouse_line;//老鼠来的行数
     // std::list<std::pair<MouseType, float>> mouse_list; 或采用这种方式
+    std::shared_ptr<std::list<MouseType>> mouse_list_ptr;
+    std::shared_ptr<std::list<float>> mouse_come_time_ptr;
+    std::shared_ptr<std::list<int>> mouse_line_ptr;
 
     // 加载的食物图片资源存储在该字典中，一种食物对应一系列的图片
     std::unordered_map<FoodType, std::vector<QPixmap *>> food_img_dict;
