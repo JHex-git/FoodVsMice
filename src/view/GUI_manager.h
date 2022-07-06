@@ -23,8 +23,8 @@ using namespace std;
 #define Select_Egg_deta_x -10
 #define Select_Egg_deta_y  23
 
-#define Cherry_deta_x -25
-#define Cherry_deta_y 10
+#define Cherry_deta_x -20
+#define Cherry_deta_y 5
 #define Select_Cherry_deta_x -30
 #define Select_Cherry_deta_y -8
 
@@ -34,6 +34,7 @@ using namespace std;
 #define hotpot_deta_y 28
 #define Select_hotpot_deta_x -15
 #define Select_hotpot_deta_y 13
+
 
 
 class GUIManager : public QWidget
@@ -68,18 +69,24 @@ protected slots:
        void mousePressEvent(QMouseEvent *event);                      //鼠标移动事件
 private:
     std::shared_ptr<std::list<DrawItem *>> draw_list;
-    //std::shared_ptr<std::list<> select;
+    std::shared_ptr<std::list<DrawItem *>> mouse_list;
+
+    std::shared_ptr<std::vector<DrawItem *>> select_vector;
+
+    std::shared_ptr<std::vector<float *>> already_vector;
+    std::shared_ptr<std::vector<int>> flame_cost_vector;
+    std::shared_ptr<int> flame_sum;
 
 //...................................................................时钟
     QTimer *timer_draw;         //画图时钟
     int time_draw;              //信号时长
-
     QPixmap BackGround;         //大背景
     QPixmap level[11];          //选择页面
     QPixmap game[5];            //游戏页面
-
+    QPainter already;           //冷却用
     QTimer *timer_logic;        //更新游戏逻辑时钟
     int time_update_logic;      //信号时长
+
 
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）
@@ -88,7 +95,7 @@ private:
     map<pair<int,int>,int> sele;
 
 //......................................。。。。。。................自测变量，可删除
-    int ii;                     // 测试用
+    int ii;                     //测试用
     QPixmap Cherry_tart[9];     //测试用
     QPixmap select_food[7];     //测试用
     int num_select;
@@ -103,7 +110,26 @@ public:
     {
         draw_list = food_list;
     }
-
+    void attach_DrawMouseList(const std::shared_ptr<std::list<DrawItem *>> mouse_list_)
+    {
+        mouse_list= mouse_list_;
+    }
+    void attach_SelectVector(const std::shared_ptr<std::vector<DrawItem *>> select_vector_)
+    {
+        select_vector=select_vector_;
+    }
+    viod attach_AlreadyVector(const std::shared_ptr<std::vector<float *>> already_vector_)
+    {
+        already_vector=already_vector_;
+    }
+    void attach_SunCost(const std::shared_ptr<std::vector<int>> flame_cost_vector_)
+    {
+        flame_cost_vector=flame_cost_vector_;
+    }
+    void attach_SunSum(const std::shared_ptr<int> flame_sum_)
+    {
+        flame_sum=flame_sum_;
+    }
 // command
     std::function<std::pair<int, int>(int row_index, int column_index)> get_Matrix2ViewportCommand();
     std::function<std::pair<int, int>(int x, int y)> get_Viewport2MatrixCommand();

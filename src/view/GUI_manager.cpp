@@ -34,6 +34,7 @@ void GUIManager::loading()
 {
     select_food[0].load("../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_tart/1.png");
     BackGround.load("../FoodVsMice/resources/picture/Screen/0.png");
+    already.load("../FoodVsMice/resources/picture/Screen/80.png");
     loadImages(game, "../FoodVsMice/resources/picture/Screen/",5,1);
     loadImages(level, "../FoodVsMice/resources/picture/Screen/leve_select/", 11, 0);
     if (level[0].isNull())
@@ -153,26 +154,33 @@ void GUIManager:: draw_level_choosing()
 
 void GUIManager::draw_game()
 {
-    QPainter a(this);
+    QPainter painter(this);
     for (list<DrawItem *>::iterator it = draw_list->begin(); it != draw_list->end(); it++)
     {
-        a.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
+        painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
+    }
+
+    for (list<DrawItem *>::iterator it = mouse_list->begin(); it != mouse_list->end(); it++)
+    {
+        painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
 }
 
 void GUIManager::draw_select()
 {
-    QPainter a(this);
-
-    for(int i=0;i<num_select;i++)
+    QPainter painter(this);
+    for(auto it=select_vector.begin();it!=select_vector.end();it++)
     {
-       a.drawPixmap(select_positioning_x(i, -30, -8).first,select_positioning_x(i, -30, -8).second,select_food[i]);
+        painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
+    }
+    for(int i=0;i<already_vector.size();i++)
+    {
+        a.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,87*already_vector[i],already);
     }
 }
 
 void GUIManager::paintEvent(QPaintEvent *event)
 {
-//    timer_draw->start(time_draw);
     if(level_choosing==0)
         draw_level_choosing();
     else
