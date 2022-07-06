@@ -169,13 +169,13 @@ void GUIManager::draw_game()
 void GUIManager::draw_select()
 {
     QPainter painter(this);
-    for(auto it=select_vector.begin();it!=select_vector.end();it++)
+    for(auto it=select_vector->begin();it!=select_vector->end();it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
-    for(int i=0;i<already_vector.size();i++)
+    for(int i=0;i<already_vector->size();i++)
     {
-        a.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,87*already_vector[i],already);
+        a.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,*(*already_vector)[i] * 87,already);
     }
 }
 

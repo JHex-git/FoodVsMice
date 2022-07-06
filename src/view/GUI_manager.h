@@ -83,7 +83,7 @@ private:
     QPixmap BackGround;         //大背景
     QPixmap level[11];          //选择页面
     QPixmap game[5];            //游戏页面
-    QPainter already;           //冷却用
+    QPixmap already;           //冷却用
     QTimer *timer_logic;        //更新游戏逻辑时钟
     int time_update_logic;      //信号时长
 
@@ -103,7 +103,7 @@ private:
     std::function<bool(int row_index, int column_index, int select_index)> PlaceFood;
     std::function<void()> UpdateFood;
     std::function<void()> UpdateCard;
-
+    std::function<void()> UpdateMouse;
 public:
 // properties
     void attach_DrawFoodList(const std::shared_ptr<std::list<DrawItem *>> food_list)
@@ -118,7 +118,7 @@ public:
     {
         select_vector=select_vector_;
     }
-    viod attach_AlreadyVector(const std::shared_ptr<std::vector<float *>> already_vector_)
+    void attach_AlreadyVector(const std::shared_ptr<std::vector<float *>> already_vector_)
     {
         already_vector=already_vector_;
     }
@@ -139,5 +139,6 @@ public:
     void attach_PlaceFoodCommand(std::function<bool(int row_index, int column_index, int select_index)>&& func) { PlaceFood = std::move(func); }
     void attach_UpdateFoodCommand(std::function<void()>&& func) { UpdateFood = std::move(func); }
     void attach_UpdateCardCommand(std::function<void()>&& func) { UpdateCard = std::move(func); }
+    void attach_UpdateMouseCommand(std::function<void()>&& func){ UpdateMouse = std::move(func);}
 };
 
