@@ -3,6 +3,7 @@
 #include "bucket_mouse.h"
 #include "football_mouse.h"
 #include "normal_mouse.h"
+#include "../../../common/map_transform.h"
 
 const int RIGHT_MOST = 960;
 MouseManager::MouseManager(TimeManager *time_manager) : time_manager(time_manager)
@@ -44,6 +45,7 @@ void MouseManager::UpdateMouse()
 void MouseManager::Init()
 {
     waiting_mouse_list_ptr = level_manager->Getmouse_list();
+
     waiting_mouse_time_list_ptr = level_manager->Getmouse_cometime();
     waiting_mouse_line_list_ptr = level_manager->Getmouse_line();
 }
@@ -78,7 +80,7 @@ void MouseManager::PrepareMouse()
         std::list<float>::iterator tmp_time_it = time_it++;
 
         Mouse *mouse = nullptr;
-        int y = Matrix2Viewport(*tmp_line_it, 0).second;
+        int y = MapTransform::Maxtrix2Viewport(*tmp_line_it, 0).second;
         const std::vector<QPixmap *>&imgs = dict.find(*tmp_type_it)->second;
 
         // TODO: Add mouse type here

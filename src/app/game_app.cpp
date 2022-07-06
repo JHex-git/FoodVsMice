@@ -15,6 +15,7 @@ void GameApp::Init()
     gui_manager->attach_SunCost(food_manager.get_DrawCardCostVec());
     gui_manager->attach_SunSum(flame_manager.get_FlameCount());
     food_manager.attach_LevelManager(level_manager);
+    mouse_manager.attach_LevelManager(level_manager);
 
 // command
     food_manager.attach_Matrix2ViewportCommand(gui_manager->get_Matrix2ViewportCommand());
