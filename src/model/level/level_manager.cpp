@@ -32,6 +32,7 @@ void LevelManager::clearlist()
     food_types.clear();
     mouse_types.clear();
     DeleteImages();
+    deletelist.clear();
 }
 
 void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，进行读取关卡
@@ -314,6 +315,18 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     QPixmap *normal_eat2;
     QPixmap *normal_die;
 
+    QPixmap *football_walking1;
+    QPixmap *football_walking2;
+    QPixmap *football_walking3;
+    QPixmap *football_walking4;
+    QPixmap *football_walking5;
+    QPixmap *football_eating1;
+    QPixmap *football_eating2;
+    QPixmap *football_eating3;
+    QPixmap *football_eating4;
+    QPixmap *football_eating5;
+    QPixmap *football_die;
+
     QPixmap *helmet_walking1;
     QPixmap *helmet_walking2;
     QPixmap *helmet_walking3;
@@ -327,6 +340,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     QPixmap *helmet_die;
 
     vector<QPixmap *> normal_mouse;
+    vector<QPixmap *> football_mouse;
     vector<QPixmap *> helmet_mouse;
     for (;;)//read mouse
     {
@@ -373,7 +387,75 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
             break;
         case MouseType::FOOT_MOUSE:
-
+            football_walking1 = new QPixmap[8];
+            football_walking2 = new QPixmap[8];
+            football_walking3 = new QPixmap[8];
+            football_walking4 = new QPixmap[8];
+            football_walking5 = new QPixmap[8];
+            football_eating1 = new QPixmap[4];
+            football_eating2 = new QPixmap[4];
+            football_eating3 = new QPixmap[8];
+            football_eating4 = new QPixmap[4];
+            football_eating5 = new QPixmap[4];
+            football_die = new QPixmap[12];
+            loadImages(football_walking1, "../FoodVsMice/resources/picture/mouse/foot_mouse/walk_with_football1/", 8, 1);
+            loadImages(football_walking2, "../FoodVsMice/resources/picture/mouse/foot_mouse/walk_with_football2/", 8, 1);
+            loadImages(football_walking3, "../FoodVsMice/resources/picture/mouse/foot_mouse/walk_with_football3/", 8, 1);
+            loadImages(football_walking4, "../FoodVsMice/resources/picture/mouse/foot_mouse/walk_without_football1/", 8, 1);
+            loadImages(football_walking5, "../FoodVsMice/resources/picture/mouse/foot_mouse/walk_without_football2/", 8, 1);
+            loadImages(football_eating1, "../FoodVsMice/resources/picture/mouse/foot_mouse/eat_with_football1/", 4, 1);
+            loadImages(football_eating2, "../FoodVsMice/resources/picture/mouse/foot_mouse/eat_with_football2/", 4, 1);
+            loadImages(football_eating3, "../FoodVsMice/resources/picture/mouse/foot_mouse/eat_with_football3/", 8, 1);
+            loadImages(football_eating4, "../FoodVsMice/resources/picture/mouse/foot_mouse/eat_without_football1/", 4, 1);
+            loadImages(football_eating5, "../FoodVsMice/resources/picture/mouse/foot_mouse/eat_without_football2/", 4, 1);
+            loadImages(football_die, "../FoodVsMice/resources/picture/mouse/foot_mouse/die/", 12, 1);
+            
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_walking1[j]);
+                deletelist.push_back(&football_walking1[j]);
+            }
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_walking2[j]);
+                deletelist.push_back(&football_walking2[j]);
+            }
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_walking3[j]);
+                deletelist.push_back(&football_walking3[j]);
+            }
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_walking4[j]);
+                deletelist.push_back(&football_walking4[j]);
+            }
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_walking5[j]);
+                deletelist.push_back(&football_walking5[j]);
+            }
+            for (auto j = 0; j < 4 ; j++){
+                football_mouse.push_back(&football_eating1[j]);
+                deletelist.push_back(&football_eating1[j]);
+            }
+            for (auto j = 0; j < 4 ; j++){
+                football_mouse.push_back(&football_eating2[j]);
+                deletelist.push_back(&football_eating2[j]);
+            }
+            for (auto j = 0; j < 8 ; j++){
+                football_mouse.push_back(&football_eating3[j]);
+                deletelist.push_back(&football_eating3[j]);
+            }
+            for (auto j = 0; j < 4 ; j++){
+                football_mouse.push_back(&football_eating4[j]);
+                deletelist.push_back(&football_eating4[j]);
+            }
+            for (auto j = 0; j < 4 ; j++){
+                football_mouse.push_back(&football_eating5[j]);
+                deletelist.push_back(&football_eating5[j]);
+            }
+            for (auto j = 0; j < 12 ; j++){
+                football_mouse.push_back(&football_die[j]);
+                deletelist.push_back(&football_die[j]);
+            }
+            mouse_types.push_back(MouseType::FOOT_MOUSE);
+            mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::FOOT_MOUSE,football_mouse));
             break;
         case MouseType::HELMET_MOUSE:
             helmet_walking1 = new QPixmap[8];
@@ -484,7 +566,6 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         }
     }
 
-
     fp.close();
 
 }
@@ -529,7 +610,7 @@ const std::list<float>& LevelManager::GetWaves()
     return waves;
 }
 std::shared_ptr<std::list<MouseType>> LevelManager::Getmouse_list()
-{
+{   
     return mouse_list_ptr;
 }
 std::shared_ptr<std::list<float>> LevelManager::Getmouse_cometime()
