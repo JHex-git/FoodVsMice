@@ -1,9 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "../../common/common.h"
 #include "../../common/draw_item.h"
-#include <QPainter>
+#include <QPixmap>
 #include "../../common/debug.h"
 
 // TODO: 更新图像是否要单拎出来

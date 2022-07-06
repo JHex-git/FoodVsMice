@@ -9,6 +9,11 @@ void GameApp::Init()
 {
 // properties
     gui_manager->attach_DrawFoodList(food_manager.get_DrawFoodList());
+    gui_manager->attach_DrawMouseList(mouse_manager.get_DrawMouseList());
+    gui_manager->attach_SelectVector(food_manager.get_DrawCardVec());
+    gui_manager->attach_AlreadyVector(food_manager.get_DrawCardMaskVec());
+    gui_manager->attach_SunCost(food_manager.get_DrawCardCostVec());
+    gui_manager->attach_SunSum(flame_manager.get_FlameCount());
     food_manager.attach_LevelManager(level_manager);
 
 // command
@@ -18,6 +23,8 @@ void GameApp::Init()
     gui_manager->attach_PlaceFoodCommand(food_manager.get_PlaceFoodCommand());
     gui_manager->attach_UpdateFoodCommand(food_manager.get_UpdateFoodCommand());
     gui_manager->attach_UpdateCardCommand(food_manager.get_UpdateCardCommand());
+    gui_manager->attach_UpdateMouseCommand(mouse_manager.get_UpdateMiceCommand());
 
     food_manager.Init();
+    mouse_manager.Init();
 }

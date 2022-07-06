@@ -3,6 +3,8 @@
 #include "stove.h"
 #include "../../../common/debug.h"
 #include "../../card/stove_card.h"
+#include "../../card/steamdrawe_card.h"
+#include "../../card/hotpot_card.h"
 
 FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager) :
     level_manager(level_manager), flame_manager(flame_manager)
@@ -42,13 +44,21 @@ void FoodManager::Init()
     {
         Card *card = nullptr;
         std::pair<int, int> coordinate = Index2Viewport(i);
+        int x = coordinate.first;
+        int y = coordinate.second;
         FoodType food_type = food_types[i];
-
+        QPixmap *img = dict.find(food_type)->second[0];
         // TODO: add card here
         switch (food_type)
         {
+            case (FoodType::SMALL_FIRE):
+                card = new StoveCard(food_type, x, y, img);
+                break;
             case (FoodType::HOTPOT):
-                card = new StoveCard(food_type, coordinate.first, coordinate.second,dict.find(food_type)->second[0]);
+                card = new HotpotCard(food_type, x, y, img);
+                break;
+            case (FoodType::STEAM_DRAWER):
+                card = new SteamDrawerCard(food_type, x, y, img);
                 break;
         }
         if (card != nullptr)
@@ -59,79 +69,6 @@ void FoodManager::Init()
         }
     }
 }
-//void FoodManager::UpdateFood()
-//{
-//    std::list<DrawItem *>::iterator draw_it = draw_foodlist.begin();
-//    for (std::list<Food *>::iterator it = food_list.begin(); it != food_list.end();)
-//    {
-//        std::list<Food *>::iterator tmp = it;
-//        std::list<DrawItem *>::iterator draw_tmp = draw_it;
-//        it++;
-//        draw_it++;
-//        (*tmp)->Update();
-//        if ((*tmp)->health <= 0)
-//        {
-//            std::pair<int, int> coorinate = Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
-//            map_grids[coorinate.second][coorinate.first] = false;
-//            food_list.erase(tmp);
-//            draw_foodlist.erase(draw_tmp);
-//            delete *tmp;
-//        }
-//    }
-//}
-
-//bool FoodManager::PlaceFood(int row_index, int column_index, FoodType food_type)
-//{
-//    ASSERT((size_t)row_index < map_grids.size() && (size_t)column_index < map_grids[0].size(), "Coordinate out of range!");
-//    if (map_grids[row_index][column_index])
-//        return false;
-
-//    Food *food = nullptr;
-//    // TODO: Add food here
-//    std::pair<int, int> coordinate = Matrix2Viewport(row_index, column_index);
-
-//    switch (food_type)
-//    {
-//        case FoodType::HOTPOT:
-//            food = new Stove(coordinate.first, coordinate.second, (*img_dict_ptr)[food_type], flame_manager);
-//            map_grids[row_index][column_index] = true;
-//            break;
-//        default:
-//            break;
-//    }
-//    if (food != nullptr)
-//    {
-//        food_list.push_front(food);
-//        draw_foodlist.push_front(&food->draw_item);
-//    }
-//    return true;
-//}
-
-//void FoodManager::RemoveFood(int row_index, int column_index)
-//{
-//    ASSERT((size_t)row_index < map_grids.size() && (size_t)column_index < map_grids[0].size(), "Coordinate out of range!");
-//    if (map_grids[row_index][column_index])
-//    {
-//        std::list<DrawItem *>::iterator draw_it = draw_foodlist.begin();
-//        for (std::list<Food *>::iterator it = food_list.begin(); it != food_list.end();)
-//        {
-//            std::list<Food *>::iterator tmp = it;
-//            std::list<DrawItem *>::iterator draw_tmp = draw_it;
-//            it++;
-//            draw_it++;
-//            std::pair<int, int> coordinate = Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
-//            if (coordinate.first == row_index && coordinate.second == column_index)
-//            {
-//                map_grids[row_index][column_index] = false;
-//                food_list.erase(tmp);
-//                draw_foodlist.erase(draw_tmp);
-//                delete *tmp;
-//                break;
-//            }
-//        }
-//    }
-//}
-
 
 std::function<bool(int row_index, int column_index, int select_index)> FoodManager::get_PlaceFoodCommand()
 {
@@ -165,7 +102,6 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
         if (food != nullptr)
         {
             food_list.push_front(food);
-//            draw_foodlist.push_front(&food->draw_item);
             draw_foodlist_ptr->push_front(&food->draw_item);
         }
         return true;
@@ -225,7 +161,6 @@ std::function<void(int row_index, int column_index)> FoodManager::get_RemoveFood
                 {
                     map_grids[row_index][column_index] = false;
                     food_list.erase(tmp);
-//                    draw_foodlist.erase(draw_tmp);
                     draw_foodlist_ptr->erase(draw_tmp);
                     delete *tmp;
                     break;

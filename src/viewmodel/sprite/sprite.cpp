@@ -1,5 +1,4 @@
 #include "sprite.h"
-#include "../../view/GUI_manager.h"
 #include <iostream>
 
 // be avoided
@@ -35,6 +34,5 @@ void Sprite::Update()
         frame_accum = 0;
         draw_item.img = frames[current_frame];
     }
-//    GUIManager::drawAlpha(frames[current_frame], x, y);
     UpdateBehave();
 }

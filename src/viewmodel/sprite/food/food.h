@@ -1,7 +1,7 @@
 #pragma once
 #include "../sprite.h"
 #include "food_manager.h"
-#include <QPainter>
+#include <QPixmap>
 
 class Food : public Sprite
 {

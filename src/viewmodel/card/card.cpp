@@ -9,13 +9,10 @@ Card::Card(FoodType food_type, int x, int y, int delta_x, int delta_y, QPixmap *
 
     wait_cooldown_time = 0;
     cooldown_ratio = 0;
-//    DEBUG_INFO(cooldown_time);
-//    DEBUG_INFO(this->cooldown_time);
 }
 
 void Card::Update()
 {
-    // TODO: update mask
     if (wait_cooldown_time > 0)
     {
         wait_cooldown_time -= TimeManager::DELTA_TIME;

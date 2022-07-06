@@ -1,5 +1,5 @@
 #pragma once
-#include <QPainter>
+#include <QPixmap>
 struct DrawItem
 {
     QPixmap *img;

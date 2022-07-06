@@ -1,7 +1,7 @@
 #pragma once
 #include "../../common/enums.h"
 #include "../../common/draw_item.h"
-#include <QPainter>
+#include <QPixmap>
 class Card
 {
     friend class FoodManager;

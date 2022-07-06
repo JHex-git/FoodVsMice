@@ -13,6 +13,11 @@ private:
     TimeManager *time_manager;
     LevelManager *level_manager;
     std::list<Mouse *> mouse_list;
+
+    // from view
+    std::shared_ptr<std::list<DrawItem *>> draw_mouse_list_ptr;
+
+    // from model
     std::shared_ptr<std::list<MouseType>> waiting_mouse_list_ptr;
     std::shared_ptr<std::list<float>> waiting_mouse_time_list_ptr;
     std::shared_ptr<std::list<int>> waiting_mouse_line_list_ptr;
@@ -33,7 +38,12 @@ public:
     void Init();
 
 // properties
+    // for view
+    std::shared_ptr<std::list<DrawItem *>> get_DrawMouseList() { return draw_mouse_list_ptr; }
+
+    // from modeel
     void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }
+
 
 // command
     void attach_Matrix2ViewportCommand(std::function<std::pair<int, int>(int row_index, int column_index)>&& func) { Matrix2Viewport = std::move(func); }

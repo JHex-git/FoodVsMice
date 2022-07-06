@@ -7,9 +7,10 @@ class FlameManager
 {
 private:
     const int FLAME_UNIT = 50;
-    int flame_count;
+
     std::list<Flame *> flame_list;
     std::vector<QPixmap *> frames;
+    std::shared_ptr<int> flame_count_ptr;
 
 public:
     FlameManager(int initial_flame, std::vector<QPixmap *> frames);
@@ -36,12 +37,13 @@ public:
 
     inline void IncreaseFlame(int num);
 
-    inline int GetFlameCount() { return flame_count; }
+    // 不是属性绑定用的
+    inline int GetFlameCount() { return *flame_count_ptr; }
 
 public:
 
 // properties
-//    inline std::shared_ptr<int> get_FlameCount() {return std::make_shared<int>(flame_count);}
+    inline std::shared_ptr<int> get_FlameCount() { return flame_count_ptr; }
 
 // commands
     // 在随机位置落下火苗
@@ -52,11 +54,4 @@ public:
 
 
     std::function<void()> get_UpdateFlameCommand();
-
-
-    /* --- 玩家拥有的火苗 --- */
-    // 火苗不够则返回false
-    std::function<bool(int num)> get_DecreaseFlameCommand();
-    std::function<void(int num)> get_IncreaseFlame();
-
 };

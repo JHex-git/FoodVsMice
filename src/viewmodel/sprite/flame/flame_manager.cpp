@@ -1,10 +1,10 @@
 #include "flame_manager.h"
-#include "../../../common/common.h"
 
 FlameManager::FlameManager(int initial_flame, std::vector<QPixmap *> frames) : frames(frames)
 {
     ASSERT(initial_flame > 0, "Initial flame must no less than 0");
-    flame_count = initial_flame;
+    flame_count_ptr = std::make_shared<int>();
+    *flame_count_ptr = initial_flame;
 }
 
 FlameManager::~FlameManager()
@@ -67,14 +67,14 @@ void FlameManager::UpdateFlame()
 void FlameManager::IncreaseFlame(int num)
 {
     ASSERT(num >= 0, "num must be non negative when increase!");
-    flame_count += num;
+    *flame_count_ptr += num;
 }
 
 bool FlameManager::DecreaseFlame(int num)
 {
-    if (flame_count < num)
+    if (*flame_count_ptr < num)
         return false;
 
-    flame_count -= num;
+    *flame_count_ptr -= num;
     return true;
 }
