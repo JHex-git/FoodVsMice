@@ -20,6 +20,8 @@ public:
      *  放入 vector<QPixmap *> food_img_dict, mouse_img_dict.
      *  3. 根据关卡载入地图资源 QPixmap *.
      */
+    LevelManager();
+    void clearlist();
     void ReadLevel(std::string level_name);
 
     // 返回字典引用供外界得到图片资源
@@ -39,7 +41,7 @@ public:
     //释放图片资源
     void DeleteImages();
 
-    ~LevelManager(){};
+    ~LevelManager();
 
 private:
     std::vector<FoodType> food_types; // 关卡供使用的食物（FoodType是枚举变量，或用int代替）

@@ -10,9 +10,33 @@ using namespace std;
 //         levels.push_back(newlevel);
 //     }
 // }
+LevelManager::LevelManager()
+{
+    mouse_list_ptr = std::make_shared<std::list<MouseType>>();
+    mouse_come_time_ptr = std::make_shared<std::list<float>>();
+    mouse_line_ptr = std::make_shared<std::list<int>>();
+}
+LevelManager::~LevelManager()
+{
+    DeleteImages();
+}
+void LevelManager::clearlist()
+{
+    mouse_list_ptr->clear();
+    mouse_come_time_ptr->clear();
+    mouse_line_ptr->clear();
+    map_img.clear();
+    food_img_dict.clear();
+    mouse_img_dict.clear();
+    waves.clear();
+    food_types.clear();
+    mouse_types.clear();
+    DeleteImages();
+}
 
 void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，进行读取关卡
 {
+    clearlist();
     cout << "1" << endl;
     char tmppath[100] = "../FoodVsMice/resources/levels/";
 //    cout << tmppath << endl;
@@ -349,6 +373,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
             break;
         case MouseType::FOOT_MOUSE:
+
             break;
         case MouseType::HELMET_MOUSE:
             helmet_walking1 = new QPixmap[8];
@@ -438,9 +463,6 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         tempnum = fp.get();
         if (tempnum == '\n') break;
     }
-    mouse_list_ptr = std::make_shared<std::vector<MouseType>>();
-    mouse_come_time_ptr = std::make_shared<std::vector<float>>();
-    mouse_line_ptr = std::make_shared<std::vector<int>>();
     for (int j = 0; j < waves.size() ; j++){//read every wave
         for (;;)
         {
