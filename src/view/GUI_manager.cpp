@@ -15,8 +15,6 @@ GUIManager::GUIManager(QWidget *parent)
     timer_logic = new QTimer(this);
     timer_logic->setInterval(time_update_logic);
     connect(timer_logic, &QTimer::timeout, this, &GUIManager::update_logic);
-
-    //connect(timer_mouse,SIGNAL(timeout()),this,SLOT(mousePressEvent(QMouseEvent *event)));
 }
 
 void GUIManager:: init()
@@ -35,13 +33,14 @@ void GUIManager::loading()
     select_food[0].load("../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_tart/1.png");
     BackGround.load("../FoodVsMice/resources/picture/Screen/0.png");
     already.load("../FoodVsMice/resources/picture/Screen/80.png");
-    loadImages(game, "../FoodVsMice/resources/picture/Screen/",5,1);
-    loadImages(level, "../FoodVsMice/resources/picture/Screen/leve_select/", 11, 0);
+    char temp[]="../FoodVsMice/resources/picture/Screen/";
+    loadImages(game,temp ,5,1);
+    char temp1[]="../FoodVsMice/resources/picture/Screen/leve_select/";
+    loadImages(level,temp1 , 11, 0);
     if (level[0].isNull())
     {
         DEBUG_INFO("NULL");
     }
-    loadImages(Cherry_tart, "../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_tart/", 9, 1);
 }
 
 void GUIManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
@@ -102,11 +101,9 @@ int GUIManager::locationing(int x)
     return temp;
 }
 
-pair<int, int> GUIManager::select_positioning_x(int num, int deta_x, int deta_y)
+pair<int, int> GUIManager::select_positioning(int num, int deta_x, int deta_y)
 {
     pair<int,int> b;
-    int y = 30;
-    int x;
     b.first=90 + 93 * num-deta_x;
     b.second=30-deta_y;
     return b;
@@ -195,6 +192,7 @@ void GUIManager::update_logic()
 {
     UpdateFood();
     UpdateCard();
+    UpdateMouse();
 }
 
 void GUIManager::mousePressEvent(QMouseEvent *event)
