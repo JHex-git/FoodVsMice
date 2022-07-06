@@ -1,10 +1,17 @@
 #include "food_manager.h"
+#include "../../../common/map_transform.h"
 #include "../../../view/GUI_manager.h"
-#include "stove.h"
 #include "../../../common/debug.h"
+// add food here
+#include "stove.h"
+#include "cherry.h"
+#include "egg.h"
+// add card here
 #include "../../card/stove_card.h"
 #include "../../card/steamdrawe_card.h"
 #include "../../card/hotpot_card.h"
+#include "../../card/egg_card.h"
+#include "../../card/cherry_card.h"
 
 FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager) :
     level_manager(level_manager), flame_manager(flame_manager)
@@ -43,7 +50,7 @@ void FoodManager::Init()
     for (size_t i = 0; i < food_types.size(); ++i)
     {
         Card *card = nullptr;
-        std::pair<int, int> coordinate = Index2Viewport(i);
+        std::pair<int, int> coordinate = MapTransform::Index2Viewport(i);
         int x = coordinate.first;
         int y = coordinate.second;
         FoodType food_type = food_types[i];
@@ -60,6 +67,12 @@ void FoodManager::Init()
             case (FoodType::STEAM_DRAWER):
                 card = new SteamDrawerCard(food_type, x, y, img);
                 break;
+            case (FoodType::EGG):
+                card = new EggCard(food_type, x, y, img);
+                break;
+            case (FoodType::CHERRY):
+                card = new CherryCard(food_type, x, y, img);
+                break;
         }
         if (card != nullptr)
         {
@@ -75,27 +88,38 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
     return [this](int row_index, int column_index, int select_index)->bool{
         if (row_index == -1) // Invalid grid
             return false;
-        std::pair<int, int> coordinate = Matrix2Viewport(row_index, column_index);
-
         if (map_grids[row_index][column_index]) // 格子已经有食物
             return false;
-
 
         if (select_index >= card_vec.size() || card_vec[select_index]->Use() == false) // 卡片还在冷却中
         {
             return false;
         }
 
+        std::pair<int, int> coordinate = MapTransform::Matrix2Viewport(row_index, column_index);
+        int x = coordinate.first;
+        int y = coordinate.second;
+
         Food *food = nullptr;
         FoodType food_type = level_manager->GetFoodTypes()[select_index];
         const std::unordered_map<FoodType, std::vector<QPixmap *>>& dict = level_manager->GetFoodImages();
+        const std::vector<QPixmap *>& imgs = (dict.find(food_type))->second;
         // TODO: Add food here
         switch (food_type)
         {
             case FoodType::HOTPOT:
-                food = new Stove(coordinate.first, coordinate.second, (dict.find(food_type))->second, flame_manager);
+                food = new Stove(x, y, imgs, flame_manager);
                 map_grids[row_index][column_index] = true;
                 break;
+            case FoodType::CHERRY:
+                food = new Cherry(x, y, imgs);
+                map_grids[row_index][column_index] = true;
+                break;
+            case FoodType::EGG:
+                food = new Egg(x, y, imgs);
+                map_grids[row_index][column_index] = true;
+                break;
+
             default:
                 break;
         }
@@ -121,7 +145,7 @@ std::function<void()> FoodManager::get_UpdateFoodCommand()
             (*tmp)->Update();
             if ((*tmp)->health <= 0)
             {
-                std::pair<int, int> coorinate = Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
+                std::pair<int, int> coorinate = MapTransform::Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
                 map_grids[coorinate.second][coorinate.first] = false;
                 food_list.erase(tmp);
                 draw_foodlist_ptr->erase(draw_tmp);
@@ -156,7 +180,7 @@ std::function<void(int row_index, int column_index)> FoodManager::get_RemoveFood
                 std::list<DrawItem *>::iterator draw_tmp = draw_it;
                 it++;
                 draw_it++;
-                std::pair<int, int> coordinate = Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
+                std::pair<int, int> coordinate = MapTransform::Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
                 if (coordinate.first == row_index && coordinate.second == column_index)
                 {
                     map_grids[row_index][column_index] = false;

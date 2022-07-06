@@ -12,6 +12,7 @@ CONFIG += c++17
 
 SOURCES += \
     src/app/game_app.cpp \
+    src/common/map_transform.cpp \
     src/common/random.cpp \
     src/main.cpp \
     src/model/file.cpp \
@@ -21,8 +22,12 @@ SOURCES += \
     src/view/music_manager.cpp \
     src/view/time_manager.cpp \
     src/viewmodel/card/card.cpp \
+    src/viewmodel/card/cherry_card.cpp \
+    src/viewmodel/card/egg_card.cpp \
     src/viewmodel/sprite/flame/flame.cpp \
     src/viewmodel/sprite/flame/flame_manager.cpp \
+    src/viewmodel/sprite/food/cherry.cpp \
+    src/viewmodel/sprite/food/egg.cpp \
     src/viewmodel/sprite/food/food.cpp \
     src/viewmodel/sprite/food/food_manager.cpp \
     src/viewmodel/sprite/food/stove.cpp \
@@ -47,6 +52,7 @@ HEADERS += \
     src/common/debug.h \
     src/common/draw_item.h \
     src/common/enums.h \
+    src/common/map_transform.h \
     src/common/random.h \
     src/model/file.h \
     src/model/level/level_manager.h \
@@ -55,11 +61,15 @@ HEADERS += \
     src/view/music_manager.h \
     src/view/time_manager.h \
     src/viewmodel/card/card.h \
+    src/viewmodel/card/cherry_card.h \
+    src/viewmodel/card/egg_card.h \
     src/viewmodel/card/hotpot_card.h \
     src/viewmodel/card/steamdrawe_card.h \
     src/viewmodel/card/stove_card.h \
     src/viewmodel/sprite/flame/flame.h \
     src/viewmodel/sprite/flame/flame_manager.h \
+    src/viewmodel/sprite/food/cherry.h \
+    src/viewmodel/sprite/food/egg.h \
     src/viewmodel/sprite/food/food.h \
     src/viewmodel/sprite/food/food_manager.h \
     src/viewmodel/sprite/food/stove.h \

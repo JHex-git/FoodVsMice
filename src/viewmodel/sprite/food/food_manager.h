@@ -32,9 +32,9 @@ private:
 //    std::shared_ptr<std::vector<FoodType>> food_select_vec_ptr;
 
 // command
-    std::function<std::pair<int, int>(int row_index, int column_index)> Matrix2Viewport;
-    std::function<std::pair<int, int>(int x, int y)> Viewport2Matrix;
-    std::function<std::pair<int, int>(int select_index)> Index2Viewport;
+//    std::function<std::pair<int, int>(int row_index, int column_index)> Matrix2Viewport;
+//    std::function<std::pair<int, int>(int x, int y)> Viewport2Matrix;
+//    std::function<std::pair<int, int>(int select_index)> Index2Viewport;
 
 public:
     /*** 
@@ -81,7 +81,7 @@ public:
     std::function<void(int row_index, int column_index)> get_RemoveFoodCommand();
 
 //
-    void attach_Matrix2ViewportCommand(std::function<std::pair<int, int>(int row_index, int column_index)>&& func) { Matrix2Viewport = std::move(func); }
-    void attach_Viewport2MatrixCommand(std::function<std::pair<int, int>(int x, int y)>&& func) { Viewport2Matrix = std::move(func); }
-    void attach_Index2ViewportCommand(std::function<std::pair<int, int>(int select_index)>&& func) { Index2Viewport = std::move(func); }
+//    void attach_Matrix2ViewportCommand(std::function<std::pair<int, int>(int row_index, int column_index)>&& func) { Matrix2Viewport = std::move(func); }
+//    void attach_Viewport2MatrixCommand(std::function<std::pair<int, int>(int x, int y)>&& func) { Viewport2Matrix = std::move(func); }
+//    void attach_Index2ViewportCommand(std::function<std::pair<int, int>(int select_index)>&& func) { Index2Viewport = std::move(func); }
 };

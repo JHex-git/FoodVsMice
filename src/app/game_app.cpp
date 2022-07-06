@@ -18,9 +18,9 @@ void GameApp::Init()
     mouse_manager.attach_LevelManager(level_manager);
 
 // command
-    food_manager.attach_Matrix2ViewportCommand(gui_manager->get_Matrix2ViewportCommand());
-    food_manager.attach_Viewport2MatrixCommand(gui_manager->get_Viewport2MatrixCommand());
-    food_manager.attach_Index2ViewportCommand(gui_manager->get_Index2ViewportCommand());
+//    food_manager.attach_Matrix2ViewportCommand(gui_manager->get_Matrix2ViewportCommand());
+//    food_manager.attach_Viewport2MatrixCommand(gui_manager->get_Viewport2MatrixCommand());
+//    food_manager.attach_Index2ViewportCommand(gui_manager->get_Index2ViewportCommand());
     gui_manager->attach_PlaceFoodCommand(food_manager.get_PlaceFoodCommand());
     gui_manager->attach_UpdateFoodCommand(food_manager.get_UpdateFoodCommand());
     gui_manager->attach_UpdateCardCommand(food_manager.get_UpdateCardCommand());

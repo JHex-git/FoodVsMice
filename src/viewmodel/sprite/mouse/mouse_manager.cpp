@@ -80,7 +80,7 @@ void MouseManager::PrepareMouse()
         std::list<float>::iterator tmp_time_it = time_it++;
 
         Mouse *mouse = nullptr;
-        int y = MapTransform::Maxtrix2Viewport(*tmp_line_it, 0).second;
+        int y = MapTransform::Matrix2Viewport(*tmp_line_it, 0).second;
         const std::vector<QPixmap *>&imgs = dict.find(*tmp_type_it)->second;
 
         // TODO: Add mouse type here

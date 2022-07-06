@@ -1,7 +1,7 @@
 #include "map_transform.h"
 
 
-std::pair<int, int> MapTransform::Maxtrix2Viewport(int row_index, int column_index)
+std::pair<int, int> MapTransform::Matrix2Viewport(int row_index, int column_index)
 {
     int temp_x;
     temp_x = column_index * 80;
