@@ -53,7 +53,7 @@ public:
     pair<int, int> positioning(int x, int y);                      //返回要放置的食物坐标，不在范围内返回（-1.-1）
     int  Place_positioning_x(int x);                               //放置食物时定位，输入x（列号），返回精确的像素坐标x;
     int  Place_positioning_y(int y);                               //放置食物时定位，输入y（行号），放回精确的像素坐标y;
-    pair<int, int> select_positioning_x(int num, int deta_x, int deta_y);    //选择食物时定位，输入选择框的编号和植物的deta_x，获得精确的像素坐标
+    pair<int, int> select_positioning(int num, int deta_x, int deta_y);    //选择食物时定位，输入选择框的编号和植物的deta_x，获得精确的像素坐标
 //...........................................................................................................................画图函数
     void draw_game_background();                                   //画游戏背景
     void draw_level_choosing();                                    //画选择页面

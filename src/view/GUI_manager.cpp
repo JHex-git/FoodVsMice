@@ -175,7 +175,7 @@ void GUIManager::draw_select()
     }
     for(int i=0;i<already_vector->size();i++)
     {
-        a.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,*(*already_vector)[i] * 87,already);
+        painter.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,*(*already_vector)[i] * 87,already);
     }
 }
 
@@ -277,9 +277,6 @@ std::function<std::pair<int, int>(int select_index)> GUIManager::get_Index2Viewp
 {
     return [this](int select_index)->std::pair<int, int>
     {
-        std::pair<int, int> coordinate;
-        coordinate.first = 100;
-        coordinate.second = 100;
-        return coordinate;
+        return select_positioning(select_index,0,0);
     };
 }
