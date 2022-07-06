@@ -8,8 +8,7 @@
 #include <unordered_map>
 #include <fstream>
 #include "../../common/enums.h"
-#include "../../view/GUI_manager.h"
-#include <QPainter>
+#include <QPixmap>
 using namespace std;
 class LevelManager
 {
@@ -33,9 +32,9 @@ public:
     // 返回波的信息
     const std::list<float>& GetWaves();
     // 与上面类似，两个函数分别返回mouse_list、mouse_come_time以及mouse_line
-    const std::list<MouseType> &Getmouse_list();
-    const std::list<float> &Getmouse_cometime();
-    const std::list<int> &Getmouse_line();
+    std::shared_ptr<std::list<MouseType>> Getmouse_list();
+    std::shared_ptr<std::list<float>> Getmouse_cometime();
+    std::shared_ptr<std::list<int>> Getmouse_line();
 
     //释放图片资源
     void DeleteImages();

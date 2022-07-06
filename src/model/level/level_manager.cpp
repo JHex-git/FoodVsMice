@@ -348,6 +348,8 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             mouse_types.push_back(MouseType::NORMAL_MOUSE);
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
             break;
+        case MouseType::FOOT_MOUSE:
+            break;
         case MouseType::HELMET_MOUSE:
             helmet_walking1 = new QPixmap[8];
             helmet_walking2 = new QPixmap[8];

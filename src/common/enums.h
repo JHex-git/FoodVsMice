@@ -18,8 +18,8 @@ enum class FoodType
 enum class MouseType
 {
     NORMAL_MOUSE=0,
-    BUCKET_MOUSE,
-    HELMET_MOUSE
+    FOOT_MOUSE=1,
+    HELMET_MOUSE=2
 };
 
 enum class MapType
