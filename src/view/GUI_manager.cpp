@@ -30,7 +30,6 @@ void GUIManager:: init()
 
 void GUIManager::loading()
 {
-    select_food[0].load("../FoodVsMice/resources/picture/food/Cherrys_tart/Cherry_tart/1.png");
     BackGround.load("../FoodVsMice/resources/picture/Screen/0.png");
     already.load("../FoodVsMice/resources/picture/Screen/80.png");
     char temp[]="../FoodVsMice/resources/picture/Screen/";
@@ -126,6 +125,15 @@ void GUIManager::draw_game_background()
         painter.drawPixmap(90+93 * i,0,100,120,game[1]);
     }
     painter.drawPixmap(115+93 * i,40,game[4]);
+
+    QFont font("黑体", 15, 75);
+    font.setCapitalization(QFont::SmallCaps);
+    painter.setFont(font);
+    QRectF rect(10, 90, 75, 20);
+    char num[10];
+    itoa(flame_sum, num,10);
+    painter.setPen(QColor(Qt::red));
+    painter.drawText(rect,Qt::AlignHCenter | Qt::AlignVCenter, num);
 }
 
 void GUIManager:: draw_level_choosing()
@@ -173,6 +181,14 @@ void GUIManager::draw_select()
     for(int i=0;i<already_vector->size();i++)
     {
         painter.drawPixmap(select_positioning(i, -10, 8).first,select_positioning(i, -10, 8).second,80,*(*already_vector)[i] * 87,already);
+        QFont font("黑体", 13, 75);
+        font.setCapitalization(QFont::SmallCaps);
+        painter.setFont(font);
+        QRectF rect(93+93*i, 5, 90, 15);
+        char num[10];
+        itoa((*flame_cost_vector)[i], num,10);
+        painter.setPen(QColor(Qt::yellow));
+        painter.drawText(rect,Qt::AlignHCenter | Qt::AlignVCenter, num);
     }
 }
 
@@ -218,7 +234,8 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     level_choosing=3;
                     timer_logic->start();
                 }
-            }
+            }        
+
             return;
         }
         if(level_choosing==1)
@@ -247,7 +264,6 @@ GUIManager::~GUIManager()
 {
     delete timer_draw;
 }
-
 
 std::function<std::pair<int, int>(int row_index, int column_index)> GUIManager::get_Matrix2ViewportCommand()
 {
