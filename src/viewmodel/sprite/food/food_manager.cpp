@@ -20,6 +20,8 @@ FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_ma
 
     draw_foodlist_ptr = std::make_shared<std::list<DrawItem *>>();
     draw_card_vec_ptr = std::make_shared<std::vector<DrawItem *>>();
+    draw_card_mask_vec_ptr = std::make_shared<std::vector<float *>>();
+    draw_card_cost_vec_ptr = std::make_shared<std::vector<int>>();
 }
 
 FoodManager::~FoodManager()
@@ -53,7 +55,7 @@ void FoodManager::Init()
         {
             card_vec.push_back(card);
             draw_card_vec_ptr->push_back(&card->card_img);
-            draw_card_vec_ptr->push_back(&card->mask_img);
+            draw_card_mask_vec_ptr->push_back(&card->cooldown_ratio);
         }
     }
 }

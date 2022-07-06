@@ -14,7 +14,7 @@ public:
 private:
     FoodType food_type;
     DrawItem card_img;
-    DrawItem mask_img;
+    float cooldown_ratio; // 0为冷却好，1为刚进入冷却
     float cooldown_time;
     float wait_cooldown_time; // 0表示已经冷却好了
     int flame_cost;

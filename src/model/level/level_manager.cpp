@@ -13,8 +13,10 @@ using namespace std;
 
 void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，进行读取关卡
 {
-    char path[] = "../FoodVsMice/resources/levels/", tmppath[200] = { 0 };
-    strcat(strcat(tmppath, path), level_name.c_str());
+    cout << "1" << endl;
+    char tmppath[100] = "../FoodVsMice/resources/levels/";
+//    cout << tmppath << endl;
+    strcat(tmppath, level_name.c_str());
     ifstream fp;
     fp.open(tmppath,ios::in);
     if(!fp.is_open()){
@@ -287,7 +289,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
     QPixmap *normal_eat1;
     QPixmap *normal_eat2;
     QPixmap *normal_die;
-    
+
     QPixmap *helmet_walking1;
     QPixmap *helmet_walking2;
     QPixmap *helmet_walking3;
@@ -307,7 +309,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         tempnum = fp.get();
         cout << "mouse:" << tempnum << endl;
         MouseType i = (MouseType)(tempnum - '0');
-        
+
         switch (i)
         {
         case MouseType::NORMAL_MOUSE:
@@ -322,7 +324,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
             loadImages(normal_eat1, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_eat1/eat1_", 4, 1);
             loadImages(normal_eat2, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_eat2/eat2_", 4, 1);
             loadImages(normal_die, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_die/die_", 13, 1);
-            
+
             for (auto j = 0; j < 8 ; j++){
                 normal_mouse.push_back(&normal_walk1[j]);
                 deletelist.push_back(&normal_walk1[j]);
@@ -426,7 +428,7 @@ void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，�
         if (tempnum == '\n') break;
     }
     for (;;)// read waves
-    { 
+    {
         float now_wave;
         fp >> now_wave;
         cout<<"wavetime:"<<now_wave<<endl;

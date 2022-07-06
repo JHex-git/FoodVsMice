@@ -3,14 +3,22 @@
 #include "mouse.h"
 #include "../../../view/time_manager.h"
 #include "../../../common/enums.h"
+#include "../../../model/level/level_manager.h"
+
 class Mouse;
 
 class MouseManager
 {
 private:
     TimeManager *time_manager;
+    LevelManager *level_manager;
     std::list<Mouse *> mouse_list;
-    std::list<std::pair<MouseType, float>> waiting_mouse_list;
+    std::shared_ptr<std::list<MouseType>> waiting_mouse_list_ptr;
+    std::shared_ptr<std::list<float>> waiting_mouse_time_list_ptr;
+    std::shared_ptr<std::list<int>> waiting_mouse_line_list_ptr;
+
+// command
+    std::function<std::pair<int, int>(int row_index, int column_index)> Matrix2Viewport;
 
 public:
     MouseManager(TimeManager *time_manager);
@@ -21,4 +29,14 @@ public:
     void PrepareMouse();
 
     void UpdateMouse();
+
+    void Init();
+
+// properties
+    void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }
+
+// command
+    void attach_Matrix2ViewportCommand(std::function<std::pair<int, int>(int row_index, int column_index)>&& func) { Matrix2Viewport = std::move(func); }
+
+    std::function<void()> get_UpdateMiceCommand();
 };

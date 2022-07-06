@@ -1,4 +1,4 @@
-#include "app/game_app.h""
+#include "app/game_app.h"
 #include "view/GUI_manager.h"
 #include "model/level/level_manager.h"
 #include <iostream>

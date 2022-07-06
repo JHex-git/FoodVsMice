@@ -25,6 +25,8 @@ private:
 //    std::list<DrawItem *> draw_foodlist;
     std::shared_ptr<std::list<DrawItem *>> draw_foodlist_ptr;
     std::shared_ptr<std::vector<DrawItem *>> draw_card_vec_ptr;
+    std::shared_ptr<std::vector<float *>> draw_card_mask_vec_ptr;
+    std::shared_ptr<std::vector<int>> draw_card_cost_vec_ptr;
 
 //    std::shared_ptr<std::unordered_map<FoodType, std::vector<QPixmap *>>> img_dict_ptr; // 从level_manager处绑定
 //    std::shared_ptr<std::vector<FoodType>> food_select_vec_ptr;
@@ -67,6 +69,8 @@ public:
 //    std::shared_ptr<std::list<DrawItem *>> get_DrawFoodList() {return std::make_shared<std::list<DrawItem *>>(draw_foodlist);}
     std::shared_ptr<std::list<DrawItem *>> get_DrawFoodList() { return draw_foodlist_ptr; }
     std::shared_ptr<std::vector<DrawItem *>> get_DrawCardVec() { return draw_card_vec_ptr; }
+    std::shared_ptr<std::vector<float *>> get_DrawCardMaskVec() { return draw_card_mask_vec_ptr; }
+    std::shared_ptr<std::vector<int>> get_DrawCardCostVec() { return draw_card_cost_vec_ptr; }
 
     void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }
 
