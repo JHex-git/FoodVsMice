@@ -22,6 +22,7 @@ void GameApp::Init()
     gui_manager->attach_PlaceFoodCommand(food_manager.get_PlaceFoodCommand());
     gui_manager->attach_UpdateFoodCommand(food_manager.get_UpdateFoodCommand());
     gui_manager->attach_UpdateCardCommand(food_manager.get_UpdateCardCommand());
+    gui_manager->attach_RemoveFoodCommand(food_manager.get_RemoveFoodCommand());
     gui_manager->attach_UpdateMouseCommand(mouse_manager.get_UpdateMiceCommand());
     gui_manager->attach_UpdataUpdateProjectile(projectile_manager.get_UpdateProjectiles());
 

@@ -8,8 +8,8 @@ GUIManager::GUIManager(QWidget *parent)
     loading();
     init();
 
-    playlist = new QMediaPlaylist();
     music = new QMediaPlayer();
+    audioOutput = new QAudioOutput;
     background_music_manager();
 
     timer_draw = new QTimer(this);
@@ -275,7 +275,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
             {
                 int row = positioning(event->x(), event->y()).second;
                 int col = positioning(event->x(), event->y()).first;
-                remove(row,col);
+                RemoveFood(row,col);
                 music_choosing=2;
                 music_manager();
                 num=-1;
@@ -288,18 +288,19 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
 
 void GUIManager::background_music_manager()
 {
-    playlist->addMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/beijing.mp3"));
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
-    music->setPlaylist(playlist);
-    if(level_choosing==0)
-        music->play();
+    music->setAudioOutput(audioOutput);
+    music->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/beijing.mp3"));
+    music->setLoops(QMediaPlayer::Loops::Infinite);
+    audioOutput->setVolume(50);
+    music->play();
+
+
     if(level_choosing!=0)
     {
         music->stop();
-        playlist->clear();
-        playlist->addMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhandou.mp3"));
-        playlist->setPlaybackMode(QMediaPlaylist::Loop);
-        music->setPlaylist(playlist);
+        music->setAudioOutput(audioOutput);
+        music->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhandou.mp3"));
+        music->setLoops(QMediaPlayer::Loops::Infinite);
         music->play();
     }
 }
@@ -310,16 +311,18 @@ void GUIManager::music_manager()
     if(music_choosing==1)
     {
         music_choosing=0;
-        player->setMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
-        player->setVolume(100);//音量
+        player->setAudioOutput(audioOutput);
+        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
+        audioOutput->setVolume(100);//音量
         player->play();
     }
 
     if(music_choosing==2)
     {
         music_choosing=0;
-        player->setMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
-        player->setVolume(200);//音量
+        player->setAudioOutput(audioOutput);
+        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
+        audioOutput->setVolume(200);//音量
         player->play();
     }
 }

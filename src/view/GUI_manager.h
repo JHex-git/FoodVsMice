@@ -5,7 +5,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include<QMediaPlayer>
-#include<QMediaPlaylist>
+#include <QAudioOutput>
 #include <iostream>
 #include <map>
 #include <functional>
@@ -91,8 +91,8 @@ private:
     QPixmap already;           //冷却用
     QTimer *timer_logic;        //更新游戏逻辑时钟
     int time_update_logic;      //信号时长
-    QMediaPlaylist *playlist;   //游戏音乐列表
     QMediaPlayer *music;        //游戏音乐
+    QAudioOutput *audioOutput;
 
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）
