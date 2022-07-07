@@ -18,6 +18,7 @@ private:
 
 protected:
     int row;
+    int column;
 
     void Update() override;
     void UpdateBehave() override;
@@ -29,7 +30,7 @@ protected:
 public:
     Food(int x, int y, int health, float cool_down_time);
 
-    Food(int x, int y, int delta_x, int delta_y, int row, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
+    Food(int x, int y, int delta_x, int delta_y, int row, int column, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
 
     void TakeDamage(int damage);
 };

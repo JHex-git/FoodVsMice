@@ -20,5 +20,5 @@ private:
 public:
     Stove(int x, int y, FlameManager *flame_manager);
 
-    Stove(int x, int y, int row, std::vector<QPixmap *> frames, FlameManager *flame_manager);
+    Stove(int x, int y, int row, int column, std::vector<QPixmap *> frames, FlameManager *flame_manager);
 };
