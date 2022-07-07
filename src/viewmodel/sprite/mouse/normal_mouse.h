@@ -4,6 +4,6 @@
 class NormalMouse : public Mouse
 {
 public:
-    NormalMouse(int x, int y, std::vector<QPixmap *> frames);
+    NormalMouse(int x, int y, int row, std::vector<QPixmap *> frames);
 };
 

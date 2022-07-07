@@ -37,6 +37,9 @@ public:
 
     void Init();
 
+    // 返回在row行的x右边的最近的老鼠
+    Mouse *GetLeftestMouse(int x, int row);
+
 // properties
     // for view
     std::shared_ptr<std::list<DrawItem *>> get_DrawMouseList() { return draw_mouse_list_ptr; }

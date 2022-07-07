@@ -74,7 +74,6 @@ void MouseManager::PrepareMouse()
 
     for (std::list<float>::iterator time_it = waiting_mouse_time_list_ptr->begin(); time_it != waiting_mouse_time_list_ptr->end() && *time_it <= time_manager->GetCurrentSecond();)
     {
-        DEBUG_INFO("have mouse waiting");
         std::list<MouseType>::iterator tmp_type_it = type_it++;
         std::list<int>::iterator tmp_line_it = line_it++;
         std::list<float>::iterator tmp_time_it = time_it++;
@@ -87,13 +86,13 @@ void MouseManager::PrepareMouse()
         switch (*tmp_type_it)
         {
             case MouseType::NORMAL_MOUSE:
-                mouse = new NormalMouse(RIGHT_MOST, y, imgs);
+                mouse = new NormalMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
                 break;
             case MouseType::HELMET_MOUSE:
-                mouse = new BucketMouse(RIGHT_MOST, y, imgs);
+                mouse = new BucketMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
                 break;
             case MouseType::FOOT_MOUSE:
-                mouse = new FootballMouse(RIGHT_MOST, y, imgs);
+                mouse = new FootballMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
                 break;
         }
         if (mouse != nullptr)
@@ -101,11 +100,28 @@ void MouseManager::PrepareMouse()
             mouse_list.push_front(mouse);
             draw_mouse_list_ptr->push_front(&mouse->draw_item);
         }
-
         waiting_mouse_list_ptr->erase(tmp_type_it);
         waiting_mouse_line_list_ptr->erase(tmp_line_it);
         waiting_mouse_time_list_ptr->erase(tmp_time_it);
     }
+}
+
+
+Mouse *MouseManager::GetLeftestMouse(int x, int row)
+{
+    Mouse *mouse = nullptr;
+    for (std::list<Mouse *>::iterator it = mouse_list.begin(); it != mouse_list.end(); ++it)
+    {
+        if ((*it)->row == row)
+        {
+            if (mouse == nullptr && (*it)->GetX() > x) mouse = *it;
+            else if (mouse != nullptr)
+            {
+                if ((*it)->GetX() > x && (*it)->GetX() < mouse->GetX()) mouse = *it;
+            }
+        }
+    }
+    return mouse;
 }
 
 std::function<void()> MouseManager::get_UpdateMiceCommand()

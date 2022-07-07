@@ -8,13 +8,13 @@
 #include "egg.h"
 // add card here
 #include "../../card/stove_card.h"
-#include "../../card/steamdrawe_card.h"
+#include "../../card/steamdrawer_card.h"
 #include "../../card/hotpot_card.h"
 #include "../../card/egg_card.h"
 #include "../../card/cherry_card.h"
 
-FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager) :
-    level_manager(level_manager), flame_manager(flame_manager)
+FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager, MouseManager *mouse_manager, ProjectileManager *projectile_manager) :
+    level_manager(level_manager), flame_manager(flame_manager), mouse_manager(mouse_manager), projectile_manager(projectile_manager)
 {
     // 初始化map_grids
     map_grids.resize(row_count);
@@ -79,6 +79,7 @@ void FoodManager::Init()
             card_vec.push_back(card);
             draw_card_vec_ptr->push_back(&card->card_img);
             draw_card_mask_vec_ptr->push_back(&card->cooldown_ratio);
+            draw_card_cost_vec_ptr->push_back(card->flame_cost);
         }
     }
 }
@@ -108,15 +109,16 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
         switch (food_type)
         {
             case FoodType::HOTPOT:
-                food = new Stove(x, y, imgs, flame_manager);
+                food = new Stove(x, y, row_index, imgs, flame_manager);
                 map_grids[row_index][column_index] = true;
                 break;
             case FoodType::CHERRY:
-                food = new Cherry(x, y, imgs);
+                food = new Cherry(x, y, row_index, imgs, projectile_manager);
                 map_grids[row_index][column_index] = true;
                 break;
             case FoodType::EGG:
-                food = new Egg(x, y, imgs);
+                DEBUG_INFO(imgs.size());
+                food = new Egg(x, y, row_index, imgs, mouse_manager, projectile_manager);
                 map_grids[row_index][column_index] = true;
                 break;
 

@@ -1,10 +1,15 @@
 #pragma once
 #include "food.h"
+#include "../projectile/pitch_projectile.h"
 
 class Egg : public Food
 {
 private:
-    void Func() override;
+    ProjectileManager *projectile_manager;
+    PitchProjectile *projectile;
+    MouseManager *mouse_manager;
+
+    bool Func() override;
 public:
-    Egg(int x, int y, std::vector<QPixmap *> frames);
+    Egg(int x, int y, int row, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager);
 };

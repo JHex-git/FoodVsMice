@@ -5,7 +5,7 @@
 class Stove : public Food
 {
 private:
-    void Func() override;
+    bool Func() override;
 
     static const int COOL_DOWN_TIME;
     static const int FLAME_PADDING_X;
@@ -19,5 +19,5 @@ private:
 public:
     Stove(int x, int y, FlameManager *flame_manager);
 
-    Stove(int x, int y, std::vector<QPixmap *> frames, FlameManager *flame_manager);
+    Stove(int x, int y, int row, std::vector<QPixmap *> frames, FlameManager *flame_manager);
 };

@@ -4,7 +4,9 @@
 class Cherry : public Food
 {
 private:
-    void Func() override;
+    ProjectileManager *projectile_manager;
+
+    bool Func() override;
 public:
-    Cherry(int x, int y, std::vector<QPixmap *> frames);
+    Cherry(int x, int y, int row, std::vector<QPixmap *> frames, ProjectileManager *projectile_manager);
 };

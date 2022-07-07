@@ -6,6 +6,8 @@
 #include "../../../common/enums.h"
 #include "../../../model/level/level_manager.h"
 #include "../flame/flame_manager.h"
+#include "../mouse/mouse_manager.h"
+#include "../projectile/projectile_manager.h"
 #include "../../card/card.h"
 #include "../../../common/draw_item.h"
 class Food;
@@ -16,9 +18,11 @@ private:
     std::vector<std::vector<bool> > map_grids; // 用于指示地图上某格是否放有食物
     std::list<Food *> food_list; // 所有放在地图上的食物
     std::vector<Card *> card_vec; // 所有供放置的食物卡片
-//    LevelManager *level_manager;
+
     LevelManager *level_manager;
     FlameManager *flame_manager;
+    MouseManager *mouse_manager;
+    ProjectileManager *projectile_manager;
 
 // properties
 //  绘图用
@@ -42,7 +46,7 @@ public:
      * @param {int} row_count 关卡地图的行数
      * @param {int} column_count 关卡地图的列数
      */    
-    FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager);
+    FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager, MouseManager *mouse_manager, ProjectileManager *projectile_manager);
 
     void Init();
     /*** 

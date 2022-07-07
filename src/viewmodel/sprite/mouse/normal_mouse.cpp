@@ -7,5 +7,5 @@ const int VELOCITY = 2;
 const int DELTA_X = 1;
 const int DELTA_Y = 40;
 
-NormalMouse::NormalMouse(int x, int y, std::vector<QPixmap *> frames) :
-    Mouse(x, y, DELTA_X, DELTA_Y,FRAME_RATE, frames, HEALTH, VELOCITY, DAMAGE) {}
+NormalMouse::NormalMouse(int x, int y, int row, std::vector<QPixmap *> frames) :
+    Mouse(x, y, DELTA_X, DELTA_Y,FRAME_RATE, row, frames, HEALTH, VELOCITY, DAMAGE) {}

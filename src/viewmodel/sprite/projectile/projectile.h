@@ -3,6 +3,7 @@
 
 class Projectile : public Sprite
 {
+    friend class ProjectileManager;
 public:
     Projectile(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames, int velocity, int damage);
 
@@ -11,4 +12,5 @@ public:
 protected:
     int velocity;
     int damage;
+    bool is_active;
 };

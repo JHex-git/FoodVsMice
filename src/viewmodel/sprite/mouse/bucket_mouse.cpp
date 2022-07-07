@@ -9,5 +9,5 @@ const int DELTA_Y = 1;
 BucketMouse::BucketMouse(int x, int y) :
     Mouse(x, y, FRAME_RATE, HEALTH, VELOCITY, DAMAGE) {}
 
-BucketMouse::BucketMouse(int x, int y, std::vector<QPixmap *> frames) :
-    Mouse(x, y, DELTA_X, DELTA_Y,FRAME_RATE, frames, HEALTH, VELOCITY, DAMAGE) {}
+BucketMouse::BucketMouse(int x, int y, int row, std::vector<QPixmap *> frames) :
+    Mouse(x, y, DELTA_X, DELTA_Y,FRAME_RATE, row, frames, HEALTH, VELOCITY, DAMAGE) {}

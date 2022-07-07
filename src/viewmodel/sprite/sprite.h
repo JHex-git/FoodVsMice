@@ -11,10 +11,10 @@ class Sprite
 private:
     int current_frame;
     float frame_rate;   // 帧切换的速率
-    std::vector<QPixmap *> frames;
     float frame_accum;  // 每次增加frame_rate的量，大于1时会切换到下一帧
 
 protected:
+    std::vector<QPixmap *> frames;
     DrawItem draw_item;
 
 public:
