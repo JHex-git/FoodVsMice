@@ -5,7 +5,8 @@
 class Stove : public Food
 {
 private:
-    bool Func() override;
+    bool CheckFunc() override;
+    void Func() override;
 
     static const int COOL_DOWN_TIME;
     static const int FLAME_PADDING_X;

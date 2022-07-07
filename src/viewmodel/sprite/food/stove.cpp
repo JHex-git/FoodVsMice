@@ -7,15 +7,21 @@ const int Stove::HEALTH = 100;
 const int Stove::DELTA_X = -3;
 const int Stove::DELTA_Y = 28;
 const int PROJECTILE_START = 100;
+const int FUNC_START_INDEX = 20;
+const int FUNC_TAKE_EFFECT_INDEX = 25;
 
-bool Stove::Func()
+bool Stove::CheckFunc()
+{
+    return true;
+}
+
+void Stove::Func()
 {
     flame_manager->GenerateFlame(draw_item.x + FLAME_PADDING_X, draw_item.y + FLAME_PADDING_Y);
-    return true;
 }
 
 Stove::Stove(int x, int y, FlameManager *flame_manager) : 
     Food(x, y, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
 
 Stove::Stove(int x, int y, int row, std::vector<QPixmap *> frames, FlameManager *flame_manager) :
-    Food(x, y, DELTA_X, DELTA_Y, row, frames, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
+    Food(x, y, DELTA_X, DELTA_Y, row, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}

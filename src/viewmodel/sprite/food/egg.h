@@ -8,8 +8,11 @@ private:
     ProjectileManager *projectile_manager;
     PitchProjectile *projectile;
     MouseManager *mouse_manager;
+    Mouse *target = nullptr;
 
-    bool Func() override;
+    bool CheckFunc() override;
+    void Func() override;
+
 public:
     Egg(int x, int y, int row, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager);
 };

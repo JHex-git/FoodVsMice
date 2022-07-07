@@ -11,6 +11,7 @@ private:
     int health;
     int func_start_index;
     int func_take_effect_index;
+    bool start_func;
     int projectile_index;
     float cool_down_time;
     float current_cool_time; // 0是在冷却中
@@ -21,13 +22,14 @@ protected:
     void Update() override;
     void UpdateBehave() override;
     
+    virtual bool CheckFunc() = 0;
     // 植物的功能函数
-    virtual bool Func() = 0;
+    virtual void Func() = 0;
 
 public:
     Food(int x, int y, int health, float cool_down_time);
 
-    Food(int x, int y, int delta_x, int delta_y, int row, std::vector<QPixmap *> frames, int projectile_index, int health, float cool_down_time);
+    Food(int x, int y, int delta_x, int delta_y, int row, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
 
     void TakeDamage(int damage);
 };

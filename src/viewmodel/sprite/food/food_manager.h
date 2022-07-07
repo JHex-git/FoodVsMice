@@ -32,14 +32,6 @@ private:
     std::shared_ptr<std::vector<float *>> draw_card_mask_vec_ptr;
     std::shared_ptr<std::vector<int>> draw_card_cost_vec_ptr;
 
-//    std::shared_ptr<std::unordered_map<FoodType, std::vector<QPixmap *>>> img_dict_ptr; // 从level_manager处绑定
-//    std::shared_ptr<std::vector<FoodType>> food_select_vec_ptr;
-
-// command
-//    std::function<std::pair<int, int>(int row_index, int column_index)> Matrix2Viewport;
-//    std::function<std::pair<int, int>(int x, int y)> Viewport2Matrix;
-//    std::function<std::pair<int, int>(int select_index)> Index2Viewport;
-
 public:
     /*** 
      * 控制所有放下的食物
@@ -84,8 +76,4 @@ public:
     std::function<void()> get_UpdateCardCommand();
     std::function<void(int row_index, int column_index)> get_RemoveFoodCommand();
 
-//
-//    void attach_Matrix2ViewportCommand(std::function<std::pair<int, int>(int row_index, int column_index)>&& func) { Matrix2Viewport = std::move(func); }
-//    void attach_Viewport2MatrixCommand(std::function<std::pair<int, int>(int x, int y)>&& func) { Viewport2Matrix = std::move(func); }
-//    void attach_Index2ViewportCommand(std::function<std::pair<int, int>(int select_index)>&& func) { Index2Viewport = std::move(func); }
 };
