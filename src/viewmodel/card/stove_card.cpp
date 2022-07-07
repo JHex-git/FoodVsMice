@@ -1,4 +1,4 @@
-#include "stove_card.h""
+#include "stove_card.h"
 
 const int DELTA_X = -15;
 const int DELTA_Y = 13;

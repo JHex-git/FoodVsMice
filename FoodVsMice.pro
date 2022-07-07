@@ -24,6 +24,9 @@ SOURCES += \
     src/viewmodel/card/card.cpp \
     src/viewmodel/card/cherry_card.cpp \
     src/viewmodel/card/egg_card.cpp \
+    src/viewmodel/card/hotpot_card.cpp \
+    src/viewmodel/card/steamdrawer_card.cpp \
+    src/viewmodel/card/stove_card.cpp \
     src/viewmodel/sprite/flame/flame.cpp \
     src/viewmodel/sprite/flame/flame_manager.cpp \
     src/viewmodel/sprite/food/cherry.cpp \
@@ -37,7 +40,9 @@ SOURCES += \
     src/viewmodel/sprite/mouse/mouse_manager.cpp \
     src/viewmodel/sprite/mouse/normal_mouse.cpp \
     src/viewmodel/sprite/projectile/horizontal_projectile.cpp \
+    src/viewmodel/sprite/projectile/pitch_projectile.cpp \
     src/viewmodel/sprite/projectile/projectile.cpp \
+    src/viewmodel/sprite/projectile/projectile_manager.cpp \
     src/viewmodel/sprite/sprite.cpp \
     src/window/mainwindow.cpp
 
@@ -64,7 +69,7 @@ HEADERS += \
     src/viewmodel/card/cherry_card.h \
     src/viewmodel/card/egg_card.h \
     src/viewmodel/card/hotpot_card.h \
-    src/viewmodel/card/steamdrawe_card.h \
+    src/viewmodel/card/steamdrawer_card.h \
     src/viewmodel/card/stove_card.h \
     src/viewmodel/sprite/flame/flame.h \
     src/viewmodel/sprite/flame/flame_manager.h \
@@ -79,7 +84,9 @@ HEADERS += \
     src/viewmodel/sprite/mouse/mouse_manager.h \
     src/viewmodel/sprite/mouse/normal_mouse.h \
     src/viewmodel/sprite/projectile/horizontal_projectile.h \
+    src/viewmodel/sprite/projectile/pitch_projectile.h \
     src/viewmodel/sprite/projectile/projectile.h \
+    src/viewmodel/sprite/projectile/projectile_manager.h \
     src/viewmodel/sprite/sprite.h \
     src/window/mainwindow.h
 

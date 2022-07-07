@@ -8,12 +8,10 @@
 // TODO: 更新图像是否要单拎出来
 class Sprite
 {
-private:
+protected:
     int current_frame;
     float frame_rate;   // 帧切换的速率
     float frame_accum;  // 每次增加frame_rate的量，大于1时会切换到下一帧
-
-protected:
     std::vector<QPixmap *> frames;
     DrawItem draw_item;
 
@@ -25,7 +23,7 @@ public:
     void AddFrame(QPixmap *frame);
 
     // 更新图像并更新行为
-    void Update();
+    virtual void Update();
 
     virtual void UpdateBehave() = 0;
 };

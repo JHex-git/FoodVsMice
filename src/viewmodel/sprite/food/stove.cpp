@@ -6,6 +6,7 @@ const int Stove::FLAME_PADDING_Y = 40;
 const int Stove::HEALTH = 100;
 const int Stove::DELTA_X = -3;
 const int Stove::DELTA_Y = 28;
+const int PROJECTILE_START = 100;
 
 bool Stove::Func()
 {
@@ -17,4 +18,4 @@ Stove::Stove(int x, int y, FlameManager *flame_manager) :
     Food(x, y, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
 
 Stove::Stove(int x, int y, int row, std::vector<QPixmap *> frames, FlameManager *flame_manager) :
-    Food(x, y, DELTA_X, DELTA_Y, row, frames, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
+    Food(x, y, DELTA_X, DELTA_Y, row, frames, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}

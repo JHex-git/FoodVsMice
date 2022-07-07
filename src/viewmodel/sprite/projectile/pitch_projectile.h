@@ -7,8 +7,9 @@ class PitchProjectile : public Projectile
 private:
     Mouse *target;
     float initial_velocity_y;
+    int low_bound;
 public:
-    PitchProjectile(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames, int velocity, int damage, Mouse* target);
+    PitchProjectile(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames, int boom_index, float velocity, int damage, Mouse* target, int low_bound_padding);
 
     void UpdateBehave() override;
 

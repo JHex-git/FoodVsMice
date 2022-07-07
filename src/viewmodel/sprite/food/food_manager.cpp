@@ -117,7 +117,6 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
                 map_grids[row_index][column_index] = true;
                 break;
             case FoodType::EGG:
-                DEBUG_INFO(imgs.size());
                 food = new Egg(x, y, row_index, imgs, mouse_manager, projectile_manager);
                 map_grids[row_index][column_index] = true;
                 break;

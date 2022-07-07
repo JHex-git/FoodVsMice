@@ -10,4 +10,4 @@ BucketMouse::BucketMouse(int x, int y) :
     Mouse(x, y, FRAME_RATE, HEALTH, VELOCITY, DAMAGE) {}
 
 BucketMouse::BucketMouse(int x, int y, int row, std::vector<QPixmap *> frames) :
-    Mouse(x, y, DELTA_X, DELTA_Y,FRAME_RATE, row, frames, HEALTH, VELOCITY, DAMAGE) {}
+    Mouse(x, y, DELTA_X, DELTA_Y, row, FRAME_RATE, frames, HEALTH, VELOCITY, DAMAGE) {}

@@ -14,6 +14,10 @@ public:
     // 将子弹加入子弹list进行管理
     void AddProjectile(Projectile *projectile);
 
+// command
     // 更新子弹list中的所有子弹
-    void UpdateProjectiles();
+    std::function<void()> get_UpdateProjectiles();
+
+// properties
+    std::shared_ptr<std::list<DrawItem *>> get_DrawProjectileList() { return draw_projectile_list_ptr; }
 };

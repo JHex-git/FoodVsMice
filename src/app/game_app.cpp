@@ -14,6 +14,7 @@ void GameApp::Init()
     gui_manager->attach_AlreadyVector(food_manager.get_DrawCardMaskVec());
     gui_manager->attach_SunCost(food_manager.get_DrawCardCostVec());
     gui_manager->attach_SunSum(flame_manager.get_FlameCount());
+    gui_manager->attach_DrawProjectileList(projectile_manager.get_DrawProjectileList());
     food_manager.attach_LevelManager(level_manager);
     mouse_manager.attach_LevelManager(level_manager);
 
@@ -25,6 +26,7 @@ void GameApp::Init()
     gui_manager->attach_UpdateFoodCommand(food_manager.get_UpdateFoodCommand());
     gui_manager->attach_UpdateCardCommand(food_manager.get_UpdateCardCommand());
     gui_manager->attach_UpdateMouseCommand(mouse_manager.get_UpdateMiceCommand());
+    gui_manager->attach_UpdataUpdateProjectile(projectile_manager.get_UpdateProjectiles());
 
     food_manager.Init();
     mouse_manager.Init();
