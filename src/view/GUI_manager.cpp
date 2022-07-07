@@ -131,7 +131,7 @@ void GUIManager::draw_game_background()
     painter.setFont(font);
     QRectF rect(10, 90, 75, 20);
     char num[10];
-    itoa(flame_sum, num,10);
+    itoa(*flame_sum, num,10);
     painter.setPen(QColor(Qt::red));
     painter.drawText(rect,Qt::AlignHCenter | Qt::AlignVCenter, num);
 }
@@ -169,6 +169,13 @@ void GUIManager::draw_game()
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
+
+    for (list<DrawItem *>::iterator it = projectlie_list->begin(); it != projectlie_list->end(); it++)
+    {
+        painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
+    }
+
+
 }
 
 void GUIManager::draw_select()
@@ -209,6 +216,7 @@ void GUIManager::update_logic()
     UpdateFood();
     UpdateCard();
     UpdateMouse();
+    UpdateProjectile();
 }
 
 void GUIManager::mousePressEvent(QMouseEvent *event)

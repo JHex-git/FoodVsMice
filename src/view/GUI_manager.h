@@ -70,9 +70,9 @@ protected slots:
 private:
     std::shared_ptr<std::list<DrawItem *>> draw_list;
     std::shared_ptr<std::list<DrawItem *>> mouse_list;
+    std::shared_ptr<std::list<DrawItem *>> projectile_list;
 
     std::shared_ptr<std::vector<DrawItem *>> select_vector;
-
     std::shared_ptr<std::vector<float *>> already_vector;
     std::shared_ptr<std::vector<int>> flame_cost_vector;
     std::shared_ptr<int> flame_sum;
@@ -104,6 +104,7 @@ private:
     std::function<void()> UpdateFood;
     std::function<void()> UpdateCard;
     std::function<void()> UpdateMouse;
+    std::function<void()> UpdateProjectile;
 public:
 // properties
     void attach_DrawFoodList(const std::shared_ptr<std::list<DrawItem *>> food_list)
@@ -113,6 +114,10 @@ public:
     void attach_DrawMouseList(const std::shared_ptr<std::list<DrawItem *>> mouse_list_)
     {
         mouse_list= mouse_list_;
+    }
+    void attach_DrawProjectileList(const std::shared_ptr<std::list<DrawItem *>> projectile_list_)
+    {
+        projectile_list=projectile_list_;
     }
     void attach_SelectVector(const std::shared_ptr<std::vector<DrawItem *>> select_vector_)
     {
@@ -140,5 +145,6 @@ public:
     void attach_UpdateFoodCommand(std::function<void()>&& func) { UpdateFood = std::move(func); }
     void attach_UpdateCardCommand(std::function<void()>&& func) { UpdateCard = std::move(func); }
     void attach_UpdateMouseCommand(std::function<void()>&& func){ UpdateMouse = std::move(func);}
+    void attach_UpdataUpdateProjectile(std::function<void()>&&func){UpdateProjectile = std::move(func);}
 };
 
