@@ -271,7 +271,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     music_manager();
                 }
             }
-            if (event->y() >= 130 && event->y()<655 num==7&& selected==1&&event->x()>120&&event->x()<840)
+            if (event->y() >= 130 && event->y()<655 && num==7 && selected==1 && event->x()>120 && event->x()<840)
             {
                 int row = positioning(event->x(), event->y()).second;
                 int col = positioning(event->x(), event->y()).first;

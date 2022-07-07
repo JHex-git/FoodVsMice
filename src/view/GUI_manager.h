@@ -4,6 +4,8 @@
 #include <QTimer>
 #include <QPainter>
 #include <QMouseEvent>
+#include<QMediaPlayer>
+#include<QMediaPlaylist>
 #include <iostream>
 #include <map>
 #include <functional>
