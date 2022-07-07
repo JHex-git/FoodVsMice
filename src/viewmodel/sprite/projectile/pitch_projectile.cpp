@@ -35,7 +35,6 @@ void PitchProjectile::UpdateBehave()
             draw_item.y -= velocity * TimeManager::DELTA_TIME;
             if (draw_item.y > low_bound) // 低于最低点，就结束
             {
-                DEBUG_INFO("destroy");
                 if (target != nullptr)
                 {
                     current_frame = bound - 1;
@@ -49,7 +48,6 @@ void PitchProjectile::UpdateBehave()
         {
             if ((uint32_t)current_frame == frames.size() - 1)
             {
-                DEBUG_INFO("delete");
                 is_active = false;
             }
         }
