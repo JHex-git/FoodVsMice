@@ -8,6 +8,10 @@ GUIManager::GUIManager(QWidget *parent)
     loading();
     init();
 
+    playlist = new QMediaPlaylist();
+    music = new QMediaPlayer();
+    background_music_manager();
+
     timer_draw = new QTimer(this);
     connect(timer_draw,SIGNAL(timeout()),this,SLOT(repaint()));
     timer_draw->start(time_draw);
@@ -26,6 +30,7 @@ void GUIManager:: init()
     time_update_logic = 50;
     num_select=1;
     ii=0;
+    music_choosing=0;
 }
 
 void GUIManager::loading()
@@ -170,7 +175,7 @@ void GUIManager::draw_game()
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
 
-    for (list<DrawItem *>::iterator it = projectlie_list->begin(); it != projectlie_list->end(); it++)
+    for (list<DrawItem *>::iterator it = projectile_list->begin(); it != projectile_list->end(); it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
@@ -242,7 +247,8 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     level_choosing=3;
                     timer_logic->start();
                 }
-            }        
+            }  
+            background_music_manager();      
 
             return;
         }
@@ -253,7 +259,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                 num = locationing(event->x());
                 selected = 1;
             }
-            if (event->y() >= 130 && num!=-1 && selected==1)
+            if (event->y() >= 130 && num!=-1 && selected==1&&num!=7)
             {
                 int row = positioning(event->x(), event->y()).second;
                 int col = positioning(event->x(), event->y()).first;
@@ -261,10 +267,60 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                 {
                     num = -1;
                     selected = 0;
+                    music_choosing=1;
+                    music_manager();
                 }
+            }
+            if (event->y() >= 130 && event->y()<655 num==7&& selected==1&&event->x()>120&&event->x()<840)
+            {
+                int row = positioning(event->x(), event->y()).second;
+                int col = positioning(event->x(), event->y()).first;
+                remove(row,col);
+                music_choosing=2;
+                music_manager();
+                num=-1;
+                selected = 0;
             }
         }
 
+    }
+}
+
+void GUIManager::background_music_manager()
+{
+    playlist->addMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/beijing.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    music->setPlaylist(playlist);
+    if(level_choosing==0)
+        music->play();
+    if(level_choosing!=0)
+    {
+        music->stop();
+        playlist->clear();
+        playlist->addMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhandou.mp3"));
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        music->setPlaylist(playlist);
+        music->play();
+    }
+}
+
+void GUIManager::music_manager()
+{
+    QMediaPlayer *player = new QMediaPlayer(this);//设置音乐
+    if(music_choosing==1)
+    {
+        music_choosing=0;
+        player->setMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
+        player->setVolume(100);//音量
+        player->play();
+    }
+
+    if(music_choosing==2)
+    {
+        music_choosing=0;
+        player->setMedia(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
+        player->setVolume(200);//音量
+        player->play();
     }
 }
 

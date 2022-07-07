@@ -60,8 +60,11 @@ public:
     void draw_select();                                            //画选择植物
     void draw_game();                                              //画食物、老鼠
 
-    void update_logic();
+//............................................................................................................................音乐控制
+    void background_music_manager();                                //背景音乐
+    void music_manager();                                           //其他音乐
 
+    void update_logic();
     ~GUIManager();
 
 protected slots:
@@ -86,21 +89,24 @@ private:
     QPixmap already;           //冷却用
     QTimer *timer_logic;        //更新游戏逻辑时钟
     int time_update_logic;      //信号时长
-
+    QMediaPlaylist *playlist;   //游戏音乐列表
+    QMediaPlayer *music;        //游戏音乐
 
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）
     int num;                    //选择了什么食物（0到6是食物，7是铲子）
     int level_choosing;         //关卡选择（0是选择界面，1是关卡1，2是关卡2，3是关卡3)
-    map<pair<int,int>,int> sele;
+    int music_choosing;
 
 //......................................。。。。。。................自测变量，可删除
     int ii;                     //测试用
     QPixmap Cherry_tart[9];     //测试用
     QPixmap select_food[7];     //测试用
     int num_select;
+    map<pair<int,int>,int> sele;
 
     std::function<bool(int row_index, int column_index, int select_index)> PlaceFood;
+    std::function<void(int row_index, int column_index)>RemoveFood;
     std::function<void()> UpdateFood;
     std::function<void()> UpdateCard;
     std::function<void()> UpdateMouse;
@@ -142,6 +148,7 @@ public:
 
 // command
     void attach_PlaceFoodCommand(std::function<bool(int row_index, int column_index, int select_index)>&& func) { PlaceFood = std::move(func); }
+    void attach_RemoveFoodCommand(std::function<void(int row_index, int column_index)>&& func ){RemoveFood = std::move(func);}
     void attach_UpdateFoodCommand(std::function<void()>&& func) { UpdateFood = std::move(func); }
     void attach_UpdateCardCommand(std::function<void()>&& func) { UpdateCard = std::move(func); }
     void attach_UpdateMouseCommand(std::function<void()>&& func){ UpdateMouse = std::move(func);}
