@@ -301,7 +301,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     InitCard();
                     timer_logic->start();
                 }
-                else if(event->y()>=450&&event->y()<=410)
+                else if(event->y()>=450&&event->y()<=510)
                 {
                     level_choosing=3;
                     UpdateLevel(level_choosing);

@@ -33,9 +33,9 @@ protected:
     virtual void Func() = 0;
 
 public:
-    Food(int x, int y, int health, float cool_down_time);
+    Food(int x, int y, int health, float frame_rate, float cool_down_time);
 
-    Food(int x, int y, int delta_x, int delta_y, int row, int column, int left_padding, int right_padding, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
+    Food(int x, int y, int delta_x, int delta_y, int row, int column, int left_padding, int right_padding, float frame_rate, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
 
     void TakeDamage(int damage);
 

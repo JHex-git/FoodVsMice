@@ -1,7 +1,7 @@
 #include "steamdrawer_card.h"
 
-const int DELTA_X = 1;
-const int DELTA_Y = 2;
+const int DELTA_X = -28;
+const int DELTA_Y = -17;
 const float COOLDOWN_TIME = 5;
 const int FLAME_COST = 100;
 

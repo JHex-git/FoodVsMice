@@ -24,15 +24,20 @@ SOURCES += \
     src/viewmodel/card/card.cpp \
     src/viewmodel/card/cherry_card.cpp \
     src/viewmodel/card/egg_card.cpp \
+    src/viewmodel/card/fish_card.cpp \
     src/viewmodel/card/hotpot_card.cpp \
+    src/viewmodel/card/small_bread_card.cpp \
     src/viewmodel/card/steamdrawer_card.cpp \
     src/viewmodel/card/stove_card.cpp \
     src/viewmodel/sprite/flame/flame.cpp \
     src/viewmodel/sprite/flame/flame_manager.cpp \
     src/viewmodel/sprite/food/cherry.cpp \
     src/viewmodel/sprite/food/egg.cpp \
+    src/viewmodel/sprite/food/fish.cpp \
     src/viewmodel/sprite/food/food.cpp \
     src/viewmodel/sprite/food/food_manager.cpp \
+    src/viewmodel/sprite/food/small_bread.cpp \
+    src/viewmodel/sprite/food/steam_drawer.cpp \
     src/viewmodel/sprite/food/stove.cpp \
     src/viewmodel/sprite/mouse/bucket_mouse.cpp \
     src/viewmodel/sprite/mouse/football_mouse.cpp \
@@ -68,15 +73,20 @@ HEADERS += \
     src/viewmodel/card/card.h \
     src/viewmodel/card/cherry_card.h \
     src/viewmodel/card/egg_card.h \
+    src/viewmodel/card/fish_card.h \
     src/viewmodel/card/hotpot_card.h \
+    src/viewmodel/card/small_bread_card.h \
     src/viewmodel/card/steamdrawer_card.h \
     src/viewmodel/card/stove_card.h \
     src/viewmodel/sprite/flame/flame.h \
     src/viewmodel/sprite/flame/flame_manager.h \
     src/viewmodel/sprite/food/cherry.h \
     src/viewmodel/sprite/food/egg.h \
+    src/viewmodel/sprite/food/fish.h \
     src/viewmodel/sprite/food/food.h \
     src/viewmodel/sprite/food/food_manager.h \
+    src/viewmodel/sprite/food/small_bread.h \
+    src/viewmodel/sprite/food/steam_drawer.h \
     src/viewmodel/sprite/food/stove.h \
     src/viewmodel/sprite/mouse/bucket_mouse.h \
     src/viewmodel/sprite/mouse/football_mouse.h \
