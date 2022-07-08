@@ -9,7 +9,7 @@
 #include <iostream>
 #include <map>
 #include <functional>
-#include "../common/draw_item.h"
+#include "../common/sprite_item.h"
 #include "../common/debug.h"
 #include "../common/enums.h"
 using namespace std;
@@ -119,12 +119,12 @@ protected slots:
        void paintEvent(QPaintEvent *event);                           //绘图事件
        void mousePressEvent(QMouseEvent *event);                      //鼠标移动事件
 private:
-    std::shared_ptr<std::list<DrawItem *>> draw_list;
-    std::shared_ptr<std::list<DrawItem *>> mouse_list;
-    std::shared_ptr<std::list<DrawItem *>> projectile_list;
-    std::shared_ptr<std::list<DrawItem *>> flame_list;
+    std::shared_ptr<std::list<SpriteItem *>> draw_list;
+    std::shared_ptr<std::list<SpriteItem *>> mouse_list;
+    std::shared_ptr<std::list<SpriteItem *>> projectile_list;
+    std::shared_ptr<std::list<SpriteItem *>> flame_list;
 
-    std::shared_ptr<std::vector<DrawItem *>> select_vector;
+    std::shared_ptr<std::vector<SpriteItem *>> select_vector;
     std::shared_ptr<std::vector<float *>> already_vector;
     std::shared_ptr<std::vector<int>> flame_cost_vector;
     std::shared_ptr<int> flame_sum;
@@ -171,23 +171,23 @@ private:
     std::function<bool(int x, int y)> PickupFlame;
 public:
 // properties
-    void attach_DrawFoodList(const std::shared_ptr<std::list<DrawItem *>> food_list)
+    void attach_DrawFoodList(const std::shared_ptr<std::list<SpriteItem *>> food_list)
     {
         draw_list = food_list;
     }
-    void attach_DrawMouseList(const std::shared_ptr<std::list<DrawItem *>> mouse_list_)
+    void attach_DrawMouseList(const std::shared_ptr<std::list<SpriteItem *>> mouse_list_)
     {
         mouse_list= mouse_list_;
     }
-    void attach_DrawProjectileList(const std::shared_ptr<std::list<DrawItem *>> projectile_list_)
+    void attach_DrawProjectileList(const std::shared_ptr<std::list<SpriteItem *>> projectile_list_)
     {
         projectile_list=projectile_list_;
     }
-    void attach_DrawFlameList(const std::shared_ptr<std::list<DrawItem *>> flame_list_)
+    void attach_DrawFlameList(const std::shared_ptr<std::list<SpriteItem *>> flame_list_)
     {
         flame_list = flame_list_;
     }
-    void attach_SelectVector(const std::shared_ptr<std::vector<DrawItem *>> select_vector_)
+    void attach_SelectVector(const std::shared_ptr<std::vector<SpriteItem *>> select_vector_)
     {
         select_vector=select_vector_;
     }

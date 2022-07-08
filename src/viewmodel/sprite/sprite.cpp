@@ -6,8 +6,8 @@ Sprite::Sprite(int x, int y, float frame_rate) : frame_rate(frame_rate)
 {
     current_frame = 0;
     frame_accum = 0;
-    draw_item.x = x;
-    draw_item.y = y;
+    sprite_item.x = x;
+    sprite_item.y = y;
 }
 
 Sprite::Sprite(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames) :
@@ -15,9 +15,9 @@ Sprite::Sprite(int x, int y, int delta_x, int delta_y, float frame_rate, std::ve
 {
     current_frame = 0;
     frame_accum = 0;
-    draw_item.x = x - delta_x;
-    draw_item.y = y - delta_y;
-    draw_item.img = frames[current_frame];
+    sprite_item.x = x - delta_x;
+    sprite_item.y = y - delta_y;
+    sprite_item.img = frames[current_frame];
 };
 
 void Sprite::AddFrame(QPixmap *frame)
@@ -32,7 +32,7 @@ void Sprite::Update()
     {
         current_frame = (current_frame + 1) % frames.size();
         frame_accum = 0;
-        draw_item.img = frames[current_frame];
+        sprite_item.img = frames[current_frame];
     }
     UpdateBehave();
 }

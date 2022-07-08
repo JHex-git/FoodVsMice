@@ -34,8 +34,8 @@ FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_ma
         }
     }
 
-    draw_foodlist_ptr = std::make_shared<std::list<DrawItem *>>();
-    draw_card_vec_ptr = std::make_shared<std::vector<DrawItem *>>();
+    draw_foodlist_ptr = std::make_shared<std::list<SpriteItem *>>();
+    draw_card_vec_ptr = std::make_shared<std::vector<SpriteItem *>>();
     draw_card_mask_vec_ptr = std::make_shared<std::vector<float *>>();
     draw_card_cost_vec_ptr = std::make_shared<std::vector<int>>();
 }
@@ -180,7 +180,7 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
                 if (food != nullptr)
                 {
                     food_list.push_front(food);
-                    draw_foodlist_ptr->push_front(&food->draw_item);
+                    draw_foodlist_ptr->push_front(&food->sprite_item);
                 }
                 return true;
             }
@@ -195,11 +195,11 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
 std::function<void()> FoodManager::get_UpdateFoodCommand()
 {
     return [this]()->void{
-        std::list<DrawItem *>::iterator draw_it = draw_foodlist_ptr->begin();
+        std::list<SpriteItem *>::iterator draw_it = draw_foodlist_ptr->begin();
         for (std::list<Food *>::iterator it = food_list.begin(); it != food_list.end();)
         {
             std::list<Food *>::iterator tmp = it;
-            std::list<DrawItem *>::iterator draw_tmp = draw_it;
+            std::list<SpriteItem *>::iterator draw_tmp = draw_it;
             it++;
             draw_it++;
             (*tmp)->Update();
@@ -231,12 +231,12 @@ std::function<void(int row_index, int column_index)> FoodManager::get_RemoveFood
         ASSERT((size_t)row_index < map_grids.size() && (size_t)column_index < map_grids[0].size(), "Coordinate out of range!");
         if (map_grids[row_index][column_index])
         {
-//            std::list<DrawItem *>::iterator draw_it = draw_foodlist.begin();
-            std::list<DrawItem *>::iterator draw_it = draw_foodlist_ptr->begin();
+//            std::list<SpriteItem *>::iterator draw_it = draw_foodlist.begin();
+            std::list<SpriteItem *>::iterator draw_it = draw_foodlist_ptr->begin();
             for (std::list<Food *>::iterator it = food_list.begin(); it != food_list.end();)
             {
                 std::list<Food *>::iterator tmp = it;
-                std::list<DrawItem *>::iterator draw_tmp = draw_it;
+                std::list<SpriteItem *>::iterator draw_tmp = draw_it;
                 it++;
                 draw_it++;
                 if ((*tmp)->row == row_index && (*tmp)->column == column_index)

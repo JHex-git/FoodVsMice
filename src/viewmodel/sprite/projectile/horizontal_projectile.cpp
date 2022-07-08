@@ -1,5 +1,5 @@
 #include "horizontal_projectile.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 
 const int PROJECTILE_RIGHT_BOUND = 1000;
 
@@ -14,7 +14,7 @@ void HorizontalProjectile::UpdateBehave()
         else if (!is_boom)
         {
             center_x += velocity * TimeManager::DELTA_TIME;
-            draw_item.x += velocity * TimeManager::DELTA_TIME;
+            sprite_item.x += velocity * TimeManager::DELTA_TIME;
             Mouse *mouse = mouse_manager->GetLeftestMouse(center_x, row);
             if (mouse != nullptr && abs(center_x - mouse->GetX()) < 20)
             {

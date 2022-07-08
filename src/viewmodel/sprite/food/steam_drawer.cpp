@@ -6,7 +6,7 @@ const int DELTA_X = 20;
 const int DELTA_Y = 30;
 const float FRAME_RATE = 1;
 const int FUNC_START_INDEX = 13;
-const int FUNC_TAKE_EFFECT_INDEX = 17;
+const int FUNC_TAKE_EFFECT_INDEX = 18;
 const int LEFT_PADDING = 20;
 const int RIGHT_PADDING = 20;
 

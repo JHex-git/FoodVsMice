@@ -9,7 +9,7 @@
 #include "../mouse/mouse_manager.h"
 #include "../projectile/projectile_manager.h"
 #include "../../card/card.h"
-#include "../../../common/draw_item.h"
+#include "../../../common/sprite_item.h"
 class Food;
 class MouseManager;
 
@@ -27,9 +27,9 @@ private:
 
 // properties
 //  绘图用
-//    std::list<DrawItem *> draw_foodlist;
-    std::shared_ptr<std::list<DrawItem *>> draw_foodlist_ptr;
-    std::shared_ptr<std::vector<DrawItem *>> draw_card_vec_ptr;
+//    std::list<SpriteItem *> draw_foodlist;
+    std::shared_ptr<std::list<SpriteItem *>> draw_foodlist_ptr;
+    std::shared_ptr<std::vector<SpriteItem *>> draw_card_vec_ptr;
     std::shared_ptr<std::vector<float *>> draw_card_mask_vec_ptr;
     std::shared_ptr<std::vector<int>> draw_card_cost_vec_ptr;
 
@@ -65,9 +65,9 @@ public:
 //    void RemoveFood(int row_index, int column_index);
 
 // properties
-//    std::shared_ptr<std::list<DrawItem *>> get_DrawFoodList() {return std::make_shared<std::list<DrawItem *>>(draw_foodlist);}
-    std::shared_ptr<std::list<DrawItem *>> get_DrawFoodList() { return draw_foodlist_ptr; }
-    std::shared_ptr<std::vector<DrawItem *>> get_DrawCardVec() { return draw_card_vec_ptr; }
+//    std::shared_ptr<std::list<SpriteItem *>> get_DrawFoodList() {return std::make_shared<std::list<SpriteItem *>>(draw_foodlist);}
+    std::shared_ptr<std::list<SpriteItem *>> get_DrawFoodList() { return draw_foodlist_ptr; }
+    std::shared_ptr<std::vector<SpriteItem *>> get_DrawCardVec() { return draw_card_vec_ptr; }
     std::shared_ptr<std::vector<float *>> get_DrawCardMaskVec() { return draw_card_mask_vec_ptr; }
     std::shared_ptr<std::vector<int>> get_DrawCardCostVec() { return draw_card_cost_vec_ptr; }
 

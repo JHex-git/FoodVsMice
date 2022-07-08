@@ -1,5 +1,5 @@
 #include "mouse.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 
 Mouse::Mouse(int x, int y, float frame_rate, int health, int velocity, int damage) :
     Sprite(x, y, frame_rate), health(health), velocity(velocity), damage(damage) {}
@@ -29,14 +29,14 @@ void Mouse::UpdateBehave()
             else
             {
                 center_x -= velocity * TimeManager::DELTA_TIME;
-                draw_item.x -= velocity * TimeManager::DELTA_TIME;
+                sprite_item.x -= velocity * TimeManager::DELTA_TIME;
                 current_waiting_attack_time = attack_interval; // 重置攻击冷却
             }
         }
         else
         {
             center_x -= velocity * TimeManager::DELTA_TIME;
-            draw_item.x -= velocity * TimeManager::DELTA_TIME;
+            sprite_item.x -= velocity * TimeManager::DELTA_TIME;
             current_waiting_attack_time = attack_interval; // 重置攻击冷却
         }
 }

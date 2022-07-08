@@ -12,7 +12,7 @@ private:
     std::list<Flame *> flame_list;
     std::vector<QPixmap *> frames;
     std::shared_ptr<int> flame_count_ptr;
-    std::shared_ptr<std::list<DrawItem *>> draw_flame_list_ptr;
+    std::shared_ptr<std::list<SpriteItem *>> draw_flame_list_ptr;
 
 public:
     FlameManager(int initial_flame);
@@ -43,7 +43,7 @@ public:
 
 // properties
     inline std::shared_ptr<int> get_FlameCount() { return flame_count_ptr; }
-    inline std::shared_ptr<std::list<DrawItem *>> get_DrawFlameList() { return draw_flame_list_ptr; }
+    inline std::shared_ptr<std::list<SpriteItem *>> get_DrawFlameList() { return draw_flame_list_ptr; }
     void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }
 
 // commands

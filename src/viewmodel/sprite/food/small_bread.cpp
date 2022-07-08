@@ -3,7 +3,7 @@
 const int HEALTH = 300;
 const int DELTA_X = 25;
 const int DELTA_Y = 25;
-const float FRAME_RATE = 0.5;
+const float FRAME_RATE = 0.75;
 const int FUNC_START_INDEX = 12;
 const int FUNC_TAKE_EFFECT_INDEX = 9;
 const int PROJECTILE_START = 10;

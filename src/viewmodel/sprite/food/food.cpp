@@ -1,5 +1,5 @@
 #include "food.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 
 Food::Food(int x, int y, int health, float frame_rate, float cool_down_time) :
     Sprite(x, y, frame_rate), health(health), cool_down_time(cool_down_time)
@@ -29,7 +29,7 @@ void Food::Update()
         else
             current_frame = (current_frame + 1) % func_start_index;
         frame_accum = 0;
-        draw_item.img = frames[current_frame];
+        sprite_item.img = frames[current_frame];
     }
     UpdateBehave();
 }

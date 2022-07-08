@@ -10,7 +10,7 @@ FlameManager::FlameManager(int initial_flame)
     ASSERT(initial_flame > 0, "Initial flame must no less than 0");
     flame_count_ptr = std::make_shared<int>();
     *flame_count_ptr = initial_flame;
-    draw_flame_list_ptr = std::make_shared<std::list<DrawItem *>>();
+    draw_flame_list_ptr = std::make_shared<std::list<SpriteItem *>>();
 }
 
 FlameManager::~FlameManager()
@@ -42,7 +42,7 @@ void FlameManager::GenerateFlame(int x, int y)
     DEBUG_INFO(frames.size());
     DEBUG_INFO(x);
     Flame *flame = new Flame(x, y, frames);
-    draw_flame_list_ptr->push_front(&flame->draw_item);
+    draw_flame_list_ptr->push_front(&flame->sprite_item);
     flame_list.push_back(flame);
 }
 
@@ -50,11 +50,11 @@ std::function<bool(int x, int y)> FlameManager::get_PickupFlameCommand()
 {
     return [this](int x, int y)->bool
     {
-        std::list<DrawItem *>::iterator draw_it = draw_flame_list_ptr->begin();
+        std::list<SpriteItem *>::iterator draw_it = draw_flame_list_ptr->begin();
         for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
         {
             std::list<Flame *>::iterator tmp = it++;
-            std::list<DrawItem *>::iterator draw_tmp = draw_it++;
+            std::list<SpriteItem *>::iterator draw_tmp = draw_it++;
             if (abs((*tmp)->center_x -x) < PADDING_X && abs((*tmp)->center_y - y) < PADDING_Y)
             {
                 flame_list.erase(tmp);
@@ -70,11 +70,11 @@ std::function<bool(int x, int y)> FlameManager::get_PickupFlameCommand()
 
 void FlameManager::UpdateFlame()
 {
-    std::list<DrawItem *>::iterator draw_it = draw_flame_list_ptr->begin();
+    std::list<SpriteItem *>::iterator draw_it = draw_flame_list_ptr->begin();
     for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
     {
         std::list<Flame *>::iterator tmp = it++;
-        std::list<DrawItem *>::iterator draw_tmp = draw_it++;
+        std::list<SpriteItem *>::iterator draw_tmp = draw_it++;
 
         (*tmp)->Update();
         if (!(*tmp)->is_exist)

@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include "mouse.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 #include "../../../common/enums.h"
 #include "../../../model/level/level_manager.h"
 #include "../food/food_manager.h"
@@ -18,7 +18,7 @@ private:
     std::list<Mouse *> mouse_list;
 
     // for view
-    std::shared_ptr<std::list<DrawItem *>> draw_mouse_list_ptr;
+    std::shared_ptr<std::list<SpriteItem *>> draw_mouse_list_ptr;
     std::shared_ptr<Status> status_ptr;
 
     // from model
@@ -46,7 +46,7 @@ public:
 
 // properties
     // for view
-    std::shared_ptr<std::list<DrawItem *>> get_DrawMouseList() { return draw_mouse_list_ptr; }
+    std::shared_ptr<std::list<SpriteItem *>> get_DrawMouseList() { return draw_mouse_list_ptr; }
     std::shared_ptr<Status> get_Status() { return status_ptr; }
 
     // from modeel
