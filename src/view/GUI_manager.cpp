@@ -121,10 +121,10 @@ void GUIManager::draw_game_background()
     int i;
     QPainter painter(this);
     painter.drawPixmap(0,120,900,560,BackGround);
-    for(int i=0;i<7;i++)
-    {
-        painter.drawPixmap(70, 140 + 75 * i,50,40,game[3]);
-    }
+//    for(int i=0;i<7;i++)
+//    {
+//        painter.drawPixmap(70, 140 + 75 * i,50,40,game[3]);
+//    }
     painter.drawPixmap(0,0,100,120,game[0]);
     painter.drawPixmap(90,0,100,120,game[1]);
     painter.drawPixmap(740,0,100,120,game[2]);
@@ -188,6 +188,11 @@ void GUIManager::draw_game()
     }
 
     for (list<DrawItem *>::iterator it = projectile_list->begin(); it != projectile_list->end(); it++)
+    {
+        painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
+    }
+
+    for (list<DrawItem *>::iterator it = flame_list->begin(); it != flame_list->end(); it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
@@ -273,6 +278,11 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::LeftButton)
     {
+        if (PickupFlame(event->x(), event->y()))
+        {
+            music_choosing=3;
+            music_manager();
+        }
         if(level_choosing==0)
         {
             if(event->x()>=300&&event->x()<=570)
@@ -391,6 +401,16 @@ void GUIManager::music_manager()
         audioOutput->setVolume(200);//音量
         player->play();
     }
+
+    if(music_choosing==3)
+    {
+        music_choosing=0;
+        player->setAudioOutput(audioOutput);
+        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/huomiao.mp3"));
+        audioOutput->setVolume(200);//音量
+        player->play();
+    }
+
 }
 
 GUIManager::~GUIManager()

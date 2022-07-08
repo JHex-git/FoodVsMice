@@ -1,10 +1,16 @@
 #include "flame_manager.h"
 
+const int FLAME_START = 29;
+const int PADDING_X = 20;
+const int PADDING_Y = 20;
+const int FLAME_UNIT = 50;
+
 FlameManager::FlameManager(int initial_flame)
 {
     ASSERT(initial_flame > 0, "Initial flame must no less than 0");
     flame_count_ptr = std::make_shared<int>();
     *flame_count_ptr = initial_flame;
+    draw_flame_list_ptr = std::make_shared<std::list<DrawItem *>>();
 }
 
 FlameManager::~FlameManager()
@@ -28,37 +34,53 @@ void FlameManager::GenerateFlame()
 
 void FlameManager::GenerateFlame(int x, int y)
 {
+    if (frames.empty())
+    {
+        frames = level_manager->GetFoodImages().find(FoodType::SMALL_FIRE)->second;
+        frames = std::vector<QPixmap *>(frames.begin() + FLAME_START, frames.end());
+    }
+    DEBUG_INFO(frames.size());
+    DEBUG_INFO(x);
     Flame *flame = new Flame(x, y, frames);
+    draw_flame_list_ptr->push_front(&flame->draw_item);
     flame_list.push_back(flame);
 }
 
-void FlameManager::PickupFlame(int x, int y)
+std::function<bool(int x, int y)> FlameManager::get_PickupFlameCommand()
 {
-    for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
+    return [this](int x, int y)->bool
     {
-        std::list<Flame *>::iterator tmp = it;
-        it++;
-        if (abs((*tmp)->center_x -x) < Flame::PADDING_X && abs((*tmp)->center_y - y) < Flame::PADDING_Y)
+        std::list<DrawItem *>::iterator draw_it = draw_flame_list_ptr->begin();
+        for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
         {
-            flame_list.erase(tmp);
-            IncreaseFlame(FLAME_UNIT);
-            delete *tmp;
-            break;
+            std::list<Flame *>::iterator tmp = it++;
+            std::list<DrawItem *>::iterator draw_tmp = draw_it++;
+            if (abs((*tmp)->center_x -x) < PADDING_X && abs((*tmp)->center_y - y) < PADDING_Y)
+            {
+                flame_list.erase(tmp);
+                draw_flame_list_ptr->erase(draw_tmp);
+                IncreaseFlame(FLAME_UNIT);
+                delete *tmp;
+                return true;
+            }
         }
-    }
+        return false;
+    };
 }
 
 void FlameManager::UpdateFlame()
 {
+    std::list<DrawItem *>::iterator draw_it = draw_flame_list_ptr->begin();
     for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
     {
-        std::list<Flame *>::iterator tmp = it;
-        it++;
+        std::list<Flame *>::iterator tmp = it++;
+        std::list<DrawItem *>::iterator draw_tmp = draw_it++;
 
         (*tmp)->Update();
         if (!(*tmp)->is_exist)
         {
             flame_list.erase(tmp);
+            draw_flame_list_ptr->erase(draw_tmp);
             delete *tmp;
         }
     }

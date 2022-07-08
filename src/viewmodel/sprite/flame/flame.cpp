@@ -4,6 +4,14 @@
 #include "../../../view/game_manager.h"
 #include "flame.h"
 
+const float DURATION = 1;
+const float MIN_DROP_DURATION = 1;
+const float MAX_DROP_DURATION = 5;
+const int DROP_VELOCITY = 1;
+const int DELTA_X = 34;
+const int DELTA_Y = 34;
+constexpr float FRAME_RATE = 1;
+
 Flame::Flame(int x, int y) : Sprite(x, y, FRAME_RATE)
 {
     is_exist = true;

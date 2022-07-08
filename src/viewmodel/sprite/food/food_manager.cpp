@@ -137,7 +137,7 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
                 // TODO: Add food here
                 switch (food_type)
                 {
-                    case FoodType::HOTPOT:
+                    case FoodType::SMALL_FIRE:
                         food = new Stove(x, y, row_index, column_index, imgs, flame_manager);
                         map_grids[row_index][column_index] = true;
                         break;

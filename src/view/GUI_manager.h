@@ -79,6 +79,7 @@ private:
     std::shared_ptr<std::list<DrawItem *>> draw_list;
     std::shared_ptr<std::list<DrawItem *>> mouse_list;
     std::shared_ptr<std::list<DrawItem *>> projectile_list;
+    std::shared_ptr<std::list<DrawItem *>> flame_list;
 
     std::shared_ptr<std::vector<DrawItem *>> select_vector;
     std::shared_ptr<std::vector<float *>> already_vector;
@@ -124,6 +125,7 @@ private:
     std::function<void()> UpdateProjectile;
     std::function<void(int level)>UpdateLevel;
     std::function<void()> InitCard;
+    std::function<bool(int x, int y)> PickupFlame;
 public:
 // properties
     void attach_DrawFoodList(const std::shared_ptr<std::list<DrawItem *>> food_list)
@@ -137,6 +139,10 @@ public:
     void attach_DrawProjectileList(const std::shared_ptr<std::list<DrawItem *>> projectile_list_)
     {
         projectile_list=projectile_list_;
+    }
+    void attach_DrawFlameList(const std::shared_ptr<std::list<DrawItem *>> flame_list_)
+    {
+        flame_list = flame_list_;
     }
     void attach_SelectVector(const std::shared_ptr<std::vector<DrawItem *>> select_vector_)
     {
@@ -174,5 +180,6 @@ public:
     void attach_UpdataUpdateProjectile(std::function<void()>&&func){UpdateProjectile = std::move(func);}
     void attach_UpdateLevel(std::function<void(int level)>&&func){UpdateLevel = std::move(func);}
     void attach_InitCardCommand(std::function<void()>&& func) { InitCard = std::move(func); }
+    void attach_PickupFlameCommand(std::function<bool(int x, int y)>&& func) { PickupFlame = std::move(func); }
 };
 
