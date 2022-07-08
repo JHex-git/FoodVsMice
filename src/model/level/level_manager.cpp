@@ -35,12 +35,26 @@ void LevelManager::clearlist()
     deletelist.clear();
 }
 
-void LevelManager::ReadLevel(std::string level_name)//对指定的关卡名，进行读取关卡
+void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读取关卡
 {
     clearlist();
-    cout << "1" << endl;
     char tmppath[100] = "../FoodVsMice/resources/levels/";
 //    cout << tmppath << endl;
+    std::string level_name;
+    switch (level_num)
+    {
+    case 1:
+        level_name = "first.txt";
+        break;
+    case 2:
+        level_name = "second.txt";
+        break;
+    case 3:
+        level_name = "third.txt";
+        break;
+    default:
+        break;
+    }
     strcat(tmppath, level_name.c_str());
     ifstream fp;
     fp.open(tmppath,ios::in);
@@ -390,4 +404,11 @@ void LevelManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
         strcat(strcat(tmpPath, itoa(i + begin, frameNo, 10)), ".png");
         imgs[i].load(tmpPath);
     }
+}
+std::function<void(int level)>  LevelManager::get_UpdateLevelCommand()
+{
+    return [this](int level) -> void
+    {
+        ReadLevel(level);
+    };
 }

@@ -22,8 +22,9 @@ public:
      */
     LevelManager();
     void clearlist();
-    void ReadLevel(std::string level_name);
+    void ReadLevel(int level_num);
 
+    std::function<void(int level)> get_UpdateLevelCommand();
     // 返回字典引用供外界得到图片资源
     const std::unordered_map<FoodType, std::vector<QPixmap *>>& GetFoodImages();
     const std::unordered_map<MouseType, std::vector<QPixmap *>>& GetMouseImages();

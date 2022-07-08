@@ -26,7 +26,6 @@ std::function<void()> ProjectileManager::get_UpdateProjectiles()
             }
             else
             {
-                DEBUG_INFO("erase");
                 projectile_list.erase(tmp_it);
                 draw_projectile_list_ptr->erase(tmp_draw_it);
                 // TODO: 加入对象池

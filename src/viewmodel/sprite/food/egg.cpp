@@ -15,7 +15,7 @@ const int PROJECTILE_START = 26;
 const int PROJECTILE_BOOM = 31;
 const int PROJECTILE_VELOCITY_Y = 1000;
 const int PROJECTILE_DAMAGE = 20;
-const int PROJECTILE_LOW_BOUND_PADDING = -15;
+const int PROJECTILE_LOW_BOUND_PADDING = -20;
 
 bool Egg::CheckFunc()
 {
@@ -28,7 +28,7 @@ void Egg::Func()
     std::vector<QPixmap *> imgs(frames.begin() + PROJECTILE_START, frames.end());
     if (target != nullptr)
     {
-        projectile = new PitchProjectile(draw_item.x, draw_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y,
+        PitchProjectile *projectile = new PitchProjectile(draw_item.x, draw_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y,
                                          FRAME_RATE, imgs, PROJECTILE_BOOM - PROJECTILE_START, PROJECTILE_VELOCITY_Y, PROJECTILE_DAMAGE, target, PROJECTILE_LOW_BOUND_PADDING);
         projectile_manager->AddProjectile(projectile);
     }
@@ -36,5 +36,5 @@ void Egg::Func()
 
 
 
-Egg::Egg(int x, int y, int row, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager)
-    : Food(x, y, DELTA_X, DELTA_Y, row, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), mouse_manager(mouse_manager), projectile_manager(projectile_manager) {}
+Egg::Egg(int x, int y, int row, int column, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager)
+    : Food(x, y, DELTA_X, DELTA_Y, row, column, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), mouse_manager(mouse_manager), projectile_manager(projectile_manager) {}

@@ -15,7 +15,6 @@ void Projectile::Update()
     {
         current_frame = (current_frame + 1) % bound;
 //        current_frame = 8;
-        DEBUG_INFO(current_frame);
         frame_accum = 0;
         draw_item.img = frames[current_frame];
     }

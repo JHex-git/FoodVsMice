@@ -92,7 +92,7 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
         if (map_grids[row_index][column_index]) // 格子已经有食物
             return false;
 
-        if (select_index >= card_vec.size() || card_vec[select_index]->Use() == false) // 卡片还在冷却中
+        if (select_index >= card_vec.size()) // 没选中卡片
         {
             return false;
         }
@@ -101,35 +101,47 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
         int x = coordinate.first;
         int y = coordinate.second;
 
+
         Food *food = nullptr;
         FoodType food_type = level_manager->GetFoodTypes()[select_index];
-        const std::unordered_map<FoodType, std::vector<QPixmap *>>& dict = level_manager->GetFoodImages();
-        const std::vector<QPixmap *>& imgs = (dict.find(food_type))->second;
-        // TODO: Add food here
-        switch (food_type)
+        if (flame_manager->GetFlameCount() >= (*draw_card_cost_vec_ptr)[select_index]) // 火苗足够
         {
-            case FoodType::HOTPOT:
-                food = new Stove(x, y, row_index, imgs, flame_manager);
-                map_grids[row_index][column_index] = true;
-                break;
-            case FoodType::CHERRY:
-                food = new Cherry(x, y, row_index, imgs, projectile_manager);
-                map_grids[row_index][column_index] = true;
-                break;
-            case FoodType::EGG:
-                food = new Egg(x, y, row_index, imgs, mouse_manager, projectile_manager);
-                map_grids[row_index][column_index] = true;
-                break;
+            if (card_vec[select_index]->Use()) // 卡片不在冷却
+            {
+                flame_manager->DecreaseFlame((*draw_card_cost_vec_ptr)[select_index]);
+                const std::unordered_map<FoodType, std::vector<QPixmap *>>& dict = level_manager->GetFoodImages();
+                const std::vector<QPixmap *>& imgs = (dict.find(food_type))->second;
+                // TODO: Add food here
+                switch (food_type)
+                {
+                    case FoodType::HOTPOT:
+                        food = new Stove(x, y, row_index, column_index, imgs, flame_manager);
+                        map_grids[row_index][column_index] = true;
+                        break;
+                    case FoodType::CHERRY:
+                        food = new Cherry(x, y, row_index, column_index, imgs, mouse_manager, projectile_manager);
+                        map_grids[row_index][column_index] = true;
+                        break;
+                    case FoodType::EGG:
+                        food = new Egg(x, y, row_index, column_index, imgs, mouse_manager, projectile_manager);
+                        map_grids[row_index][column_index] = true;
+                        break;
 
-            default:
-                break;
+                    default:
+                        break;
+                }
+                if (food != nullptr)
+                {
+                    food_list.push_front(food);
+                    draw_foodlist_ptr->push_front(&food->draw_item);
+                }
+                return true;
+            }
+            else
+                return false;
         }
-        if (food != nullptr)
-        {
-            food_list.push_front(food);
-            draw_foodlist_ptr->push_front(&food->draw_item);
-        }
-        return true;
+        else
+            return false;
     };
 }
 
@@ -181,8 +193,7 @@ std::function<void(int row_index, int column_index)> FoodManager::get_RemoveFood
                 std::list<DrawItem *>::iterator draw_tmp = draw_it;
                 it++;
                 draw_it++;
-                std::pair<int, int> coordinate = MapTransform::Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
-                if (coordinate.first == row_index && coordinate.second == column_index)
+                if ((*tmp)->row == row_index && (*tmp)->column == column_index)
                 {
                     map_grids[row_index][column_index] = false;
                     food_list.erase(tmp);

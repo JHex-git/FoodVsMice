@@ -23,5 +23,5 @@ void Stove::Func()
 Stove::Stove(int x, int y, FlameManager *flame_manager) : 
     Food(x, y, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
 
-Stove::Stove(int x, int y, int row, std::vector<QPixmap *> frames, FlameManager *flame_manager) :
-    Food(x, y, DELTA_X, DELTA_Y, row, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
+Stove::Stove(int x, int y, int row, int column, std::vector<QPixmap *> frames, FlameManager *flame_manager) :
+    Food(x, y, DELTA_X, DELTA_Y, row, column, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), flame_manager(flame_manager) {}
