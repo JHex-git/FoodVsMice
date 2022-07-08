@@ -405,3 +405,10 @@ void LevelManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
         imgs[i].load(tmpPath);
     }
 }
+std::function<void(int level)>  LevelManager::get_UpdateLevelCommand()
+{
+    return [this](int level) -> void
+    {
+        ReadLevel(level);
+    };
+}
