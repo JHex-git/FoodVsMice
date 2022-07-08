@@ -5,6 +5,8 @@ Projectile::Projectile(int x, int y, int delta_x, int delta_y, float frame_rate,
 {
     is_active = true;
     is_boom = false;
+    center_x = x;
+    center_y = y;
     bound = boom_index;
 }
 

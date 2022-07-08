@@ -4,13 +4,14 @@
 #include <QTimer>
 #include <QPainter>
 #include <QMouseEvent>
-#include<QMediaPlayer>
+#include <QMediaPlayer>
 #include <QAudioOutput>
 #include <iostream>
 #include <map>
 #include <functional>
 #include "../common/draw_item.h"
 #include "../common/debug.h"
+#include "../common/enums.h"
 using namespace std;
 
 #define window_length 900   // x;
@@ -84,6 +85,8 @@ private:
     std::shared_ptr<std::vector<int>> flame_cost_vector;
     std::shared_ptr<int> flame_sum;
 
+    std::shared_ptr<Status> status_ptr;
+
 //...................................................................时钟
     QTimer *timer_draw;         //画图时钟
     int time_draw;              //信号时长
@@ -150,6 +153,10 @@ public:
     void attach_SunSum(const std::shared_ptr<int> flame_sum_)
     {
         flame_sum=flame_sum_;
+    }
+    void attach_Status(const std::shared_ptr<Status> status_)
+    {
+        status_ptr = status_;
     }
 
 // command

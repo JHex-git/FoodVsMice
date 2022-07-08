@@ -15,6 +15,7 @@ void GameApp::Init()
     gui_manager->attach_SunCost(food_manager.get_DrawCardCostVec());
     gui_manager->attach_SunSum(flame_manager.get_FlameCount());
     gui_manager->attach_DrawProjectileList(projectile_manager.get_DrawProjectileList());
+    gui_manager->attach_Status(mouse_manager.get_Status());
     food_manager.attach_LevelManager(level_manager);
     mouse_manager.attach_LevelManager(level_manager);
     flame_manager.attach_LevelManager(level_manager);
@@ -30,5 +31,5 @@ void GameApp::Init()
     gui_manager->attach_UpdateLevel(level_manager->get_UpdateLevelCommand());
 
     food_manager.Init();
-    mouse_manager.Init();
+    mouse_manager.Init(&food_manager);
 }

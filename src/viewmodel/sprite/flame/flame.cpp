@@ -14,6 +14,8 @@ Flame::Flame(int x, int y) : Sprite(x, y, FRAME_RATE)
 
 Flame::Flame(int x, int y, std::vector<QPixmap *> frames) : Sprite(x, y, DELTA_X, DELTA_Y, FRAME_RATE, frames)
 {
+    center_x = x;
+    center_y = y;
     is_exist = true;
     is_dropping = true;
     current_exist_time = 0;
@@ -31,6 +33,7 @@ void Flame::UpdateBehave()
     }
     else if (is_dropping) // 坠落
     {
+        center_y += DROP_VELOCITY * TimeManager::DELTA_TIME;
         draw_item.y += DROP_VELOCITY * TimeManager::DELTA_TIME;
 
         if (current_exist_time >= drop_duration)

@@ -18,4 +18,6 @@ protected:
     bool is_boom;
     int boom_index;
     int bound;
+    int center_x;
+    int center_y;
 };

@@ -26,3 +26,10 @@ enum class MapType
 {
     BASE = 0
 };
+
+enum class Status
+{
+    NORMAL = 0,
+    WIN,
+    LOSE
+};

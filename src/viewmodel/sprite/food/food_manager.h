@@ -11,6 +11,7 @@
 #include "../../card/card.h"
 #include "../../../common/draw_item.h"
 class Food;
+class MouseManager;
 
 class FoodManager
 {
@@ -41,6 +42,8 @@ public:
     FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager, MouseManager *mouse_manager, ProjectileManager *projectile_manager);
 
     void Init();
+
+    Food *GetRightMostFood(int x, int row);
     /*** 
      * 销毁所有的食物
      */    

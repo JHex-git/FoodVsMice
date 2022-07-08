@@ -5,8 +5,8 @@ const float GRAVITY = 4000;
 const float EPSILON = 0.05;
 
 // velocity在这里表示纵向速度，向上为正
-PitchProjectile::PitchProjectile(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames, int boom_index, float velocity, int damage, Mouse* target, int low_bound_padding)
-    : Projectile(x, y, delta_x, delta_y, frame_rate, frames, boom_index, velocity, damage), target(target)
+PitchProjectile::PitchProjectile(int x, int y, int delta_x, int delta_y, int muzzle_padding_x, int muzzle_padding_y, float frame_rate, std::vector<QPixmap *> frames, int boom_index, float velocity, int damage, Mouse* target, int low_bound_padding)
+    : Projectile(x - muzzle_padding_x, y - muzzle_padding_y, delta_x, delta_y, frame_rate, frames, boom_index, velocity, damage), target(target)
 {
     initial_velocity_y = velocity;
     low_bound = low_bound_padding + y;
@@ -25,22 +25,41 @@ void PitchProjectile::UpdateBehave()
             if (target != nullptr)
             {
                 if (abs(-initial_velocity_y - velocity) > EPSILON)
-                    draw_item.x += ((x = target->GetX()) - draw_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                {
+                    int delta = ((x = target->GetX()) - center_x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                    center_x += delta;
+                    draw_item.x += delta;
+                }
             }
             else
             {
                 if (abs(-initial_velocity_y - velocity) > EPSILON)
-                    draw_item.x += (x - draw_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                {
+                    int delta = (x - center_x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                    center_x += delta;
+                    draw_item.x += delta;
+                }
             }
+
+            center_y -= velocity * TimeManager::DELTA_TIME;
             draw_item.y -= velocity * TimeManager::DELTA_TIME;
-            if (draw_item.y > low_bound) // 低于最低点，就结束
+            if (center_y > low_bound) // 低于最低点，就结束
             {
                 if (target != nullptr)
                 {
                     current_frame = bound - 1;
                     bound = frames.size();
                     is_boom = true;
-                    target->TakeDamage(damage);
+
+                    // target指向的地址可能已被释放
+                    try
+                    {
+                        target->TakeDamage(damage);
+                    }
+                    catch (...)
+                    {
+
+                    }
                 }
             }
         }

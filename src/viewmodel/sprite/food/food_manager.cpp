@@ -13,6 +13,8 @@
 #include "../../card/egg_card.h"
 #include "../../card/cherry_card.h"
 
+const int GRID_WIDTH = 80;
+
 FoodManager::FoodManager(int row_count, int column_count, LevelManager *level_manager, FlameManager *flame_manager, MouseManager *mouse_manager, ProjectileManager *projectile_manager) :
     level_manager(level_manager), flame_manager(flame_manager), mouse_manager(mouse_manager), projectile_manager(projectile_manager)
 {
@@ -84,6 +86,27 @@ void FoodManager::Init()
     }
 }
 
+Food *FoodManager::GetRightMostFood(int x, int row)
+{
+    Food *food = nullptr;
+    for (std::list<Food *>::iterator it = food_list.begin(); it != food_list.end(); ++it)
+    {
+        if ((*it)->row == row)
+        {
+            if (food == nullptr && MapTransform::Matrix2Viewport((*it)->row, 0).first + GRID_WIDTH / 2 < x)
+                food = *it;
+            else if (food != nullptr)
+            {
+                int tmp_x = MapTransform::Matrix2Viewport((*it)->row, 0).first + GRID_WIDTH / 2;
+                if (tmp_x < x &&
+                        tmp_x > MapTransform::Matrix2Viewport(food->row, 0).first + GRID_WIDTH / 2)
+                    food = *it;
+            }
+        }
+    }
+    return food;
+}
+
 std::function<bool(int row_index, int column_index, int select_index)> FoodManager::get_PlaceFoodCommand()
 {
     return [this](int row_index, int column_index, int select_index)->bool{
@@ -97,7 +120,7 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
             return false;
         }
 
-        std::pair<int, int> coordinate = MapTransform::Matrix2Viewport(row_index, column_index);
+        std::pair<int, int> coordinate = MapTransform::Matrix2ViewportCenter(row_index, column_index);
         int x = coordinate.first;
         int y = coordinate.second;
 

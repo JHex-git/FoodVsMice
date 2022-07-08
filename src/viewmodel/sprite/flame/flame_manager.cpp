@@ -38,7 +38,7 @@ void FlameManager::PickupFlame(int x, int y)
     {
         std::list<Flame *>::iterator tmp = it;
         it++;
-        if (abs((*tmp)->draw_item.x -x) < Flame::PADDING_X && abs((*tmp)->draw_item.y - y) < Flame::PADDING_Y)
+        if (abs((*tmp)->center_x -x) < Flame::PADDING_X && abs((*tmp)->center_y - y) < Flame::PADDING_Y)
         {
             flame_list.erase(tmp);
             IncreaseFlame(FLAME_UNIT);

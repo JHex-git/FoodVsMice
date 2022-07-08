@@ -14,6 +14,14 @@ std::pair<int, int> MapTransform::Matrix2Viewport(int row_index, int column_inde
     return std::pair<int, int>(temp_x, temp_y);
 }
 
+std::pair<int, int> MapTransform::Matrix2ViewportCenter(int row_index, int column_index)
+{
+    std::pair<int, int> coordinate = Matrix2Viewport(row_index, column_index);
+    coordinate.first += GRID_WIDTH / 2;
+    coordinate.second += GRID_HEIGHT / 2;
+    return coordinate;
+}
+
 std::pair<int, int> MapTransform::Viewport2Matrix(int x, int y)
 {
     std::pair<int, int> a;

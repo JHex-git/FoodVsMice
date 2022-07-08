@@ -1,4 +1,5 @@
 #include "level_manager.h"
+#include "../../common/debug.h"
 using namespace std;
 // void LevelManager::SetLevelName(){//赋值每个关卡的名字，初始化的一部分
 //     Files levelnames;
@@ -269,7 +270,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         {
         case MouseType::NORMAL_MOUSE:
             normal = new QPixmap[37];
-            loadImages(normal, "../FoodVsMice/resources/picture/mouse/normal_mouse/normal_walk1/walk1_", 37, 1);
+            loadImages(normal, "../FoodVsMice/resources/picture/mouse/normal_mouse/", 37, 1);
             for (auto j = 0; j < 8 ; j++){
                 normal_mouse.push_back(&normal[j]);
                 deletelist.push_back(&normal[j]);
@@ -280,7 +281,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         case MouseType::FOOT_MOUSE:
             football = new QPixmap[76];
             loadImages(football, "../FoodVsMice/resources/picture/mouse/foot_mouse/", 76, 1);
-            for (auto j = 0; j < 76 ; j++){
+            for (auto j = 0; j < 8 ; j++){
                 football_mouse.push_back(&football[j]);
                 deletelist.push_back(&football[j]);
             }
@@ -290,10 +291,11 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         case MouseType::HELMET_MOUSE:
             helmet= new QPixmap[77];
             loadImages(helmet, "../FoodVsMice/resources/picture/mouse/helmet_mouse/", 77, 1);
-            for (auto j = 0; j < 77 ; j++){
+            for (auto j = 0; j < 8 ; j++){
                 helmet_mouse.push_back(&helmet[j]);
                 deletelist.push_back(&helmet[j]);
             }
+            DEBUG_INFO(helmet_mouse.size());
             mouse_types.push_back(MouseType::HELMET_MOUSE);
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::HELMET_MOUSE,helmet_mouse));
             break;

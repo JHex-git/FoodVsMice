@@ -227,13 +227,17 @@ void GUIManager::draw_menu()
 void GUIManager::gameover()
 {
     QPainter painter(this);
-    if(over_==1)
+    if(*status_ptr == Status::LOSE)
     {
         painter.drawPixmap(300,300,menu[4]);
+        timer_draw->stop();
+        timer_logic->stop();
     }
-    if(over_==2)
+    else if(*status_ptr == Status::WIN)
     {
          painter.drawPixmap(300,300,menu[5]);
+         timer_draw->stop();
+         timer_logic->stop();
     }
 }
 
@@ -246,6 +250,7 @@ void GUIManager::paintEvent(QPaintEvent *event)
         draw_game_background();
         draw_select();
         draw_game();
+        gameover();
     }
 
     if(menu_1==1)

@@ -4,18 +4,22 @@
 #include "../../../view/time_manager.h"
 #include "../../../common/enums.h"
 #include "../../../model/level/level_manager.h"
+#include "../food/food_manager.h"
 
 class Mouse;
+class FoodManager;
 
 class MouseManager
 {
 private:
     TimeManager *time_manager;
     LevelManager *level_manager;
+    FoodManager *food_manager;
     std::list<Mouse *> mouse_list;
 
-    // from view
+    // for view
     std::shared_ptr<std::list<DrawItem *>> draw_mouse_list_ptr;
+    std::shared_ptr<Status> status_ptr;
 
     // from model
     std::shared_ptr<std::list<MouseType>> waiting_mouse_list_ptr;
@@ -35,7 +39,7 @@ public:
 
     void UpdateMouse();
 
-    void Init();
+    void Init(FoodManager *food_manager);
 
     // 返回在row行的x右边的最近的老鼠
     Mouse *GetLeftestMouse(int x, int row);
@@ -43,6 +47,7 @@ public:
 // properties
     // for view
     std::shared_ptr<std::list<DrawItem *>> get_DrawMouseList() { return draw_mouse_list_ptr; }
+    std::shared_ptr<Status> get_Status() { return status_ptr; }
 
     // from modeel
     void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }

@@ -20,6 +20,8 @@ private:
     bool is_exist; // 指示火苗存在时间过久引起的消失问题
     float drop_duration;
     float current_exist_time;
+    int center_x;
+    int center_y;
 
 public:
     Flame(int x, int y);

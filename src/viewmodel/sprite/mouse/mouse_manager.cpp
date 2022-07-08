@@ -4,15 +4,14 @@
 #include "football_mouse.h"
 #include "normal_mouse.h"
 #include "../../../common/map_transform.h"
+#include "../../../common/debug.h"
 
-const int RIGHT_MOST = 960;
+const int RIGHT_MOST = 910;
 MouseManager::MouseManager(TimeManager *time_manager) : time_manager(time_manager)
 {
     draw_mouse_list_ptr = std::make_shared<std::list<DrawItem *>>();
-
-//    waiting_mouse_list_ptr = std::make_shared<std::list<MouseType>>();
-//    waiting_mouse_time_list_ptr = std::make_shared<std::list<float>>();
-//    waiting_mouse_line_list_ptr = std::make_shared<std::list<int>>();
+    status_ptr = std::make_shared<Status>();
+    *status_ptr = Status::NORMAL;
 }
 
 MouseManager::~MouseManager()
@@ -27,12 +26,20 @@ MouseManager::~MouseManager()
 
 void MouseManager::UpdateMouse()
 {
+    if (mouse_list.begin() == mouse_list.end() && waiting_mouse_list_ptr->begin() == waiting_mouse_list_ptr->end())
+    {
+        *status_ptr = Status::WIN;
+    }
     std::list<DrawItem *>::iterator draw_it = draw_mouse_list_ptr->begin();
     for (std::list<Mouse *>::iterator it = mouse_list.begin(); it != mouse_list.end();)
     {
         std::list<Mouse *>::iterator tmp = it++;
         std::list<DrawItem *>::iterator tmp_draw_it = draw_it++;
         (*tmp)->Update();
+        if ((*tmp)->GetX() == 0)
+        {
+            *status_ptr = Status::LOSE;
+        }
         if ((*tmp)->health <= 0)
         {
             mouse_list.erase(tmp);
@@ -42,12 +49,14 @@ void MouseManager::UpdateMouse()
     }
 }
 
-void MouseManager::Init()
+void MouseManager::Init(FoodManager *food_manager)
 {
     waiting_mouse_list_ptr = level_manager->Getmouse_list();
 
     waiting_mouse_time_list_ptr = level_manager->Getmouse_cometime();
     waiting_mouse_line_list_ptr = level_manager->Getmouse_line();
+
+    this->food_manager = food_manager;
 }
 
 void MouseManager::PrepareMouse()
@@ -79,20 +88,21 @@ void MouseManager::PrepareMouse()
         std::list<float>::iterator tmp_time_it = time_it++;
 
         Mouse *mouse = nullptr;
-        int y = MapTransform::Matrix2Viewport(*tmp_line_it, 0).second;
+        int y = MapTransform::Matrix2ViewportCenter(*tmp_line_it, 0).second;
         const std::vector<QPixmap *>&imgs = dict.find(*tmp_type_it)->second;
 
         // TODO: Add mouse type here
         switch (*tmp_type_it)
         {
             case MouseType::NORMAL_MOUSE:
-                mouse = new NormalMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
+                mouse = new NormalMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
                 break;
             case MouseType::HELMET_MOUSE:
-                mouse = new BucketMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
+                DEBUG_INFO(imgs.size());
+                mouse = new BucketMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
                 break;
             case MouseType::FOOT_MOUSE:
-                mouse = new FootballMouse(RIGHT_MOST, y, *tmp_line_it, imgs);
+                mouse = new FootballMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
                 break;
         }
         if (mouse != nullptr)
@@ -114,10 +124,10 @@ Mouse *MouseManager::GetLeftestMouse(int x, int row)
     {
         if ((*it)->row == row)
         {
-            if (mouse == nullptr && (*it)->GetX() > x) mouse = *it;
+            if (mouse == nullptr && (*it)->GetX() + (*it)->right_padding > x) mouse = *it;
             else if (mouse != nullptr)
             {
-                if ((*it)->GetX() > x && (*it)->GetX() < mouse->GetX()) mouse = *it;
+                if ((*it)->GetX() + (*it)->right_padding > x && (*it)->GetX() < mouse->GetX()) mouse = *it;
             }
         }
     }
