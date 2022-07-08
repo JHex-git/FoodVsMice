@@ -22,7 +22,7 @@ public:
      */
     LevelManager();
     void clearlist();
-    void ReadLevel(std::string level_name);
+    void ReadLevel(int level_num);
 
     // 返回字典引用供外界得到图片资源
     const std::unordered_map<FoodType, std::vector<QPixmap *>>& GetFoodImages();
