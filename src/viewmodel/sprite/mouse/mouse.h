@@ -16,6 +16,9 @@ private:
     int row;
     float attack_interval;
     float current_waiting_attack_time; // 0表示刚进入冷却
+    bool is_eating;
+    int anim_up_bound;
+    int anim_down_bound;
     FoodManager *food_manager;
 
 protected:
@@ -29,6 +32,8 @@ public:
     Mouse(int x, int y, float frame_rate, int health, int velocity, int damage);
 
     Mouse(int x, int y, int delta_x, int delta_y, int row, int left_padding, int right_padding, float frame_rate, std::vector<QPixmap *> frames, int health, int velocity, int damage, float attack_interval, FoodManager* food_manager);
+
+    virtual void Update();
 
     virtual void UpdateBehave();
 

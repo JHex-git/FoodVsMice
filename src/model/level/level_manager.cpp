@@ -269,9 +269,9 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         switch (i)
         {
         case MouseType::NORMAL_MOUSE:
-            normal = new QPixmap[37];
-            loadImages(normal, "../FoodVsMice/resources/picture/mouse/normal_mouse/", 37, 1);
-            for (auto j = 0; j < 8 ; j++){
+            normal = new QPixmap[12];
+            loadImages(normal, "../FoodVsMice/resources/picture/mouse/normal_mouse/", 12, 1);
+            for (auto j = 0; j < 12 ; j++){
                 normal_mouse.push_back(&normal[j]);
                 deletelist.push_back(&normal[j]);
             }
@@ -279,9 +279,9 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::NORMAL_MOUSE,normal_mouse));
             break;
         case MouseType::FOOT_MOUSE:
-            football = new QPixmap[76];
-            loadImages(football, "../FoodVsMice/resources/picture/mouse/foot_mouse/", 76, 1);
-            for (auto j = 0; j < 8 ; j++){
+            football = new QPixmap[12];
+            loadImages(football, "../FoodVsMice/resources/picture/mouse/foot_mouse/", 12, 1);
+            for (auto j = 0; j < 12 ; j++){
                 football_mouse.push_back(&football[j]);
                 deletelist.push_back(&football[j]);
             }
@@ -289,9 +289,9 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::FOOT_MOUSE,football_mouse));
             break;
         case MouseType::HELMET_MOUSE:
-            helmet= new QPixmap[77];
-            loadImages(helmet, "../FoodVsMice/resources/picture/mouse/helmet_mouse/", 77, 1);
-            for (auto j = 0; j < 8 ; j++){
+            helmet= new QPixmap[12];
+            loadImages(helmet, "../FoodVsMice/resources/picture/mouse/helmet_mouse/", 12, 1);
+            for (auto j = 0; j < 12 ; j++){
                 helmet_mouse.push_back(&helmet[j]);
                 deletelist.push_back(&helmet[j]);
             }

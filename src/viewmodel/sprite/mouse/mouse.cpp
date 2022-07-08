@@ -1,6 +1,8 @@
 #include "mouse.h"
 #include "../../../common/time_manager.h"
 
+const int EAT_START = 8;
+
 Mouse::Mouse(int x, int y, float frame_rate, int health, int velocity, int damage) :
     Sprite(x, y, frame_rate), health(health), velocity(velocity), damage(damage) {}
 
@@ -10,6 +12,9 @@ Mouse::Mouse(int x, int y, int delta_x, int delta_y, int row, int left_padding, 
     current_waiting_attack_time = attack_interval;
     center_x = x;
     center_y = y;
+    is_eating = false;
+    anim_up_bound = EAT_START;
+    anim_down_bound = 0;
 }
 
 void Mouse::UpdateBehave()
@@ -20,6 +25,13 @@ void Mouse::UpdateBehave()
         {
             if (food->GetCenterX() >= center_x - left_padding) // 面前有食物
             {
+                if (!is_eating)
+                {
+                    is_eating = true;
+                    current_frame = EAT_START - 1;
+                    anim_down_bound = EAT_START;
+                    anim_up_bound = frames.size();
+                }
                 if (current_waiting_attack_time >= attack_interval) // 攻击冷却完毕
                 {
                     food->TakeDamage(damage);
@@ -28,6 +40,13 @@ void Mouse::UpdateBehave()
             }
             else
             {
+                if (is_eating)
+                {
+                    is_eating = false;
+                    current_waiting_attack_time = -1;
+                    anim_down_bound = 0;
+                    anim_up_bound = EAT_START;
+                }
                 center_x -= velocity * TimeManager::DELTA_TIME;
                 sprite_item.x -= velocity * TimeManager::DELTA_TIME;
                 current_waiting_attack_time = attack_interval; // 重置攻击冷却
@@ -35,10 +54,30 @@ void Mouse::UpdateBehave()
         }
         else
         {
+            if (is_eating)
+            {
+                is_eating = false;
+                current_waiting_attack_time = -1;
+                anim_down_bound = 0;
+                anim_up_bound = EAT_START;
+            }
             center_x -= velocity * TimeManager::DELTA_TIME;
             sprite_item.x -= velocity * TimeManager::DELTA_TIME;
             current_waiting_attack_time = attack_interval; // 重置攻击冷却
         }
+}
+
+void Mouse::Update()
+{
+    frame_accum += frame_rate;
+    if (frame_accum >= 1)
+    {
+        current_frame = (current_frame + 1) % anim_up_bound;
+        if (current_frame == 0) current_frame = anim_down_bound;
+        frame_accum = 0;
+        sprite_item.img = frames[current_frame];
+    }
+    UpdateBehave();
 }
 
 void Mouse::TakeDamage(int damage)
