@@ -1,6 +1,6 @@
 #pragma once
 #include "../../common/enums.h"
-#include "../../common/draw_item.h"
+#include "../../common/sprite_item.h"
 #include <QPixmap>
 class Card
 {
@@ -13,7 +13,7 @@ public:
     bool Use();
 private:
     FoodType food_type;
-    DrawItem card_img;
+    SpriteItem card_img;
     float cooldown_ratio; // 0为冷却好，1为刚进入冷却
     float cooldown_time;
     float wait_cooldown_time; // 0表示已经冷却好了

@@ -15,12 +15,9 @@ SOURCES += \
     src/common/map_transform.cpp \
     src/common/random.cpp \
     src/main.cpp \
-    src/model/file.cpp \
     src/model/level/level_manager.cpp \
     src/view/GUI_manager.cpp \
-    src/view/game_manager.cpp \
-    src/view/music_manager.cpp \
-    src/view/time_manager.cpp \
+    src/common/time_manager.cpp \
     src/viewmodel/card/card.cpp \
     src/viewmodel/card/cherry_card.cpp \
     src/viewmodel/card/egg_card.cpp \
@@ -43,8 +40,7 @@ SOURCES += \
     src/viewmodel/sprite/projectile/pitch_projectile.cpp \
     src/viewmodel/sprite/projectile/projectile.cpp \
     src/viewmodel/sprite/projectile/projectile_manager.cpp \
-    src/viewmodel/sprite/sprite.cpp \
-    src/window/mainwindow.cpp
+    src/viewmodel/sprite/sprite.cpp
 
 HEADERS += \
 #    common/common.h \
@@ -55,16 +51,13 @@ HEADERS += \
 #    model/level/level_manager.h \
     src/app/game_app.h \
     src/common/debug.h \
-    src/common/draw_item.h \
+    src/common/sprite_item.h \
     src/common/enums.h \
     src/common/map_transform.h \
     src/common/random.h \
-    src/model/file.h \
     src/model/level/level_manager.h \
     src/view/GUI_manager.h \
-    src/view/game_manager.h \
-    src/view/music_manager.h \
-    src/view/time_manager.h \
+    src/common/time_manager.h \
     src/viewmodel/card/card.h \
     src/viewmodel/card/cherry_card.h \
     src/viewmodel/card/egg_card.h \
@@ -87,11 +80,9 @@ HEADERS += \
     src/viewmodel/sprite/projectile/pitch_projectile.h \
     src/viewmodel/sprite/projectile/projectile.h \
     src/viewmodel/sprite/projectile/projectile_manager.h \
-    src/viewmodel/sprite/sprite.h \
-    src/window/mainwindow.h
+    src/viewmodel/sprite/sprite.h
 
-FORMS += \
-    src/window/mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

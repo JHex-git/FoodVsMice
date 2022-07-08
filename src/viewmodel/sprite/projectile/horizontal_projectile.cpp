@@ -1,5 +1,5 @@
 #include "horizontal_projectile.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 
 const int PROJECTILE_RIGHT_BOUND = 1000;
 
@@ -10,12 +10,12 @@ void HorizontalProjectile::UpdateBehave()
 {
     if (is_active)
     {
-        if (draw_item.x >= PROJECTILE_RIGHT_BOUND) is_active = false;
+        if (sprite_item.x >= PROJECTILE_RIGHT_BOUND) is_active = false;
         else if (!is_boom)
         {
-            draw_item.x += velocity * TimeManager::DELTA_TIME;
-            Mouse *mouse = mouse_manager->GetLeftestMouse(draw_item.x, row);
-            if (mouse != nullptr && mouse->GetX() < draw_item.x + len)
+            sprite_item.x += velocity * TimeManager::DELTA_TIME;
+            Mouse *mouse = mouse_manager->GetLeftestMouse(sprite_item.x, row);
+            if (mouse != nullptr && mouse->GetX() < sprite_item.x + len)
             {
                 current_frame = bound - 1;
                 bound = frames.size();

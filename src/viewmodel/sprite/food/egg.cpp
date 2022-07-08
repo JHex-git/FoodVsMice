@@ -19,7 +19,7 @@ const int PROJECTILE_LOW_BOUND_PADDING = -20;
 
 bool Egg::CheckFunc()
 {
-    target = mouse_manager->GetLeftestMouse(draw_item.x, row);
+    target = mouse_manager->GetLeftestMouse(sprite_item.x, row);
     return target != nullptr;
 }
 
@@ -28,7 +28,7 @@ void Egg::Func()
     std::vector<QPixmap *> imgs(frames.begin() + PROJECTILE_START, frames.end());
     if (target != nullptr)
     {
-        PitchProjectile *projectile = new PitchProjectile(draw_item.x, draw_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y,
+        PitchProjectile *projectile = new PitchProjectile(sprite_item.x, sprite_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y,
                                          FRAME_RATE, imgs, PROJECTILE_BOOM - PROJECTILE_START, PROJECTILE_VELOCITY_Y, PROJECTILE_DAMAGE, target, PROJECTILE_LOW_BOUND_PADDING);
         projectile_manager->AddProjectile(projectile);
     }

@@ -17,7 +17,7 @@ bool Stove::CheckFunc()
 
 void Stove::Func()
 {
-    flame_manager->GenerateFlame(draw_item.x + FLAME_PADDING_X, draw_item.y + FLAME_PADDING_Y);
+    flame_manager->GenerateFlame(sprite_item.x + FLAME_PADDING_X, sprite_item.y + FLAME_PADDING_Y);
 }
 
 Stove::Stove(int x, int y, FlameManager *flame_manager) : 

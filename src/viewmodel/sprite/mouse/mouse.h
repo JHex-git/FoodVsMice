@@ -24,5 +24,5 @@ public:
     void TakeDamage(int damage);
 
     // 只用于子弹
-    inline int GetX() { return draw_item.x; }
+    inline int GetX() { return sprite_item.x; }
 };

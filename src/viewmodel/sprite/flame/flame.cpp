@@ -1,7 +1,6 @@
 #include "flame.h"
 #include "../../../common/random.h"
-#include "../../../view/time_manager.h"
-#include "../../../view/game_manager.h"
+#include "../../../common/time_manager.h"
 #include "flame.h"
 
 Flame::Flame(int x, int y) : Sprite(x, y, FRAME_RATE)
@@ -31,7 +30,7 @@ void Flame::UpdateBehave()
     }
     else if (is_dropping) // 坠落
     {
-        draw_item.y += DROP_VELOCITY * TimeManager::DELTA_TIME;
+        sprite_item.y += DROP_VELOCITY * TimeManager::DELTA_TIME;
 
         if (current_exist_time >= drop_duration)
         {

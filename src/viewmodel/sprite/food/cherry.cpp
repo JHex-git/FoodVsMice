@@ -19,7 +19,7 @@ const int PROJECTILE_LEN = 20; // 太小会穿过
 
 bool Cherry::CheckFunc()
 {
-    return mouse_manager->GetLeftestMouse(draw_item.x, row) != nullptr;
+    return mouse_manager->GetLeftestMouse(sprite_item.x, row) != nullptr;
 }
 
 void Cherry::Func()
@@ -27,7 +27,7 @@ void Cherry::Func()
     DEBUG_INFO(frames.size());
     std::vector<QPixmap *> imgs(frames.begin() + PROJECTILE_START, frames.end());
     DEBUG_INFO(imgs.size());
-    HorizontalProjectile *projectile = new HorizontalProjectile(draw_item.x, draw_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y, row, PROJECTILE_LEN,
+    HorizontalProjectile *projectile = new HorizontalProjectile(sprite_item.x, sprite_item.y, PROJECTILE_DELTA_X, PROJECTILE_DELTA_Y, row, PROJECTILE_LEN,
                                           FRAME_RATE, imgs, PROJECTILE_BOOM - PROJECTILE_START, PROJECTILE_VELOCITY, PROJECTILE_DAMAGE, mouse_manager);
     projectile_manager->AddProjectile(projectile);
 }

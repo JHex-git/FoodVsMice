@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../../common/draw_item.h"
+#include "../../common/sprite_item.h"
 #include <QPixmap>
 #include "../../common/debug.h"
 
@@ -13,7 +13,7 @@ protected:
     float frame_rate;   // 帧切换的速率
     float frame_accum;  // 每次增加frame_rate的量，大于1时会切换到下一帧
     std::vector<QPixmap *> frames;
-    DrawItem draw_item;
+    SpriteItem sprite_item;
 
 public:
     Sprite(int x, int y, float frame_rate);

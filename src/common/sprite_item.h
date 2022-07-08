@@ -1,6 +1,6 @@
 #pragma once
 #include <QPixmap>
-struct DrawItem
+struct SpriteItem
 {
     QPixmap *img;
     int x;

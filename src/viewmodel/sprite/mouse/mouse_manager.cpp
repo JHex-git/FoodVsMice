@@ -8,7 +8,7 @@
 const int RIGHT_MOST = 960;
 MouseManager::MouseManager(TimeManager *time_manager) : time_manager(time_manager)
 {
-    draw_mouse_list_ptr = std::make_shared<std::list<DrawItem *>>();
+    draw_mouse_list_ptr = std::make_shared<std::list<SpriteItem *>>();
 
 //    waiting_mouse_list_ptr = std::make_shared<std::list<MouseType>>();
 //    waiting_mouse_time_list_ptr = std::make_shared<std::list<float>>();
@@ -27,11 +27,11 @@ MouseManager::~MouseManager()
 
 void MouseManager::UpdateMouse()
 {
-    std::list<DrawItem *>::iterator draw_it = draw_mouse_list_ptr->begin();
+    std::list<SpriteItem *>::iterator draw_it = draw_mouse_list_ptr->begin();
     for (std::list<Mouse *>::iterator it = mouse_list.begin(); it != mouse_list.end();)
     {
         std::list<Mouse *>::iterator tmp = it++;
-        std::list<DrawItem *>::iterator tmp_draw_it = draw_it++;
+        std::list<SpriteItem *>::iterator tmp_draw_it = draw_it++;
         (*tmp)->Update();
         if ((*tmp)->health <= 0)
         {
@@ -98,7 +98,7 @@ void MouseManager::PrepareMouse()
         if (mouse != nullptr)
         {
             mouse_list.push_front(mouse);
-            draw_mouse_list_ptr->push_front(&mouse->draw_item);
+            draw_mouse_list_ptr->push_front(&mouse->sprite_item);
         }
         waiting_mouse_list_ptr->erase(tmp_type_it);
         waiting_mouse_line_list_ptr->erase(tmp_line_it);

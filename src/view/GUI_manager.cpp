@@ -165,17 +165,17 @@ void GUIManager:: draw_level_choosing()
 void GUIManager::draw_game()
 {
     QPainter painter(this);
-    for (list<DrawItem *>::iterator it = draw_list->begin(); it != draw_list->end(); it++)
+    for (list<SpriteItem *>::iterator it = draw_list->begin(); it != draw_list->end(); it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
 
-    for (list<DrawItem *>::iterator it = mouse_list->begin(); it != mouse_list->end(); it++)
+    for (list<SpriteItem *>::iterator it = mouse_list->begin(); it != mouse_list->end(); it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }
 
-    for (list<DrawItem *>::iterator it = projectile_list->begin(); it != projectile_list->end(); it++)
+    for (list<SpriteItem *>::iterator it = projectile_list->begin(); it != projectile_list->end(); it++)
     {
         painter.drawPixmap((*it)->x, (*it)->y, *(*it)->img);
     }

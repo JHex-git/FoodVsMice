@@ -1,5 +1,5 @@
 #include "pitch_projectile.h"
-#include "../../../view/time_manager.h"
+#include "../../../common/time_manager.h"
 
 const float GRAVITY = 4000;
 const float EPSILON = 0.05;
@@ -25,15 +25,15 @@ void PitchProjectile::UpdateBehave()
             if (target != nullptr)
             {
                 if (abs(-initial_velocity_y - velocity) > EPSILON)
-                    draw_item.x += ((x = target->GetX()) - draw_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                    sprite_item.x += ((x = target->GetX()) - sprite_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
             }
             else
             {
                 if (abs(-initial_velocity_y - velocity) > EPSILON)
-                    draw_item.x += (x - draw_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                    sprite_item.x += (x - sprite_item.x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
             }
-            draw_item.y -= velocity * TimeManager::DELTA_TIME;
-            if (draw_item.y > low_bound) // 低于最低点，就结束
+            sprite_item.y -= velocity * TimeManager::DELTA_TIME;
+            if (sprite_item.y > low_bound) // 低于最低点，就结束
             {
                 if (target != nullptr)
                 {
