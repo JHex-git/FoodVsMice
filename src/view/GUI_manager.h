@@ -61,6 +61,7 @@ public:
     void draw_level_choosing();                                    //画选择页面
     void draw_select();                                            //画选择植物
     void draw_game();                                              //画食物、老鼠
+    void draw_menu();                                               //画菜单
 
 //............................................................................................................................音乐控制
     void background_music_manager();                                //背景音乐
@@ -85,12 +86,15 @@ private:
 //...................................................................时钟
     QTimer *timer_draw;         //画图时钟
     int time_draw;              //信号时长
+    QTimer *timer_logic;        //更新游戏逻辑时钟
+    int time_update_logic;      //信号时长
+//....................................................................图片
     QPixmap BackGround;         //大背景
     QPixmap level[11];          //选择页面
     QPixmap game[5];            //游戏页面
     QPixmap already;           //冷却用
-    QTimer *timer_logic;        //更新游戏逻辑时钟
-    int time_update_logic;      //信号时长
+    Qpixmap menu[3];
+
     QMediaPlayer *music;        //游戏音乐
     QAudioOutput *audioOutput;
 
@@ -99,7 +103,7 @@ private:
     int num;                    //选择了什么食物（0到6是食物，7是铲子）
     int level_choosing;         //关卡选择（0是选择界面，1是关卡1，2是关卡2，3是关卡3)
     int music_choosing;
-
+    int menu_1;
 //......................................。。。。。。................自测变量，可删除
     int ii;                     //测试用
     QPixmap Cherry_tart[9];     //测试用
@@ -113,6 +117,7 @@ private:
     std::function<void()> UpdateCard;
     std::function<void()> UpdateMouse;
     std::function<void()> UpdateProjectile;
+    std::function<void(int level)>UpdateLevel;
 public:
 // properties
     void attach_DrawFoodList(const std::shared_ptr<std::list<DrawItem *>> food_list)
@@ -148,6 +153,7 @@ public:
     std::function<std::pair<int, int>(int x, int y)> get_Viewport2MatrixCommand();
     std::function<std::pair<int, int>(int select_index)> get_Index2ViewportCommand();
 
+
 // command
     void attach_PlaceFoodCommand(std::function<bool(int row_index, int column_index, int select_index)>&& func) { PlaceFood = std::move(func); }
     void attach_RemoveFoodCommand(std::function<void(int row_index, int column_index)>&& func ){RemoveFood = std::move(func);}
@@ -155,5 +161,6 @@ public:
     void attach_UpdateCardCommand(std::function<void()>&& func) { UpdateCard = std::move(func); }
     void attach_UpdateMouseCommand(std::function<void()>&& func){ UpdateMouse = std::move(func);}
     void attach_UpdataUpdateProjectile(std::function<void()>&&func){UpdateProjectile = std::move(func);}
+    void attach_UpdateLevel(std::function<int(int level)>&&func){UpdateLevel = std::move(func);}
 };
 

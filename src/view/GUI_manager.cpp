@@ -31,6 +31,7 @@ void GUIManager:: init()
     num_select=1;
     ii=0;
     music_choosing=0;
+    menu_1=0;
 }
 
 void GUIManager::loading()
@@ -41,6 +42,8 @@ void GUIManager::loading()
     loadImages(game,temp ,5,1);
     char temp1[]="../FoodVsMice/resources/picture/Screen/leve_select/";
     loadImages(level,temp1 , 11, 0);
+    char temp2[]="../FoodVsMice/resources/picture/Screen/menu/";
+    loadImages(menu,temp2,3,1);
     if (level[0].isNull())
     {
         DEBUG_INFO("NULL");
@@ -139,6 +142,15 @@ void GUIManager::draw_game_background()
     itoa(*flame_sum, num,10);
     painter.setPen(QColor(Qt::red));
     painter.drawText(rect,Qt::AlignHCenter | Qt::AlignVCenter, num);
+
+    painter.setPen(QColor(Qt::black));
+    painter.setBrush(Qt::blue);
+    painter.drawRect(838,0,61,120);
+    QFont font1("黑体", 15, 75);
+    font1.setCapitalization(QFont::SmallCaps);
+    painter.setFont(font1);
+    QRectF rect1(838,0,61,120);
+    painter.drawText(rect1,Qt::AlignHCenter | Qt::AlignVCenter, "菜单");
 }
 
 void GUIManager:: draw_level_choosing()
@@ -204,6 +216,14 @@ void GUIManager::draw_select()
     }
 }
 
+void GUIManager::draw_menu()
+{
+    QPainter painter(this);
+    painter.drawPixmap(300,300,menu[0]);
+    painter.drawPixmap(409,380,menu[1]);
+    painter.drawPixmap(422,430,menu[2]);
+}
+
 void GUIManager::paintEvent(QPaintEvent *event)
 {
     if(level_choosing==0)
@@ -213,6 +233,13 @@ void GUIManager::paintEvent(QPaintEvent *event)
         draw_game_background();
         draw_select();
         draw_game();
+    }
+
+    if(menu_1==1)
+    {
+        draw_menu();
+        timer_draw->stop();
+        timer_logic->stop();
     }
 }
 
@@ -235,16 +262,19 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                 if(event->y()>=150&&event->y()<=210)
                 {
                     level_choosing=1;
+                    UpdateLevel(level_choosing);
                     timer_logic->start();
                 }
                 else if(event->y()>=300&&event->y()<=360)
                 {
                     level_choosing=2;
+                    UpdateLevel(level_choosing);
                     timer_logic->start();
                 }
                 else if(event->y()>=450&&event->y()<=410)
                 {
                     level_choosing=3;
+                    UpdateLevel(level_choosing);
                     timer_logic->start();
                 }
             }  
@@ -280,6 +310,17 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                 music_manager();
                 num=-1;
                 selected = 0;
+            }
+            if(event->y() >= 130&&menu_1==1)
+            {
+                if(event->x()>409&&event->x()<490&&event->y()>380&&event->y()<415)
+                {
+                    menu_1=0;
+                    timer_draw->start();
+                    timer_logic->start();
+                }
+                if(event->x()>422&&event->x()<476&&event->y()>430&&event->y()<456)
+                    close();
             }
         }
 
@@ -361,3 +402,4 @@ std::function<std::pair<int, int>(int select_index)> GUIManager::get_Index2Viewp
         return select_positioning(select_index,0,0);
     };
 }
+
