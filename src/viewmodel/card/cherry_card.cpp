@@ -2,7 +2,7 @@
 
 const int DELTA_X = -30;
 const int DELTA_Y = -8;
-const float COOLDOWN_TIME = 10;
+const float COOLDOWN_TIME = 5;
 const int FLAME_COST = 40;
 
 CherryCard::CherryCard(FoodType food_type, int x, int y, QPixmap *img)

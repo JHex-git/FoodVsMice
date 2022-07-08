@@ -75,5 +75,6 @@ public:
     std::function<void()> get_UpdateFoodCommand();
     std::function<void()> get_UpdateCardCommand();
     std::function<void(int row_index, int column_index)> get_RemoveFoodCommand();
+    std::function<void()> get_InitCardCommand();
 
 };

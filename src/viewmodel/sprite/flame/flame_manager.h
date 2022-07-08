@@ -3,17 +3,19 @@
 #include <memory>
 #include <list>
 #include "flame.h"
+#include "../../../model/level/level_manager.h"
 class FlameManager
 {
 private:
     const int FLAME_UNIT = 50;
 
+    LevelManager *level_manager;
     std::list<Flame *> flame_list;
     std::vector<QPixmap *> frames;
     std::shared_ptr<int> flame_count_ptr;
 
 public:
-    FlameManager(int initial_flame, std::vector<QPixmap *> frames);
+    FlameManager(int initial_flame);
 
     // 释放list中的所有flame
     ~FlameManager();
@@ -44,6 +46,7 @@ public:
 
 // properties
     inline std::shared_ptr<int> get_FlameCount() { return flame_count_ptr; }
+    void attach_LevelManager(LevelManager *p_level_manager) { level_manager = p_level_manager; }
 
 // commands
     // 在随机位置落下火苗

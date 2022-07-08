@@ -1,7 +1,7 @@
 #include "game_app.h"
 #include "../common/debug.h"
 GameApp::GameApp(GUIManager *gui_manager, LevelManager *level_manager, TimeManager *time_manager) :
-    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(50, level_manager->GetFoodImages().find(FoodType::HOTPOT)->second), mouse_manager(time_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
+    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(10000), mouse_manager(time_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
 {
 }
 
@@ -17,14 +17,17 @@ void GameApp::Init()
     gui_manager->attach_DrawProjectileList(projectile_manager.get_DrawProjectileList());
     food_manager.attach_LevelManager(level_manager);
     mouse_manager.attach_LevelManager(level_manager);
+    flame_manager.attach_LevelManager(level_manager);
 
 // command
     gui_manager->attach_PlaceFoodCommand(food_manager.get_PlaceFoodCommand());
     gui_manager->attach_UpdateFoodCommand(food_manager.get_UpdateFoodCommand());
     gui_manager->attach_UpdateCardCommand(food_manager.get_UpdateCardCommand());
     gui_manager->attach_RemoveFoodCommand(food_manager.get_RemoveFoodCommand());
+    gui_manager->attach_InitCardCommand(food_manager.get_InitCardCommand());
     gui_manager->attach_UpdateMouseCommand(mouse_manager.get_UpdateMiceCommand());
     gui_manager->attach_UpdataUpdateProjectile(projectile_manager.get_UpdateProjectiles());
+    gui_manager->attach_UpdateLevel(level_manager->get_UpdateLevelCommand());
 
     food_manager.Init();
     mouse_manager.Init();

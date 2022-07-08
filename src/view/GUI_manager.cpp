@@ -43,7 +43,7 @@ void GUIManager::loading()
     char temp1[]="../FoodVsMice/resources/picture/Screen/leve_select/";
     loadImages(level,temp1 , 11, 0);
     char temp2[]="../FoodVsMice/resources/picture/Screen/menu/";
-    loadImages(menu,temp2,3,1);
+    loadImages(menu,temp2,6,1);
     if (level[0].isNull())
     {
         DEBUG_INFO("NULL");
@@ -224,6 +224,19 @@ void GUIManager::draw_menu()
     painter.drawPixmap(422,430,menu[2]);
 }
 
+void GUIManager::gameover()
+{
+    QPainter painter(this);
+    if(over_==1)
+    {
+        painter.drawPixmap(300,300,menu[4]);
+    }
+    if(over_==2)
+    {
+         painter.drawPixmap(300,300,menu[5]);
+    }
+}
+
 void GUIManager::paintEvent(QPaintEvent *event)
 {
     if(level_choosing==0)
@@ -263,18 +276,21 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                 {
                     level_choosing=1;
                     UpdateLevel(level_choosing);
+                    InitCard();
                     timer_logic->start();
                 }
                 else if(event->y()>=300&&event->y()<=360)
                 {
                     level_choosing=2;
                     UpdateLevel(level_choosing);
+                    InitCard();
                     timer_logic->start();
                 }
                 else if(event->y()>=450&&event->y()<=410)
                 {
                     level_choosing=3;
                     UpdateLevel(level_choosing);
+                    InitCard();
                     timer_logic->start();
                 }
             }  
@@ -282,12 +298,16 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
 
             return;
         }
-        if(level_choosing==1)
+        if(level_choosing!=0)
         {
             if(event->y()<130)
             {
                 num = locationing(event->x());
                 selected = 1;
+                if(event->x()>845)
+                {
+                    menu_1=1;
+                }
             }
             if (event->y() >= 130 && num!=-1 && selected==1&&num!=7)
             {

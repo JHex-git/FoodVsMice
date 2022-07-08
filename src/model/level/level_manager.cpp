@@ -15,6 +15,7 @@ LevelManager::LevelManager()
     mouse_list_ptr = std::make_shared<std::list<MouseType>>();
     mouse_come_time_ptr = std::make_shared<std::list<float>>();
     mouse_line_ptr = std::make_shared<std::list<int>>();
+    // 加载小火苗图片资源
 }
 LevelManager::~LevelManager()
 {
@@ -124,6 +125,20 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     vector<QPixmap *> Eggs_pitcher;
     vector<QPixmap *> Bigbread;
     vector<QPixmap *> Barb;
+    small_fire = new QPixmap[29];
+    fire = new QPixmap[10];
+    loadImages(small_fire, "../FoodVsMice/resources/picture/food/small_fire/small_fire/", 29, 1);
+    loadImages(fire, "../FoodVsMice/resources/picture/food/small_fire/fire/", 10, 1);
+    for (auto j = 0; j < 29 ; j++){
+        smallfire.push_back(&small_fire[j]);
+        deletelist.push_back(&small_fire[j]);
+    }
+    for (auto j = 0; j < 10 ; j++){
+        smallfire.push_back(&fire[j]);
+        deletelist.push_back(&fire[j]);
+    }
+    food_types.push_back(FoodType::SMALL_FIRE);
+    food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_FIRE,smallfire));
     for (;;)//read plant
     {
         fp >> now_food;
@@ -132,22 +147,6 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
 
         switch (i)
         {
-        case FoodType::SMALL_FIRE:
-            fire = new QPixmap[10];
-            small_fire = new QPixmap[29];
-            loadImages(fire, "../FoodVsMice/resources/picture/food/small_fire/fire/", 10, 1);
-            loadImages(small_fire, "../FoodVsMice/resources/picture/food/small_fire/small_fire/", 29, 1);
-            for (auto j = 0; j < 10 ; j++){
-                smallfire.push_back(&fire[j]);
-                deletelist.push_back(&fire[j]);
-            }
-            for (auto j = 0; j < 29 ; j++){
-                smallfire.push_back(&small_fire[j]);
-                deletelist.push_back(&small_fire[j]);
-            }
-            food_types.push_back(FoodType::SMALL_FIRE);
-            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_FIRE,smallfire));
-            break;
         case FoodType::STEAM_DRAWER:
             steam_drawer = new QPixmap[19];//最后一张是子弹
             loadImages(steam_drawer, "../FoodVsMice/resources/picture/food/steam_drawer/", 19, 1);

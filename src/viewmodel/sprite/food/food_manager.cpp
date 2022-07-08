@@ -158,8 +158,7 @@ std::function<void()> FoodManager::get_UpdateFoodCommand()
             (*tmp)->Update();
             if ((*tmp)->health <= 0)
             {
-                std::pair<int, int> coorinate = MapTransform::Viewport2Matrix((*tmp)->draw_item.x, (*tmp)->draw_item.y);
-                map_grids[coorinate.second][coorinate.first] = false;
+                map_grids[(*tmp)->row][(*tmp)->column] = false;
                 food_list.erase(tmp);
                 draw_foodlist_ptr->erase(draw_tmp);
                 delete *tmp;
@@ -203,5 +202,13 @@ std::function<void(int row_index, int column_index)> FoodManager::get_RemoveFood
                 }
             }
         }
+    };
+}
+
+std::function<void()> FoodManager::get_InitCardCommand()
+{
+    return [this]()->void
+    {
+        Init();
     };
 }
