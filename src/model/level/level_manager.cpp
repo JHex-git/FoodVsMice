@@ -115,6 +115,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     QPixmap *Egg_pitcher;
     QPixmap *Big;
     QPixmap *barb;
+    QPixmap *egg;
     vector<QPixmap *> smallfire;
     vector<QPixmap *> steamdrawer;
     vector<QPixmap *> Smallbread;
@@ -126,6 +127,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     vector<QPixmap *> Eggs_pitcher;
     vector<QPixmap *> Bigbread;
     vector<QPixmap *> Barb;
+    vector<QPixmap *> super_egg;
     small_fire = new QPixmap[29];
     fire = new QPixmap[10];
     loadImages(small_fire, "../FoodVsMice/resources/picture/food/small_fire/small_fire/", 29, 1);
@@ -247,6 +249,16 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             }
             food_types.push_back(FoodType::BARB);
             food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::BARB,Barb));
+            break;
+        case FoodType::SUPER_EGG:
+            egg = new QPixmap[37];
+            loadImages(egg, "../FoodVsMice/resources/picture/food/super_egg/", 37, 1);
+            for (auto j = 0; j < 37 ; j++){
+                super_egg.push_back(&egg[j]);
+                deletelist.push_back(&egg[j]);
+            }
+            food_types.push_back(FoodType::SUPER_EGG);
+            food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SUPER_EGG,super_egg));
             break;
         default : break;
         }

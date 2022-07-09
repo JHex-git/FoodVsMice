@@ -11,7 +11,8 @@ enum class FoodType
     CHERRY=7,
     EGG=8,
     BIG_BREAD=9,
-    BARB=10
+    BARB=10,
+    SUPER_EGG=11
 };
 
 // TODO: 之后有新的老鼠
