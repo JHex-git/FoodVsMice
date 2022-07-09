@@ -2,7 +2,7 @@
 
 const int FRAME_RATE = 1;
 const int DAMAGE = 20;
-const int HEALTH = 150;
+const int HEALTH = 300;
 const int VELOCITY = 20;
 const int DELTA_X = 40;
 const int DELTA_Y = 100;

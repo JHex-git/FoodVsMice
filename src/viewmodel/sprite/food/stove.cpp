@@ -1,6 +1,6 @@
 #include "stove.h"
 #include "../flame/flame.h"
-const int COOL_DOWN_TIME = 6;
+const int COOL_DOWN_TIME = 10;
 const int FLAME_PADDING_X = 10;
 const int FLAME_PADDING_Y = 10;
 const int HEALTH = 100;

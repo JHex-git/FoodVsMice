@@ -19,68 +19,7 @@ using namespace std;
 #define game_width 560      //放置食物的窗口宽度
 #define select_first_width 90
 #define select_after_width 93
-
-#define Egg_deta_x 15       
-#define Egg_deta_y 35
-#define Select_Egg_deta_x -10
-#define Select_Egg_deta_y  23
-
-
 #define mouse_deta_y 40
-
-#define hotpot_deta_x -3
-#define hotpot_deta_y 28
-#define Select_hotpot_deta_x -15
-#define Select_hotpot_deta_y 13
-
-
-
-#define Cherry_deta_x -20
-#define Cherry_deta_y 5
-#define Select_Cherry_deta_x -30
-#define Select_Cherry_deta_y -5
-
-#define small_fire_deta_x  -20
-#define small_fire_deta_y   24
-#define select_small_fire_deta_x -30
-#define select_small_fire_deta_y 15
-
-#define fish_deta_x -15
-#define fish_deta_y -5
-#define select_fish_deta_x -23
-#define select_fish_deta_y -15
-
-#define berb_deta_x -20
-#define barb_deta_y -35
-#define select_barb_deta_x -30
-#define select_barb_deta_y -30
-
-#define bigbread_deta_x -15
-#define bigbread_deta_y 3
-#define select_bigbread_deta_x -25
-#define select_bigbread_deta_y -11
-
-#define smallbread_deta_x -15
-#define smallbread_deta_y -13
-#define select_smallbread_deta_x -25
-#define select_smallbread_deta_y -23
-
-#define flour_deta_x -8
-#define flour_deta_y 33
-#define select_flour_deta_x -15
-#define select_flour_deta_y 23
-
-#define steam_drawer_deta_x -20
-#define steam_drawer_deta_y -8
-#define select_steam_drawer_deta_x -28
-#define select_steam_drawer_deta_y -17
-
-#define hamburg_deta_x -8
-#define hamburg_deta_y 20
-#define select_hamburg_deta_x -15
-#define select_hamburg_deta_y 13
-
-
 
 class GUIManager : public QWidget
 {
