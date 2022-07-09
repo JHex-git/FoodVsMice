@@ -1,6 +1,6 @@
-#include "egg.h"
+#include "super_egg.h"
 
-const int COOL_DOWN_TIME = 1;
+const int COOL_DOWN_TIME = 3;
 const int HEALTH = 100;
 const int DELTA_X = 55;
 const int DELTA_Y = 73;
@@ -21,13 +21,13 @@ const int PROJECTILE_VELOCITY_Y = 1000;
 const int PROJECTILE_DAMAGE = 20;
 const int PROJECTILE_LOW_BOUND_PADDING = -100;
 
-bool Egg::CheckFunc()
+bool SuperEgg::CheckFunc()
 {
     target = mouse_manager->GetLeftestMouse(center_x, row);
     return target != nullptr;
 }
 
-void Egg::Func()
+void SuperEgg::Func()
 {
     std::vector<QPixmap *> imgs(frames.begin() + PROJECTILE_START, frames.end());
     if (target != nullptr)
@@ -38,7 +38,5 @@ void Egg::Func()
     }
 }
 
-
-
-Egg::Egg(int x, int y, int row, int column, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager)
+SuperEgg::SuperEgg(int x, int y, int row, int column, std::vector<QPixmap *> frames, MouseManager *mouse_manager, ProjectileManager *projectile_manager)
     : Food(x, y, DELTA_X, DELTA_Y, row, column, LEFT_PADDING, RIGHT_PADDING, FRAME_RATE, frames, FUNC_START_INDEX, FUNC_TAKE_EFFECT_INDEX, PROJECTILE_START, HEALTH, COOL_DOWN_TIME), mouse_manager(mouse_manager), projectile_manager(projectile_manager) {}

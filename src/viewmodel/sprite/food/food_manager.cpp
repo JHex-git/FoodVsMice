@@ -105,13 +105,11 @@ Food *FoodManager::GetRightMostFood(int x, int row)
     {
         if ((*it)->row == row)
         {
-            if (food == nullptr && MapTransform::Matrix2Viewport((*it)->row, 0).first + GRID_WIDTH / 2 < x)
+            if (food == nullptr && (*it)->center_x < x)
                 food = *it;
             else if (food != nullptr)
             {
-                int tmp_x = MapTransform::Matrix2Viewport((*it)->row, 0).first + GRID_WIDTH / 2;
-                if (tmp_x < x &&
-                        tmp_x > MapTransform::Matrix2Viewport(food->row, 0).first + GRID_WIDTH / 2)
+                if ((*it)->center_x < x && (*it)->center_x > food->center_x)
                     food = *it;
             }
         }

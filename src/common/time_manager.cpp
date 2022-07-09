@@ -1,5 +1,8 @@
 #include "time_manager.h"
 
+
+clock_t TimeManager::start_time;
+
 void TimeManager::Init()
 {
     start_time = clock();

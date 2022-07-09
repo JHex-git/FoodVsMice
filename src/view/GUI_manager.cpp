@@ -1,5 +1,6 @@
 #include "GUI_manager.h"
 #include "../common/debug.h"
+#include "../common/time_manager.h"
 
 GUIManager::GUIManager(QWidget *parent)
     : QWidget(parent)
@@ -293,6 +294,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     UpdateLevel(level_choosing);
                     InitCard();
                     timer_logic->start();
+                    TimeManager::Init();
                 }
                 else if(event->y()>=300&&event->y()<=360)
                 {
@@ -300,6 +302,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     UpdateLevel(level_choosing);
                     InitCard();
                     timer_logic->start();
+                    TimeManager::Init();
                 }
                 else if(event->y()>=450&&event->y()<=510)
                 {
@@ -307,6 +310,7 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
                     UpdateLevel(level_choosing);
                     InitCard();
                     timer_logic->start();
+                    TimeManager::Init();
                 }
             }  
             background_music_manager();      

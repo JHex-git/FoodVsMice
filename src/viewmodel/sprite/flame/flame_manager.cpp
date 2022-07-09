@@ -39,11 +39,9 @@ void FlameManager::GenerateFlame(int x, int y)
         frames = level_manager->GetFoodImages().find(FoodType::SMALL_FIRE)->second;
         frames = std::vector<QPixmap *>(frames.begin() + FLAME_START, frames.end());
     }
-    DEBUG_INFO(frames.size());
-    DEBUG_INFO(x);
     Flame *flame = new Flame(x, y, frames);
     draw_flame_list_ptr->push_front(&flame->sprite_item);
-    flame_list.push_back(flame);
+    flame_list.push_front(flame);
 }
 
 std::function<bool(int x, int y)> FlameManager::get_PickupFlameCommand()

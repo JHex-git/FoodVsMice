@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
     gui_manager.show();
     TimeManager time_manager;
     LevelManager level_manager;
-//    level_manager.ReadLevel(1);
     GameApp game_app(&gui_manager, &level_manager, &time_manager);
     game_app.Init();
     return a.exec();

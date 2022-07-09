@@ -1,7 +1,7 @@
 #include "game_app.h"
 #include "../common/debug.h"
 GameApp::GameApp(GUIManager *gui_manager, LevelManager *level_manager, TimeManager *time_manager) :
-    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(10000), mouse_manager(time_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
+    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(100), mouse_manager(time_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
 {
 }
 
