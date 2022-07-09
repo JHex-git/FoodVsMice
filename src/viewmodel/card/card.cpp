@@ -16,6 +16,7 @@ void Card::Update()
     if (wait_cooldown_time > 0)
     {
         wait_cooldown_time -= TimeManager::DELTA_TIME;
+        if (wait_cooldown_time < 0) wait_cooldown_time = 0;
         cooldown_ratio = wait_cooldown_time / cooldown_time;
     }
 }

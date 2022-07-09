@@ -9,10 +9,6 @@ const int DELTA_Y = 120;
 const int LEFT_PADDING = 20;
 const int RIGHT_PADDING = 60;
 const float ATTACK_INTERVAL = 1;
-const int LOSE_BUCKET_HEALTH = 150;
-
-
-const int WALK_NORMAL_END = 7;
 
 BucketMouse::BucketMouse(int x, int y) :
     Mouse(x, y, FRAME_RATE, HEALTH, VELOCITY, DAMAGE) {}

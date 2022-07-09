@@ -9,6 +9,8 @@
 #include "steam_drawer.h"
 #include "fish.h"
 #include "small_bread.h"
+#include "super_egg.h"
+
 // add card here
 #include "../../card/stove_card.h"
 #include "../../card/steamdrawer_card.h"
@@ -17,6 +19,7 @@
 #include "../../card/cherry_card.h"
 #include "../../card/fish_card.h"
 #include "../../card/small_bread_card.h"
+#include "../../card/super_egg_card.h"
 
 const int GRID_WIDTH = 80;
 
@@ -85,6 +88,9 @@ void FoodManager::Init()
                 break;
             case (FoodType::SMALL_BREAD):
                 card = new SmallBreadCard(food_type, x, y, img);
+                break;
+            case (FoodType::SUPER_EGG):
+                card = new SuperEggCard(food_type, x, y, img);
                 break;
 
         }
@@ -169,6 +175,10 @@ std::function<bool(int row_index, int column_index, int select_index)> FoodManag
                         break;
                     case (FoodType::SMALL_BREAD):
                         food = new SmallBread(x, y, row_index, column_index, imgs);
+                        map_grids[row_index][column_index] = true;
+                        break;
+                    case (FoodType::SUPER_EGG):
+                        food = new SuperEgg(x, y, row_index, column_index, imgs, mouse_manager, projectile_manager);
                         map_grids[row_index][column_index] = true;
                         break;
 

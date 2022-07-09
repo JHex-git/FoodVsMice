@@ -1,8 +1,8 @@
 #include "super_egg.h"
 
-const int COOL_DOWN_TIME = 3;
+const int COOL_DOWN_TIME = 1;
 const int HEALTH = 100;
-const int DELTA_X = 55;
+const int DELTA_X = 65;
 const int DELTA_Y = 73;
 const float FRAME_RATE = 1;
 const int FUNC_START_INDEX = 15;
@@ -18,7 +18,7 @@ const int PROJECTILE_DELTA_Y = 1;
 const int PROJECTILE_START = 26;
 const int PROJECTILE_BOOM = 31;
 const int PROJECTILE_VELOCITY_Y = 1000;
-const int PROJECTILE_DAMAGE = 20;
+const int PROJECTILE_DAMAGE = 60;
 const int PROJECTILE_LOW_BOUND_PADDING = -100;
 
 bool SuperEgg::CheckFunc()

@@ -145,7 +145,7 @@ void GUIManager::draw_game_background()
     painter.drawText(rect,Qt::AlignHCenter | Qt::AlignVCenter, num);
 
     painter.setPen(QColor(Qt::black));
-    painter.setBrush(Qt::blue);
+    painter.setBrush(QColor(57, 151, 205));
     painter.drawRect(838,0,61,120);
     QFont font1("黑体", 15, 75);
     font1.setCapitalization(QFont::SmallCaps);
@@ -274,6 +274,7 @@ void GUIManager::update_logic()
     UpdateMouse();
     UpdateProjectile();
     UpdateFlame();
+    TimeManager::UpdateTime();
 }
 
 void GUIManager::mousePressEvent(QMouseEvent *event)

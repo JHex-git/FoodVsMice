@@ -6,8 +6,10 @@ class TimeManager
 public:
     static constexpr float DELTA_TIME = 0.02;
     static void Init();
+    static void UpdateTime();
     float GetCurrentSecond();
 
 private:
-    static clock_t start_time;
+    static float start_time;
+    static float current_time;
 };
