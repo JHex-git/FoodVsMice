@@ -21,7 +21,6 @@ Food::Food(int x, int y, int delta_x, int delta_y, int row, int column, int left
 void Food::Update()
 {
     frame_accum += frame_rate;
-    DEBUG_INFO(frame_rate);
     if (frame_accum >= 1)
     {
         if (start_func)

@@ -11,6 +11,8 @@ private:
 public:
     ProjectileManager();
 
+    ~ProjectileManager();
+
     // 将子弹加入子弹list进行管理
     void AddProjectile(Projectile *projectile);
 

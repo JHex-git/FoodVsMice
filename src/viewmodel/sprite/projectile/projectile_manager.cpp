@@ -34,3 +34,12 @@ std::function<void()> ProjectileManager::get_UpdateProjectiles()
         }
     };
 }
+
+ProjectileManager::~ProjectileManager()
+{
+    for (std::list<Projectile *>::iterator it = projectile_list.begin(); it != projectile_list.end(); it++)
+    {
+        std::list<Projectile *>::iterator tmp = it++;
+        delete *tmp;
+    }
+}
