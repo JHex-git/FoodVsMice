@@ -169,6 +169,8 @@ private:
     std::function<void(int level)>UpdateLevel;
     std::function<void()> InitCard;
     std::function<bool(int x, int y)> PickupFlame;
+    std::function<void()> UpdateFlame;
+
 public:
 // properties
     void attach_DrawFoodList(const std::shared_ptr<std::list<SpriteItem *>> food_list)
@@ -224,5 +226,6 @@ public:
     void attach_UpdateLevel(std::function<void(int level)>&&func){UpdateLevel = std::move(func);}
     void attach_InitCardCommand(std::function<void()>&& func) { InitCard = std::move(func); }
     void attach_PickupFlameCommand(std::function<bool(int x, int y)>&& func) { PickupFlame = std::move(func); }
+    void attach_UpdateFlameCommand(std::function<void()>&& func) { UpdateFlame = std::move(func); }
 };
 

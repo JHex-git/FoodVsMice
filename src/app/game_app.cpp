@@ -31,6 +31,7 @@ void GameApp::Init()
     gui_manager->attach_UpdataUpdateProjectile(projectile_manager.get_UpdateProjectiles());
     gui_manager->attach_UpdateLevel(level_manager->get_UpdateLevelCommand());
     gui_manager->attach_PickupFlameCommand(flame_manager.get_PickupFlameCommand());
+    gui_manager->attach_UpdateFlameCommand(flame_manager.get_UpdateFlameCommand());
 
     food_manager.Init();
     mouse_manager.Init(&food_manager);

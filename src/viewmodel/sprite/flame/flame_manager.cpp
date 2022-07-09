@@ -66,22 +66,26 @@ std::function<bool(int x, int y)> FlameManager::get_PickupFlameCommand()
     };
 }
 
-void FlameManager::UpdateFlame()
+std::function<void()> FlameManager::get_UpdateFlameCommand()
 {
-    std::list<SpriteItem *>::iterator draw_it = draw_flame_list_ptr->begin();
-    for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
+    return [this]()->void
     {
-        std::list<Flame *>::iterator tmp = it++;
-        std::list<SpriteItem *>::iterator draw_tmp = draw_it++;
-
-        (*tmp)->Update();
-        if (!(*tmp)->is_exist)
+        std::list<SpriteItem *>::iterator draw_it = draw_flame_list_ptr->begin();
+        for (std::list<Flame *>::iterator it = flame_list.begin(); it != flame_list.end();)
         {
-            flame_list.erase(tmp);
-            draw_flame_list_ptr->erase(draw_tmp);
-            delete *tmp;
+            std::list<Flame *>::iterator tmp = it++;
+            std::list<SpriteItem *>::iterator draw_tmp = draw_it++;
+
+            DEBUG_INFO("Update");
+            (*tmp)->Update();
+            if (!(*tmp)->is_exist)
+            {
+                flame_list.erase(tmp);
+                draw_flame_list_ptr->erase(draw_tmp);
+                delete *tmp;
+            }
         }
-    }
+    };
 }
 
 void FlameManager::IncreaseFlame(int num)

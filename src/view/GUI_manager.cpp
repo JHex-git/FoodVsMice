@@ -273,6 +273,7 @@ void GUIManager::update_logic()
     UpdateCard();
     UpdateMouse();
     UpdateProjectile();
+    UpdateFlame();
 }
 
 void GUIManager::mousePressEvent(QMouseEvent *event)
