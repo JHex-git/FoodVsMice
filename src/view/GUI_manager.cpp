@@ -1,5 +1,4 @@
 #include "GUI_manager.h"
-#include "../common/debug.h"
 #include "../common/time_manager.h"
 
 GUIManager::GUIManager(QWidget *parent)
@@ -45,10 +44,6 @@ void GUIManager::loading()
     loadImages(level,temp1 , 11, 0);
     char temp2[]="../FoodVsMice/resources/picture/Screen/menu/";
     loadImages(menu,temp2,6,1);
-    if (level[0].isNull())
-    {
-        DEBUG_INFO("NULL");
-    }
 }
 
 void GUIManager::loadImages(QPixmap imgs[], char path[], int n, int begin)
@@ -235,13 +230,13 @@ void GUIManager::gameover()
     QPainter painter(this);
     if(*status_ptr == Status::LOSE)
     {
-        painter.drawPixmap(300,300,menu[4]);
+        painter.drawPixmap(350,300,menu[4]);
         timer_draw->stop();
         timer_logic->stop();
     }
     else if(*status_ptr == Status::WIN)
     {
-         painter.drawPixmap(300,300,menu[5]);
+         painter.drawPixmap(350,300,menu[5]);
          timer_draw->stop();
          timer_logic->stop();
     }

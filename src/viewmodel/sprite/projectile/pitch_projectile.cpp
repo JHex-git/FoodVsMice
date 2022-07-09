@@ -1,7 +1,7 @@
 #include "pitch_projectile.h"
 #include "../../../common/time_manager.h"
 
-const float GRAVITY = 4000;
+const float GRAVITY = 1000;
 const float EPSILON = 0.05;
 
 // velocity在这里表示纵向速度，向上为正

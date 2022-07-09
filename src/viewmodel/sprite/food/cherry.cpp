@@ -17,7 +17,7 @@ const int PROJECTILE_DELTA_X = 0; // 图片的delta
 const int PROJECTILE_DELTA_Y = 0;
 const int PROJECTILE_START = 9;
 const int PROJECTILE_BOOM = 10;
-const int PROJECTILE_VELOCITY = 1000;
+const int PROJECTILE_VELOCITY = 500;
 const int PROJECTILE_DAMAGE = 20;
 const int PROJECTILE_LEN = 20; // 太小会穿过
 

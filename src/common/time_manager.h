@@ -4,7 +4,7 @@
 class TimeManager
 {
 public:
-    static constexpr float DELTA_TIME = 0.02;
+    static constexpr float DELTA_TIME = 0.05;
     static void Init();
     static void UpdateTime();
     float GetCurrentSecond();

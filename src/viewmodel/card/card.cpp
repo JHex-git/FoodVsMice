@@ -1,6 +1,5 @@
 #include "card.h"
 #include "../../common/time_manager.h"
-#include "../../common/debug.h"
 Card::Card(FoodType food_type, int x, int y, int delta_x, int delta_y, QPixmap *img, float cooldown_time, int flame_cost) : food_type(food_type), cooldown_time(cooldown_time), flame_cost(flame_cost)
 {
     card_img.img = img;

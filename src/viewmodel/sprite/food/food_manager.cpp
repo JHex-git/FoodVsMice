@@ -1,6 +1,5 @@
 #include "food_manager.h"
 #include "../../../common/map_transform.h"
-#include "../../../view/GUI_manager.h"
 #include "../../../common/debug.h"
 // add food here
 #include "stove.h"

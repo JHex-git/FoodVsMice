@@ -10,7 +10,6 @@
 #include <map>
 #include <functional>
 #include "../common/sprite_item.h"
-#include "../common/debug.h"
 #include "../common/enums.h"
 using namespace std;
 

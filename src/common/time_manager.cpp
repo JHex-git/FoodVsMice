@@ -1,5 +1,4 @@
 #include "time_manager.h"
-#include "debug.h"
 
 float TimeManager::start_time;
 float TimeManager::current_time;
@@ -17,5 +16,4 @@ float TimeManager::GetCurrentSecond()
 void TimeManager::UpdateTime()
 {
     current_time += DELTA_TIME;
-    DEBUG_INFO(current_time);
 }

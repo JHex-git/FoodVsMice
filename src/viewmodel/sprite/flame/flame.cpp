@@ -3,7 +3,7 @@
 #include "../../../common/time_manager.h"
 #include "flame.h"
 
-const float DURATION = 3;
+const float DURATION = 5;
 const float MIN_DROP_DURATION = 1;
 const float MAX_DROP_DURATION = 5;
 const int DROP_VELOCITY = 1;

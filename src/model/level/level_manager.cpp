@@ -1,5 +1,4 @@
 #include "level_manager.h"
-#include "../../common/debug.h"
 using namespace std;
 // void LevelManager::SetLevelName(){//赋值每个关卡的名字，初始化的一部分
 //     Files levelnames;
@@ -307,7 +306,6 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
                 helmet_mouse.push_back(&helmet[j]);
                 deletelist.push_back(&helmet[j]);
             }
-            DEBUG_INFO(helmet_mouse.size());
             mouse_types.push_back(MouseType::HELMET_MOUSE);
             mouse_img_dict.insert(pair<MouseType, std::vector<QPixmap *>>(MouseType::HELMET_MOUSE,helmet_mouse));
             break;

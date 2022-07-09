@@ -1,5 +1,5 @@
 #include "flame_manager.h"
-
+#include "../../../common/debug.h"
 const int FLAME_START = 29;
 const int PADDING_X = 20;
 const int PADDING_Y = 20;
@@ -76,7 +76,6 @@ std::function<void()> FlameManager::get_UpdateFlameCommand()
             std::list<Flame *>::iterator tmp = it++;
             std::list<SpriteItem *>::iterator draw_tmp = draw_it++;
 
-            DEBUG_INFO("Update");
             (*tmp)->Update();
             if (!(*tmp)->is_exist)
             {

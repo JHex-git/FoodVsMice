@@ -4,7 +4,6 @@
 #include "football_mouse.h"
 #include "normal_mouse.h"
 #include "../../../common/map_transform.h"
-#include "../../../common/debug.h"
 
 const int RIGHT_MOST = 910;
 MouseManager::MouseManager(TimeManager *time_manager) : time_manager(time_manager)
@@ -98,7 +97,6 @@ void MouseManager::PrepareMouse()
                 mouse = new NormalMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
                 break;
             case MouseType::HELMET_MOUSE:
-                DEBUG_INFO(imgs.size());
                 mouse = new BucketMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
                 break;
             case MouseType::FOOT_MOUSE:
