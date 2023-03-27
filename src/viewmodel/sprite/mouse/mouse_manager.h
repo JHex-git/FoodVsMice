@@ -5,9 +5,10 @@
 #include "../../../common/enums.h"
 #include "../../../model/level/level_manager.h"
 #include "../food/food_manager.h"
+#include "../../pool_manager.h"
 
-class Mouse;
 class FoodManager;
+class PoolManager;
 
 class MouseManager
 {
@@ -15,6 +16,7 @@ private:
     TimeManager *time_manager;
     LevelManager *level_manager;
     FoodManager *food_manager;
+    PoolManager *pool_manager;
     std::list<Mouse *> mouse_list;
 
     // for view
@@ -30,7 +32,7 @@ private:
     std::function<std::pair<int, int>(int row_index, int column_index)> Matrix2Viewport;
 
 public:
-    MouseManager(TimeManager *time_manager);
+    MouseManager(TimeManager *time_manager, PoolManager *pool_manager);
 
     // 释放list中所有的mouse
     ~MouseManager();

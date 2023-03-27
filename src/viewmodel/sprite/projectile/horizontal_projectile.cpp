@@ -1,5 +1,6 @@
 #include "horizontal_projectile.h"
 #include "../../../common/time_manager.h"
+#include "../../../common/debug.h"
 
 const int PROJECTILE_RIGHT_BOUND = 1000;
 
@@ -8,6 +9,7 @@ HorizontalProjectile::HorizontalProjectile(int x, int y, int delta_x, int delta_
 
 void HorizontalProjectile::UpdateBehave()
 {
+    DEBUG_INFO("Before Horizontal");
     if (is_active)
     {
         if (center_x >= PROJECTILE_RIGHT_BOUND) is_active = false;
@@ -32,4 +34,5 @@ void HorizontalProjectile::UpdateBehave()
             }
         }
     }
+    DEBUG_INFO("After Horizontal");
 }

@@ -52,5 +52,4 @@ void Flame::UpdateBehave()
 
 Flame::~Flame()
 {
-    // TODO: 擦除图片
 }

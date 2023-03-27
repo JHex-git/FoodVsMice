@@ -1,12 +1,13 @@
 #include "mouse_manager.h"
 #include "../../../common/enums.h"
+#include "../../../common/debug.h"
 #include "bucket_mouse.h"
 #include "football_mouse.h"
 #include "normal_mouse.h"
 #include "../../../common/map_transform.h"
 
 const int RIGHT_MOST = 910;
-MouseManager::MouseManager(TimeManager *time_manager) : time_manager(time_manager)
+MouseManager::MouseManager(TimeManager *time_manager, PoolManager *pool_manager) : time_manager(time_manager), pool_manager(pool_manager)
 {
     draw_mouse_list_ptr = std::make_shared<std::list<SpriteItem *>>();
     status_ptr = std::make_shared<Status>();
@@ -39,11 +40,11 @@ void MouseManager::UpdateMouse()
         {
             *status_ptr = Status::LOSE;
         }
-        if ((*tmp)->health <= 0)
+        if (!(*tmp)->is_active)
         {
             mouse_list.erase(tmp);
             draw_mouse_list_ptr->erase(tmp_draw_it);
-            delete *tmp;
+            pool_manager->Return2Pool(*tmp);
         }
     }
 }
@@ -60,25 +61,8 @@ void MouseManager::Init(FoodManager *food_manager)
 
 void MouseManager::PrepareMouse()
 {
-//    for (std::list<std::pair<MouseType, float>>::iterator it = waiting_mouse_list.begin(); it != waiting_mouse_list.end() && it->second <= ; it++)
-//    {
-//         // TODO: Add mouse here
-//         Mouse *mouse = nullptr;
-//         switch (it->first)
-//         {
-//             case MouseType::BUCKET_MOUSE:
-
-//                 // mouse = new BucketMouse()
-//                 break;
-
-//             default:
-//                 break;
-//         }
-//         mouse_list.push_front(mouse);
-//    }
     std::list<MouseType>::iterator type_it = waiting_mouse_list_ptr->begin();
     std::list<int>::iterator line_it = waiting_mouse_line_list_ptr->begin();
-    const std::unordered_map<MouseType, std::vector<QPixmap *>>& dict = level_manager->GetMouseImages();
 
     for (std::list<float>::iterator time_it = waiting_mouse_time_list_ptr->begin(); time_it != waiting_mouse_time_list_ptr->end() && *time_it <= time_manager->GetCurrentSecond();)
     {
@@ -88,23 +72,13 @@ void MouseManager::PrepareMouse()
 
         Mouse *mouse = nullptr;
         int y = MapTransform::Matrix2ViewportCenter(*tmp_line_it, 0).second;
-        const std::vector<QPixmap *>&imgs = dict.find(*tmp_type_it)->second;
 
-        // TODO: Add mouse type here
-        switch (*tmp_type_it)
-        {
-            case MouseType::NORMAL_MOUSE:
-                mouse = new NormalMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
-                break;
-            case MouseType::HELMET_MOUSE:
-                mouse = new BucketMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
-                break;
-            case MouseType::FOOT_MOUSE:
-                mouse = new FootballMouse(RIGHT_MOST, y, *tmp_line_it, imgs, food_manager);
-                break;
-        }
+        mouse = pool_manager->FetchMouse(*tmp_type_it);
+        DEBUG_INFO(mouse->sprite_item.x);
+        DEBUG_INFO(mouse->sprite_item.y);
         if (mouse != nullptr)
         {
+            mouse->Reset(RIGHT_MOST, y, *tmp_line_it);
             mouse_list.push_front(mouse);
             draw_mouse_list_ptr->push_front(&mouse->sprite_item);
         }
@@ -113,7 +87,6 @@ void MouseManager::PrepareMouse()
         waiting_mouse_time_list_ptr->erase(tmp_time_it);
     }
 }
-
 
 Mouse *MouseManager::GetLeftestMouse(int x, int row)
 {

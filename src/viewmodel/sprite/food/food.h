@@ -37,6 +37,8 @@ public:
 
     Food(int x, int y, int delta_x, int delta_y, int row, int column, int left_padding, int right_padding, float frame_rate, std::vector<QPixmap *> frames, int func_start_index, int func_take_effect_index, int projectile_index, int health, float cool_down_time);
 
+    virtual ~Food() = default;
+
     void TakeDamage(int damage);
 
     int GetCenterX() { return MapTransform::Matrix2Viewport(row, column).first + MapTransform::GRID_WIDTH / 2; }

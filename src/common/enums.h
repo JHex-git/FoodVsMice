@@ -23,6 +23,11 @@ enum class MouseType
     HELMET_MOUSE=2
 };
 
+enum class ProjectileType
+{
+
+};
+
 enum class MapType
 {
     BASE = 0

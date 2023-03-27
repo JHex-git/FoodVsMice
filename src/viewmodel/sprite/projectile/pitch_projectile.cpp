@@ -1,5 +1,6 @@
 #include "pitch_projectile.h"
 #include "../../../common/time_manager.h"
+#include "../../../common/debug.h"
 
 const float GRAVITY = 1000;
 const float EPSILON = 0.05;
@@ -14,6 +15,7 @@ PitchProjectile::PitchProjectile(int x, int y, int delta_x, int delta_y, int muz
 
 void PitchProjectile::UpdateBehave()
 {
+    DEBUG_INFO("Before PitchProjectile");
     static int x;
     // 子弹上抛再到落下的总时间为2v_0/g, 剩下水平位移为(target.x - x)，时间为(-v_0-v)/g
     if (is_active)
@@ -22,11 +24,12 @@ void PitchProjectile::UpdateBehave()
         {
             velocity += -GRAVITY * TimeManager::DELTA_TIME;
 
-            if (target != nullptr)
+            if (target != nullptr && target->is_active)
             {
                 if (abs(-initial_velocity_y - velocity) > EPSILON)
                 {
-                    int delta = ((x = target->GetX()) - center_x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
+                    int delta;
+                    delta = ((x = target->GetX()) - center_x) / (-initial_velocity_y - velocity) * -GRAVITY * TimeManager::DELTA_TIME;
                     center_x += delta;
                     sprite_item.x += delta;
                 }
@@ -51,14 +54,9 @@ void PitchProjectile::UpdateBehave()
                     bound = frames.size();
                     is_boom = true;
 
-                    // target指向的地址可能已被释放
-                    try
+                    if (target->is_active)
                     {
                         target->TakeDamage(damage);
-                    }
-                    catch (...)
-                    {
-
                     }
                 }
             }

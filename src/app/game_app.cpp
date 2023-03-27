@@ -1,6 +1,6 @@
 #include "game_app.h"
 GameApp::GameApp(GUIManager *gui_manager, LevelManager *level_manager, TimeManager *time_manager) :
-    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(100), mouse_manager(time_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
+    gui_manager(gui_manager), level_manager(level_manager), time_manager(time_manager), flame_manager(100), pool_manager(PoolManager(level_manager)), mouse_manager(time_manager, &pool_manager), food_manager(7, 9, level_manager, &flame_manager, &mouse_manager, &projectile_manager)
 {
 }
 
@@ -34,4 +34,5 @@ void GameApp::Init()
 
     food_manager.Init();
     mouse_manager.Init(&food_manager);
+    pool_manager.Init(&food_manager);
 }

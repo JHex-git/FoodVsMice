@@ -4,7 +4,6 @@
 #include "../../common/sprite_item.h"
 #include <QPixmap>
 
-// TODO: 更新图像是否要单拎出来
 class Sprite
 {
 protected:
@@ -18,6 +17,7 @@ public:
     Sprite(int x, int y, float frame_rate);
     Sprite(int x, int y, int delta_x, int delta_y, float frame_rate, std::vector<QPixmap *> frames);
    
+    virtual ~Sprite() = default;
     // 添加图片帧
     void AddFrame(QPixmap *frame);
 

@@ -1,5 +1,6 @@
 #include "GUI_manager.h"
 #include "../common/time_manager.h"
+#include "../common/debug.h"
 
 GUIManager::GUIManager(QWidget *parent)
     : QWidget(parent)
@@ -384,32 +385,32 @@ void GUIManager::background_music_manager()
 
 void GUIManager::music_manager()
 {
-    QMediaPlayer *player = new QMediaPlayer(this);//设置音乐
+    QMediaPlayer player(this);//设置音乐
     if(music_choosing==1)
     {
         music_choosing=0;
-        player->setAudioOutput(audioOutput);
-        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
+        player.setAudioOutput(audioOutput);
+        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
         audioOutput->setVolume(100);//音量
-        player->play();
+        player.play();
     }
 
     if(music_choosing==2)
     {
         music_choosing=0;
-        player->setAudioOutput(audioOutput);
-        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
+        player.setAudioOutput(audioOutput);
+        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
         audioOutput->setVolume(200);//音量
-        player->play();
+        player.play();
     }
 
     if(music_choosing==3)
     {
         music_choosing=0;
-        player->setAudioOutput(audioOutput);
-        player->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/huomiao.mp3"));
+        player.setAudioOutput(audioOutput);
+        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/huomiao.mp3"));
         audioOutput->setVolume(200);//音量
-        player->play();
+        player.play();
     }
 
 }

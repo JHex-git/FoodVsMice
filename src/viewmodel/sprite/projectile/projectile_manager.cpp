@@ -1,4 +1,5 @@
 #include "projectile_manager.h"
+#include "../../../common/debug.h"
 
 ProjectileManager::ProjectileManager()
 {
@@ -28,6 +29,7 @@ std::function<void()> ProjectileManager::get_UpdateProjectiles()
             {
                 projectile_list.erase(tmp_it);
                 draw_projectile_list_ptr->erase(tmp_draw_it);
+                DEBUG_INFO("9");
                 // TODO: 加入对象池
                 delete *tmp_it;
             }
