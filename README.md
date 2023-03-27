@@ -4,4 +4,5 @@
 
 关卡支持自定义，关卡的设计文件在resources/level下，如何进行设计请参考doc/level_description.md。
 
-<video src="./resources/demo.mp4"/>
+https://user-images.githubusercontent.com/76112398/227990068-d2eb3fef-1a25-4697-ab78-9ccf8c44b014.mp4
+
