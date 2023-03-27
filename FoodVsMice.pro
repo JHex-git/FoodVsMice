@@ -27,6 +27,7 @@ SOURCES += \
     src/viewmodel/card/steamdrawer_card.cpp \
     src/viewmodel/card/stove_card.cpp \
     src/viewmodel/card/super_egg_card.cpp \
+    src/viewmodel/pool_manager.cpp \
     src/viewmodel/sprite/flame/flame.cpp \
     src/viewmodel/sprite/flame/flame_manager.cpp \
     src/viewmodel/sprite/food/cherry.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
     src/viewmodel/card/steamdrawer_card.h \
     src/viewmodel/card/stove_card.h \
     src/viewmodel/card/super_egg_card.h \
+    src/viewmodel/pool_manager.h \
     src/viewmodel/sprite/flame/flame.h \
     src/viewmodel/sprite/flame/flame_manager.h \
     src/viewmodel/sprite/food/cherry.h \
