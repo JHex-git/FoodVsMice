@@ -4,4 +4,4 @@
 
 关卡支持自定义，关卡的设计文件在resources/level下，如何进行设计请参考doc/level_description.md。
 
-<video src="./resources/FoodVsMice.mp4"/>
+<video src="./resources/demo.mp4"/>
