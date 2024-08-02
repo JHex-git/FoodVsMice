@@ -39,9 +39,10 @@ void LevelManager::clearlist()
 void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读取关卡
 {
     clearlist();
-    char tmppath[100] = "../FoodVsMice/resources/levels/";
+    char tmppath[100] = ":/new/resources/levels/";
+    QString filepath=":/new/resources/levels/";
 //    cout << tmppath << endl;
-    std::string level_name;
+    QString level_name;
     switch (level_num)
     {
     case 1:
@@ -56,17 +57,21 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     default:
         break;
     }
-    strcat(tmppath, level_name.c_str());
-    ifstream fp;
-    fp.open(tmppath,ios::in);
-    if(!fp.is_open()){
-        cout << "opening failed." << endl;
-        return;
+    filepath = filepath + level_name;
+    QResource level_resource(filepath);
+    // ifstream fp;
+    if (level_resource.isValid())
+    {
+        qDebug("resource unvalid");
+
     }
+    QByteArray level_data_byteArray = QByteArray::fromRawData(reinterpret_cast<const char*>(level_resource.data()),level_resource.size());
+    QTextStream in(&level_data_byteArray);
+
     char tempnum;
     for (;;)// read background
     {
-        tempnum = fp.get();
+        in >> tempnum;
         cout << "background:" << tempnum << endl;
         MapType i = (MapType)(tempnum - '0');
         QPixmap *background_game[5];
@@ -83,11 +88,11 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             deletelist.push_back(background_game[2]);
             deletelist.push_back(background_game[3]);
             deletelist.push_back(background_game[4]);
-            (*background_game[0]).load("../FoodVsMice/resources/picture/Screen/background_game1.png");
-            (*background_game[1]).load("../FoodVsMice/resources/picture/Screen/lawnmower.png");
-            (*background_game[2]).load("../FoodVsMice/resources/picture/Screen/1.png");
-            (*background_game[3]).load("../FoodVsMice/resources/picture/Screen/2.png");
-            (*background_game[4]).load("../FoodVsMice/resources/picture/Screen/3.png");
+            (*background_game[0]).load(":/new/resources/picture/Screen/background_game1.png");
+            (*background_game[1]).load(":/new/resources/picture/Screen/lawnmower.png");
+            (*background_game[2]).load(":/new/resources/picture/Screen/1.png");
+            (*background_game[3]).load(":/new/resources/picture/Screen/2.png");
+            (*background_game[4]).load(":/new/resources/picture/Screen/3.png");
             map_img.push_back(background_game[0]);
             map_img.push_back(background_game[1]);
             map_img.push_back(background_game[2]);
@@ -98,7 +103,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         default:
             break;
         }
-        tempnum = fp.get();
+        in >> tempnum;
         if (tempnum == '\n') break;
     }
     int now_food;
@@ -129,8 +134,8 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     vector<QPixmap *> super_egg;
     small_fire = new QPixmap[29];
     fire = new QPixmap[10];
-    loadImages(small_fire, "../FoodVsMice/resources/picture/food/small_fire/small_fire/", 29, 1);
-    loadImages(fire, "../FoodVsMice/resources/picture/food/small_fire/fire/", 10, 1);
+    loadImages(small_fire, ":/new/resources/picture/food/small_fire/small_fire/", 29, 1);
+    loadImages(fire, ":/new/resources/picture/food/small_fire/fire/", 10, 1);
     for (auto j = 0; j < 29 ; j++){
         smallfire.push_back(&small_fire[j]);
         deletelist.push_back(&small_fire[j]);
@@ -143,7 +148,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     food_img_dict.insert(pair<FoodType, std::vector<QPixmap *>>(FoodType::SMALL_FIRE,smallfire));
     for (;;)//read plant
     {
-        fp >> now_food;
+        in >> now_food;
         cout << "plant:" << now_food << endl;
         FoodType i = (FoodType)now_food;
 
@@ -151,7 +156,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         {
         case FoodType::STEAM_DRAWER:
             steam_drawer = new QPixmap[19];//最后一张是子弹
-            loadImages(steam_drawer, "../FoodVsMice/resources/picture/food/steam_drawer/", 19, 1);
+            loadImages(steam_drawer, ":/new/resources/picture/food/steam_drawer/", 19, 1);
             for (auto j = 0; j < 19 ; j++){
                 steamdrawer.push_back(&steam_drawer[j]);
                 deletelist.push_back(&steam_drawer[j]);
@@ -161,7 +166,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::SMALL_BREAD:
             Small=new QPixmap[36];
-            loadImages(Small, "../FoodVsMice/resources/picture/food/Smallbread/", 36, 1);
+            loadImages(Small, ":/new/resources/picture/food/Smallbread/", 36, 1);
             for (auto j = 0; j < 36 ; j++){
                 Smallbread.push_back(&Small[j]);
                 deletelist.push_back(&Small[j]);
@@ -171,7 +176,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::FLOUR:
             flour = new QPixmap[27];
-            loadImages(flour, "../FoodVsMice/resources/picture/food/flour/", 27, 1);
+            loadImages(flour, ":/new/resources/picture/food/flour/", 27, 1);
             for (auto j = 0; j < 27 ; j++){
                 Flour.push_back(&flour[j]);//0~9正常状态，10~26攻击状态
                 deletelist.push_back(&flour[j]);
@@ -181,7 +186,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::FISH:
             fish = new QPixmap[22];
-            loadImages(fish, "../FoodVsMice/resources/picture/food/fish/", 22, 1);
+            loadImages(fish, ":/new/resources/picture/food/fish/", 22, 1);
             for (auto j = 0; j < 22 ; j++){
                 Fish.push_back(&fish[j]);//最后是子弹
                 deletelist.push_back(&fish[j]);
@@ -191,7 +196,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::HOTPOT:
             hotpot = new QPixmap[55];
-            loadImages(hotpot, "../FoodVsMice/resources/picture/food/Hots_pot/", 55, 1);
+            loadImages(hotpot, ":/new/resources/picture/food/Hots_pot/", 55, 1);
             for (auto j = 0; j < 55 ; j++){
                 hot_pot.push_back(&hotpot[j]);
                 deletelist.push_back(&hotpot[j]);
@@ -201,7 +206,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::HAMBURG:
             hamburg = new QPixmap[50];
-            loadImages(hamburg, "../FoodVsMice/resources/picture/food/Hamburg/", 50, 1);
+            loadImages(hamburg, ":/new/resources/picture/food/Hamburg/", 50, 1);
             for (auto j = 0; j < 50 ; j++){
                 Hamburg.push_back(&hamburg[j]);
                 deletelist.push_back(&hamburg[j]);
@@ -211,7 +216,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::CHERRY:
             Cherry = new QPixmap[14];
-            loadImages(Cherry, "../FoodVsMice/resources/picture/food/Cherrys_tart/", 14, 1);
+            loadImages(Cherry, ":/new/resources/picture/food/Cherrys_tart/", 14, 1);
             for (auto j = 0; j < 14 ; j++){
                 cherry.push_back(&Cherry[j]);
                 deletelist.push_back(&Cherry[j]);
@@ -221,7 +226,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::EGG:
             Egg_pitcher = new QPixmap[37];
-            loadImages(Egg_pitcher, "../FoodVsMice/resources/picture/food/Eggs_pitcher/", 37, 1);
+            loadImages(Egg_pitcher, ":/new/resources/picture/food/Eggs_pitcher/", 37, 1);
             for (auto j = 0; j < 37 ; j++){
                 Eggs_pitcher.push_back(&Egg_pitcher[j]);
                 deletelist.push_back(&Egg_pitcher[j]);
@@ -231,7 +236,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::BIG_BREAD:
             Big = new QPixmap[36];
-            loadImages(Big, "../FoodVsMice/resources/picture/food/Bigbread/", 36, 1);
+            loadImages(Big, ":/new/resources/picture/food/Bigbread/", 36, 1);
             for (auto j = 0; j < 36 ; j++){
                 Bigbread.push_back(&Big[j]);
                 deletelist.push_back(&Big[j]);
@@ -241,7 +246,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::BARB:
             barb = new QPixmap[19];
-            loadImages(barb, "../FoodVsMice/resources/picture/food/barb/", 19, 1);
+            loadImages(barb, ":/new/resources/picture/food/barb/", 19, 1);
             for (auto j = 0; j < 19 ; j++){
                 Barb.push_back(&barb[j]);
                 deletelist.push_back(&barb[j]);
@@ -251,7 +256,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case FoodType::SUPER_EGG:
             egg = new QPixmap[37];
-            loadImages(egg, "../FoodVsMice/resources/picture/food/super_egg/", 37, 1);
+            loadImages(egg, ":/new/resources/picture/food/super_egg/", 37, 1);
             for (auto j = 0; j < 37 ; j++){
                 super_egg.push_back(&egg[j]);
                 deletelist.push_back(&egg[j]);
@@ -261,7 +266,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         default : break;
         }
-        tempnum = fp.get();
+        in >> tempnum;
         if (tempnum == '\n') break;
     }
     QPixmap *normal;
@@ -273,7 +278,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
     vector<QPixmap *> helmet_mouse;
     for (;;)//read mouse
     {
-        tempnum = fp.get();
+        in >> tempnum;
         cout << "mouse:" << tempnum << endl;
         MouseType i = (MouseType)(tempnum - '0');
 
@@ -281,7 +286,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         {
         case MouseType::NORMAL_MOUSE:
             normal = new QPixmap[12];
-            loadImages(normal, "../FoodVsMice/resources/picture/mouse/normal_mouse/", 12, 1);
+            loadImages(normal, ":/new/resources/picture/mouse/normal_mouse/", 12, 1);
             for (auto j = 0; j < 12 ; j++){
                 normal_mouse.push_back(&normal[j]);
                 deletelist.push_back(&normal[j]);
@@ -291,7 +296,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case MouseType::FOOT_MOUSE:
             football = new QPixmap[12];
-            loadImages(football, "../FoodVsMice/resources/picture/mouse/foot_mouse/", 12, 1);
+            loadImages(football, ":/new/resources/picture/mouse/foot_mouse/", 12, 1);
             for (auto j = 0; j < 12 ; j++){
                 football_mouse.push_back(&football[j]);
                 deletelist.push_back(&football[j]);
@@ -301,7 +306,7 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
             break;
         case MouseType::HELMET_MOUSE:
             helmet= new QPixmap[12];
-            loadImages(helmet, "../FoodVsMice/resources/picture/mouse/helmet_mouse/", 12, 1);
+            loadImages(helmet, ":new/resources/picture/mouse/helmet_mouse/", 12, 1);
             for (auto j = 0; j < 12 ; j++){
                 helmet_mouse.push_back(&helmet[j]);
                 deletelist.push_back(&helmet[j]);
@@ -312,40 +317,39 @@ void LevelManager::ReadLevel(int level_num)//对指定的关卡名，进行读�
         default:
             break;
         }
-        tempnum = fp.get();
+        in >> tempnum;
         if (tempnum == '\n') break;
     }
     for (;;)// read waves
     {
         float now_wave;
-        fp >> now_wave;
+        in >> now_wave;
         cout<<"wavetime:"<<now_wave<<endl;
         waves.push_back(now_wave);
-        tempnum = fp.get();
+        in >> tempnum;
         if (tempnum == '\n') break;
     }
     for (int j = 0; j < waves.size() ; j++){//read every wave
         for (;;)
         {
-            tempnum = fp.get();
+            in >> tempnum;
             MouseType this_type = (MouseType)(tempnum - '0');
             mouse_list_ptr->push_back(this_type);
             cout <<"mousetype:"<< tempnum - '0' << endl;
-            tempnum = fp.get();//空格
+            in >> tempnum;//空格
             float this_wave;
-            fp >> this_wave;
+            in >> this_wave;
             cout <<"wavetime:"<< this_wave << endl;
             mouse_come_time_ptr->push_back(this_wave);
             int this_line;
-            fp >> this_line;
+            in >> this_line;
             cout << "line:" << this_line<<endl;
             mouse_line_ptr->push_back(this_line);
-            tempnum = fp.get();//空格或者换行
+            in >> tempnum;//空格或者换行
             if (tempnum == '\n') break;
         }
     }
 
-    fp.close();
 
 }
 

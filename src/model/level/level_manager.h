@@ -9,6 +9,8 @@
 #include <fstream>
 #include "../../common/enums.h"
 #include <QPixmap>
+#include <QResource>>
+#include <QDebug>
 using namespace std;
 class LevelManager
 {
