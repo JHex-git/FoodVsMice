@@ -37,13 +37,13 @@ void GUIManager:: init()
 
 void GUIManager::loading()
 {
-    BackGround.load("../FoodVsMice/resources/picture/Screen/0.png");
-    already.load("../FoodVsMice/resources/picture/Screen/80.png");
-    char temp[]="../FoodVsMice/resources/picture/Screen/";
+    BackGround.load(":/new/resources/picture/Screen/0.png");
+    already.load(":/new/resources/picture/Screen/80.png");
+    char temp[]=":/new/resources/picture/Screen/";
     loadImages(game,temp ,5,1);
-    char temp1[]="../FoodVsMice/resources/picture/Screen/leve_select/";
+    char temp1[]=":/new/resources/picture/Screen/leve_select/";
     loadImages(level,temp1 , 11, 0);
-    char temp2[]="../FoodVsMice/resources/picture/Screen/menu/";
+    char temp2[]=":/new/resources/picture/Screen/menu/";
     loadImages(menu,temp2,6,1);
 }
 
@@ -366,8 +366,9 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
 
 void GUIManager::background_music_manager()
 {
+    QUrl music_url = QUrl("qrc:/new/resources/music/beijing.mp3");
     music->setAudioOutput(audioOutput);
-    music->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/beijing.mp3"));
+    music->setSource(music_url);
     music->setLoops(QMediaPlayer::Loops::Infinite);
     audioOutput->setVolume(50);
     music->play();
@@ -377,7 +378,8 @@ void GUIManager::background_music_manager()
     {
         music->stop();
         music->setAudioOutput(audioOutput);
-        music->setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhandou.mp3"));
+        QUrl music_url = QUrl("qrc:/new/resources/music/zhandou.mp3");
+        music->setSource(music_url);
         music->setLoops(QMediaPlayer::Loops::Infinite);
         music->play();
     }
@@ -390,7 +392,8 @@ void GUIManager::music_manager()
     {
         music_choosing=0;
         player.setAudioOutput(audioOutput);
-        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/zhongzhi.mp3"));
+        QUrl music_url = QUrl("qrc:/new/resources/music/zhongzhi.mp3");
+        player.setSource(music_url);
         audioOutput->setVolume(100);//音量
         player.play();
     }
@@ -399,7 +402,8 @@ void GUIManager::music_manager()
     {
         music_choosing=0;
         player.setAudioOutput(audioOutput);
-        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/chanzi.mp3"));
+        QUrl music_url = QUrl("qrc:/new/resources/music/chanzi.mp3");
+        player.setSource(music_url);
         audioOutput->setVolume(200);//音量
         player.play();
     }
@@ -408,7 +412,8 @@ void GUIManager::music_manager()
     {
         music_choosing=0;
         player.setAudioOutput(audioOutput);
-        player.setSource(QUrl::fromLocalFile("../FoodVsMice/resources/music/huomiao.mp3"));
+        QUrl music_url = QUrl("qrc:/new/resources/music/huomiao.mp3");
+        player.setSource(music_url);
         audioOutput->setVolume(200);//音量
         player.play();
     }

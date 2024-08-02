@@ -709,4 +709,5 @@ DISTFILES += \
     resources/picture/stove/8.png \
     resources/picture/stove/9.png
 
-RESOURCES +=
+RESOURCES += \
+    resources.qrc
