@@ -17,6 +17,7 @@ SOURCES += \
     src/common/time_manager.cpp\
     src/main.cpp \
     src/model/level/level_manager.cpp \
+    src/music/music_player.cpp \
     src/view/GUI_manager.cpp \
     src/viewmodel/card/card.cpp \
     src/viewmodel/card/cherry_card.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     src/common/random.h \
     src/common/time_manager.h\
     src/model/level/level_manager.h \
+    src/music/music_player.h \
     src/view/GUI_manager.h \
     src/viewmodel/card/card.h \
     src/viewmodel/card/cherry_card.h \

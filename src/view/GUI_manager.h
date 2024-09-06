@@ -11,6 +11,7 @@
 #include <functional>
 #include "../common/sprite_item.h"
 #include "../common/enums.h"
+#include "src/music/music_player.h"
 using namespace std;
 
 #define window_length 900   // x;
@@ -49,6 +50,7 @@ public:
 //...................................................................................................................音乐控制
     void background_music_manager();                                //背景音乐
     void music_manager();                                           //其他音乐
+    void music_load();
 
     void update_logic();
     ~GUIManager();
@@ -81,8 +83,12 @@ private:
     QPixmap already;           //冷却用
     QPixmap menu[6];
 
-    QMediaPlayer *music;        //游戏音乐
-    QAudioOutput *audioOutput;
+//....................................................................音乐
+    MusicPlayer *music_beijing;
+    MusicPlayer *music_zhandou;
+    MusicPlayer *music_zhongzhi;
+    MusicPlayer *music_chanzi;
+    MusicPlayer *music_huomiao;
 
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）
