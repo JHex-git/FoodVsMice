@@ -9,8 +9,7 @@ GUIManager::GUIManager(QWidget *parent)
     loading();
     init();
 
-    music = new QMediaPlayer();
-    audioOutput = new QAudioOutput;
+    music_load();
     background_music_manager();
 
     timer_draw = new QTimer(this);
@@ -366,56 +365,50 @@ void GUIManager::mousePressEvent(QMouseEvent *event)
 
 void GUIManager::background_music_manager()
 {
-    QUrl music_url = QUrl("qrc:/new/resources/music/beijing.mp3");
-    music->setAudioOutput(audioOutput);
-    music->setSource(music_url);
-    music->setLoops(QMediaPlayer::Loops::Infinite);
-    audioOutput->setVolume(50);
-    music->play();
+
+
+    music_background->set_loop(true);
+    music_background->set_volumn(50);
+    music_background->play();
 
 
     if(level_choosing!=0)
     {
-        music->stop();
-        music->setAudioOutput(audioOutput);
-        QUrl music_url = QUrl("qrc:/new/resources/music/zhandou.mp3");
-        music->setSource(music_url);
-        music->setLoops(QMediaPlayer::Loops::Infinite);
-        music->play();
+        music_background->stop();
+        music_fight->set_loop(true);
+        music_fight->play();
     }
 }
 
+void GUIManager::music_load()
+{
+    music_background = new MusicPlayer("qrc:/new/resources/music/beijing.mp3");
+    music_fight = new MusicPlayer("qrc:/new/resources/music/zhandou.mp3");
+    music_end = new MusicPlayer("qrc:/new/resources/music/zhongzhi.mp3");
+    music_shovel = new MusicPlayer("qrc:/new/resources/music/chanzi.mp3");
+    music_flame = new MusicPlayer("qrc:/new/resources/music/huomiao.mp3");
+}
 void GUIManager::music_manager()
 {
-    QMediaPlayer player(this);//设置音乐
     if(music_choosing==1)
     {
         music_choosing=0;
-        player.setAudioOutput(audioOutput);
-        QUrl music_url = QUrl("qrc:/new/resources/music/zhongzhi.mp3");
-        player.setSource(music_url);
-        audioOutput->setVolume(100);//音量
-        player.play();
+        music_end->set_volumn(100);
+        music_end->play();
     }
 
     if(music_choosing==2)
     {
         music_choosing=0;
-        player.setAudioOutput(audioOutput);
-        QUrl music_url = QUrl("qrc:/new/resources/music/chanzi.mp3");
-        player.setSource(music_url);
-        audioOutput->setVolume(200);//音量
-        player.play();
+        music_shovel->set_volumn(200);
+        music_shovel->play();
     }
 
     if(music_choosing==3)
     {
         music_choosing=0;
-        player.setAudioOutput(audioOutput);
-        QUrl music_url = QUrl("qrc:/new/resources/music/huomiao.mp3");
-        player.setSource(music_url);
-        audioOutput->setVolume(200);//音量
-        player.play();
+        music_flame->set_volumn(200);
+        music_flame->play();
     }
 
 }
