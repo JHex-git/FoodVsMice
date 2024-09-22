@@ -84,11 +84,11 @@ private:
     QPixmap menu[6];
 
 //....................................................................音乐
-    MusicPlayer *music_beijing;
-    MusicPlayer *music_zhandou;
-    MusicPlayer *music_zhongzhi;
-    MusicPlayer *music_chanzi;
-    MusicPlayer *music_huomiao;
+    MusicPlayer *music_background;
+    MusicPlayer *music_fight;
+    MusicPlayer *music_end;
+    MusicPlayer *music_shovel;
+    MusicPlayer *music_flame;
 
 //.................................................................控制信号
     int selected;               //是否已选择（0表示没选择，1表示选择了）

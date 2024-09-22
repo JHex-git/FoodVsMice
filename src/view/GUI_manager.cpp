@@ -367,48 +367,48 @@ void GUIManager::background_music_manager()
 {
 
 
-    music_beijing->set_loop(true);
-    music_beijing->set_volumn(50);
-    music_beijing->play();
+    music_background->set_loop(true);
+    music_background->set_volumn(50);
+    music_background->play();
 
 
     if(level_choosing!=0)
     {
-        music_beijing->stop();
-        music_zhandou->set_loop(true);
-        music_zhandou->play();
+        music_background->stop();
+        music_fight->set_loop(true);
+        music_fight->play();
     }
 }
 
 void GUIManager::music_load()
 {
-    music_beijing = new MusicPlayer("qrc:/new/resources/music/beijing.mp3");
-    music_zhandou = new MusicPlayer("qrc:/new/resources/music/zhandou.mp3");
-    music_zhongzhi = new MusicPlayer("qrc:/new/resources/music/zhongzhi.mp3");
-    music_chanzi = new MusicPlayer("qrc:/new/resources/music/chanzi.mp3");
-    music_huomiao = new MusicPlayer("qrc:/new/resources/music/huomiao.mp3");
+    music_background = new MusicPlayer("qrc:/new/resources/music/beijing.mp3");
+    music_fight = new MusicPlayer("qrc:/new/resources/music/zhandou.mp3");
+    music_end = new MusicPlayer("qrc:/new/resources/music/zhongzhi.mp3");
+    music_shovel = new MusicPlayer("qrc:/new/resources/music/chanzi.mp3");
+    music_flame = new MusicPlayer("qrc:/new/resources/music/huomiao.mp3");
 }
 void GUIManager::music_manager()
 {
     if(music_choosing==1)
     {
         music_choosing=0;
-        music_zhongzhi->set_volumn(100);
-        music_zhongzhi->play();
+        music_end->set_volumn(100);
+        music_end->play();
     }
 
     if(music_choosing==2)
     {
         music_choosing=0;
-        music_chanzi->set_volumn(200);
-        music_chanzi->play();
+        music_shovel->set_volumn(200);
+        music_shovel->play();
     }
 
     if(music_choosing==3)
     {
         music_choosing=0;
-        music_huomiao->set_volumn(200);
-        music_huomiao->play();
+        music_flame->set_volumn(200);
+        music_flame->play();
     }
 
 }
